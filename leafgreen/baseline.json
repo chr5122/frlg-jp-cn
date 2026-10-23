@@ -1,0 +1,11 @@
+{
+  "game": "LeafGreen Japanese BPGJ Rev0",
+  "release_version": "2.2.2",
+  "revision": "R87",
+  "size": 16777216,
+  "release_sha256": "69bf635f1936846aa4fbf320ecf8c5579b681451c20644902608751c597f3f33",
+  "original_sha256": "2957b392dc09fc8df45a660af5493368d7bd378d299862f4cc115998e9da0bf2",
+  "complete_release_rebuild_available": false,
+  "rom_distributed": false,
+  "hardware_status": "NOT_CERTIFIED"
+}

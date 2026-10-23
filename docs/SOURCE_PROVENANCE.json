@@ -1,0 +1,42 @@
+{
+  "scope": "Reviewed original project sources; not the complete private build framework",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "shared/frlg/rom.py",
+      "sha256": "da949e3d10d168357fdccccee24ecf8dc9cb540ac4cdba6712db9bc7c1171fdc",
+      "origin": "firered/tools/fr_foundation_v1/fr_pipeline/rom.py",
+      "changes": "No implementation changes; public export"
+    },
+    {
+      "path": "shared/frlg/text.py",
+      "sha256": "ce02ed3da39d0f52a92dd5ef74f2ecc9c6d77b1c8291d9e5fe7004e2f363113e",
+      "origin": "firered/tools/fr_foundation_v1/fr_pipeline/text.py",
+      "changes": "No implementation changes; public export"
+    },
+    {
+      "path": "shared/frlg/events.py",
+      "sha256": "a8602dddf206f9ada97d80d5a587dca6d76dac7901a3f60e8469b22164c1267d",
+      "origin": "firered/tools/fr_foundation_v1/fr_pipeline/events.py",
+      "changes": "No implementation changes; public export"
+    },
+    {
+      "path": "shared/frlg/script.py",
+      "sha256": "e0b4a6c1c82b12a48402f918cc48b8bc1e16d1f0010c57aa16c6dbd908392bcd",
+      "origin": "firered/tools/fr_foundation_v1/fr_pipeline/script.py",
+      "changes": "No implementation changes; public export"
+    },
+    {
+      "path": "firered/patches/recap_boxes.s",
+      "sha256": "0a8f0ad16a2973086bd96114bef16f2dc62219cde6691e6d743e5eee3c32664b",
+      "origin": "fr_build0107_recap_box_names/boxes107.s",
+      "changes": "No implementation changes; public export"
+    },
+    {
+      "path": "leafgreen/patches/recap_boxes.s",
+      "sha256": "83682fb7a4f9a1fe971a3b2006e20a0bb398a328bcddeda06ba6e982b81310dd",
+      "origin": "leafgreen_align_fr0108_r87v3/boxes.s",
+      "changes": "No implementation changes; public export"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "game": "FireRed Japanese BPRJ Rev0",
+  "release_version": "2.2.2",
+  "revision": "BUILD0109",
+  "size": 16777216,
+  "release_sha256": "807c995fb637e7decc86566cf43a56e0d571d8a15a3cbcad2de81229e8bbd669",
+  "original_sha256": "1e4af44b0c75cc8649bfb8649dc4ae5850bf5358bd6b9cd0bf779c99f9db1486",
+  "complete_release_rebuild_available": false,
+  "rom_distributed": false,
+  "hardware_status": "NOT_CERTIFIED"
+}
