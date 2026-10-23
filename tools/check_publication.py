@@ -16,9 +16,11 @@ firered/baseline.json firered/patches/recap_boxes.s firered/recap_species_range.
 leafgreen/baseline.json leafgreen/patches/recap_boxes.s
 leafgreen/experiments/first_glyph.py
 leafgreen/rebuild_1_0_tail.py
+leafgreen/rebuild_merge561.py
 shared/frlg/__init__.py shared/frlg/rom.py shared/frlg/text.py shared/frlg/events.py shared/frlg/script.py
 shared/frlg/encode.py shared/frlg/font_pages.py shared/frlg/glyph_codec.py
 shared/frlg/lineage.py shared/frlg/lz77.py
+shared/frlg/merge.py
 tests/test_core.py tests/test_publication.py tools/check_publication.py tools/inspect_rom.py
 tests/test_leafgreen_origin.py
 tests/test_lineage.py tools/audit_build_lineage.py

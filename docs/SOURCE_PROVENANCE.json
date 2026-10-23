@@ -68,9 +68,9 @@
     },
     {
       "path": "shared/frlg/lineage.py",
-      "sha256": "c2928edccf5888f1f458b6113b7980ccf6309992f0484955ce400176a95714d2",
+      "sha256": "67425cbe80f58eeced1e1c58482c22311d56acec0b2de760a1915fd03e0829e9",
       "origin": "New metadata-only identity adapter; no ROM payload",
-      "changes": "New project-owned implementation"
+      "changes": "Explicit multi-parent identities, full dependency ancestry and unresolved frontier; reject incomplete/conflicting merge records; metadata only"
     },
     {
       "path": "tools/audit_build_lineage.py",
@@ -99,6 +99,27 @@
         }
       ],
       "changes": "Portable pinned APIs; explicit input paths; in-memory default; new-output-only; donor graphics external, not bundled"
+    },
+    {
+      "path": "shared/frlg/merge.py",
+      "sha256": "86f23756259714f58e3236d973a0649b159be38a6daf3980b0fc58f896cd189e",
+      "origin": "New resource-free disjoint merge primitive",
+      "changes": "Immutable equal-size inputs; reject all overlap, including equal-value conflicts; synthetic tests only"
+    },
+    {
+      "path": "leafgreen/rebuild_merge561.py",
+      "sha256": "0f8617dd63c9fe97d3f469b710bada9470cfb99c73bc89d6df67cc12ff299961",
+      "origin_files": [
+        {
+          "path": "leafgreen/scripts/merge_fix559_fix560.py",
+          "sha256": "03053c44a6fddd3dfd09f8c7be1e5ee6dcc1ed16ba7b86650c412d1b80d018d7"
+        },
+        {
+          "path": "leafgreen/scripts/verify_fix561_merge.py",
+          "sha256": "c66a3d998d4923aebec9b35a5a7f1e60b3fc656a1ceaa854ef8b91c927a319d9"
+        }
+      ],
+      "changes": "Portable in-memory-only merger; exact input/output identities and delta counts. No ROM/text/font payload; does not build branches. Actual ROM replay not performed: independent parents unavailable."
     }
   ]
 }

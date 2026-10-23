@@ -16,6 +16,7 @@
   },
   "target_sha256": "900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c",
   "target_declared_ancestry": [
+    "fix560_islands47_manifest.json",
     "fix561_merge_manifest.json",
     "fix562_pokedex_species_tail_manifest.json",
     "fix563_manifest.json",
@@ -39,19 +40,53 @@
     "fix582_uscn_chinese_title_logo_manifest.json",
     "fix583_name_choice_hint_report.json"
   ],
+  "target_unresolved_frontier": [
+    "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba",
+    "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca"
+  ],
+  "merge_records": 1,
   "evidence_grade": "MANIFEST_DECLARATIONS_WITH_OPTIONAL_FILE_SHA_CHECKS_NOT_BUILD_REPLAY",
   "complete_rebuild_proven": false,
   "json_errors": [],
   "scanned_files": 480,
   "artifact_files_hashed": 5,
   "inputs_unchanged": true,
-  "hash_ancestry_boundary": "FIX561 merge declares FIX558 as base; earlier lineage remains unresolved. Missing FIX numbers do not imply omissions.",
+  "hash_ancestry_boundary": "All explicit merge inputs tracked. Strict manifest frontier: FIX558 and FIX559; no filename-based completion.",
   "tail_identity_declarations": [
+    {
+      "record_id": "fix560_islands47_manifest.json",
+      "manifest_sha256": "46b8e9b753fd8891f25b044e8862b7d881167c3167a6e35aa345e458f978dfea",
+      "input_sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
+      "output_sha256": "88585ccc1155b702a398bd75ce5e2501a4afc270a63c71d5999d1c2ebca9970c"
+    },
     {
       "record_id": "fix561_merge_manifest.json",
       "manifest_sha256": "da773e2de8a20627501bf55059fa3a9e5fff621a8d2ff6b2a285ed9cfeb98b4b",
       "input_sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
-      "output_sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c"
+      "output_sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c",
+      "dependencies": [
+        {
+          "role": "merge_base",
+          "names": [
+            "BPGJ_CN_FIX558_HALL_OF_FAME_UI_CN.gba"
+          ],
+          "sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca"
+        },
+        {
+          "role": "branch",
+          "names": [
+            "BPGJ_CN_FIX559_SAVE_PROMPT_CN.gba"
+          ],
+          "sha256": "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba"
+        },
+        {
+          "role": "branch",
+          "names": [
+            "BPGJ_CN_FIX560_ISLANDS_FOUR_TO_SEVEN_CN.gba"
+          ],
+          "sha256": "88585ccc1155b702a398bd75ce5e2501a4afc270a63c71d5999d1c2ebca9970c"
+        }
+      ]
     },
     {
       "record_id": "fix562_pokedex_species_tail_manifest.json",
@@ -186,5 +221,11 @@
     "fix_filename_max": 185,
     "fix581_found": false,
     "save_members_read": false
+  },
+  "merge_replay": {
+    "entry": "leafgreen/rebuild_merge561.py",
+    "actual_ROM_replay": "UNOBSERVED_MISSING_INDEPENDENT_PARENTS",
+    "synthetic_logic_tests": "PASS",
+    "runtime_tested": false
   }
 }

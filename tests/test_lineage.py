@@ -5,13 +5,15 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from frlg.lineage import endpoint, summarize
 from frlg.lz77 import decompress
-from frlg.rom import GateError
+from frlg.merge import disjoint_merge
+from frlg.rom import GateError, sha
 
 ROOT = Path(__file__).resolve().parents[1]
-A, B, C = 'a' * 64, 'b' * 64, 'c' * 64
+A, B, C, D, E = (ch * 64 for ch in 'abcde')
 
 
 class LineageTests(unittest.TestCase):
@@ -50,6 +52,62 @@ class LineageTests(unittest.TestCase):
         rows = [dict(record_id=n, manifest_sha256=C, body={'input': 'p.gba', 'input_sha256': x,
                 'output': 'c.gba', 'output_sha256': y}) for n, x, y in [('one', A, B), ('two', B, C), ('loop', C, C)]]
         self.assertEqual(summarize(rows, target=C)['target_declared_ancestry'], ['loop', 'one', 'two'])
+
+    def test_multi_parent_ancestry_and_number_collision(self):
+        rows = [dict(record_id='merge', manifest_sha256=E, body={
+            'base': 'base.gba', 'base_sha256': A,
+            'parents': [{'rom': 'FIX559.gba', 'sha256': B},
+                        {'rom': 'FIX560-islands.gba', 'sha256': C}],
+            'output': 'FIX561.gba', 'sha256': D})]
+        for name, output in [('save', B), ('islands', C), ('other-FIX560', E)]:
+            rows.append(dict(record_id=name, manifest_sha256=E,
+                body={'base': 'base.gba', 'base_sha256': A,
+                      'output': name + '.gba', 'sha256': output}))
+        out = summarize(rows, {'FIX560-islands.gba': [C]}, D)
+        self.assertEqual(out['target_declared_ancestry'], ['islands', 'merge', 'save'])
+        self.assertEqual(out['target_unresolved_frontier'], [A])
+        self.assertEqual(out['merge_records'], 1)
+        deps = out['records'][0]['dependencies']
+        self.assertEqual([d['role'] for d in deps], ['merge_base', 'branch', 'branch'])
+        self.assertEqual(deps[2]['artifact_state'], 'FILE_SHA_MATCH')
+        self.assertFalse(out['complete_rebuild_proven'])
+
+    def test_incomplete_merge_never_becomes_base_only_edge(self):
+        for parents in (None, {}, [], [{'rom': 'p.gba', 'sha256': B}],
+                        [None, {'rom': 'p.gba', 'sha256': C}],
+                        [{'rom': 'p.gba', 'sha256': B}, {'rom': 'q.gba'}]):
+            with self.subTest(parents=parents):
+                body = {'base': 'base.gba', 'base_sha256': A, 'parents': parents,
+                        'output': 'out.gba', 'sha256': D}
+                out = summarize([dict(record_id='merge', manifest_sha256=E, body=body)], target=D)
+                self.assertEqual(out['records'][0]['state'], 'NEEDS_SCHEMA_OR_IDENTITY')
+                self.assertEqual(out['target_declared_ancestry'], [])
+                self.assertEqual(out['target_unresolved_frontier'], [D])
+
+    def test_merge_aliases_conflicts_duplicates_and_output_cycle(self):
+        bad_pairs = [
+            [{'rom': 'p.gba', 'sha256': B, 'sha': C}, {'rom': 'q.gba', 'sha256': C}],
+            [{'rom': 'p.gba', 'sha256': B}, {'rom': 'q.gba', 'sha256': B}],
+            [{'rom': 'p.gba', 'sha256': A}, {'rom': 'q.gba', 'sha256': C}],
+            [{'rom': 'same.gba', 'sha256': B}, {'rom': 'same.gba', 'sha256': C}],
+            [{'rom': 'p.gba', 'sha256': D}, {'rom': 'q.gba', 'sha256': C}],
+            [{'rom': 'p.gba', 'file': 'unbound.gba'}, {'rom': 'q.gba', 'sha256': C}],
+        ]
+        for parents in bad_pairs:
+            with self.subTest(parents=parents):
+                body = {'base': 'base.gba', 'base_sha256': A, 'parents': parents,
+                        'output': 'out.gba', 'sha256': D}
+                out = summarize([dict(record_id='merge', manifest_sha256=E, body=body)], target=D)
+                self.assertEqual(out['records'][0]['state'], 'NEEDS_SCHEMA_OR_IDENTITY')
+
+    def test_merge_does_not_export_unrelated_parent_payload(self):
+        body = {'base': 'base.gba', 'base_sha256': A,
+                'parents': [{'rom': 'left.gba', 'sha256': B, 'name': 'PRIVATE-LABEL'},
+                            {'rom': 'right.gba', 'sha256': C, 'text': 'PRIVATE-TEXT'}],
+                'output': 'out.gba', 'sha256': D}
+        out = summarize([dict(record_id='merge', manifest_sha256=E, body=body)])
+        self.assertEqual(out['records'][0]['state'], 'DECLARED_HASH_EDGE')
+        self.assertNotIn('PRIVATE-', json.dumps(out))
 
     def test_cli_production_entry(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -92,6 +150,67 @@ class TailBuilderTests(unittest.TestCase):
             module.hint583(b'wrong parent', {})
         with self.assertRaises(GateError):
             module.title582(b'wrong parent', b'', b'')
+
+
+class MergeTests(unittest.TestCase):
+    def test_wrapper_success_counts_and_final_identity_with_synthetic_pins(self):
+        spec = importlib.util.spec_from_file_location('merge561_fixture', ROOT / 'leafgreen/rebuild_merge561.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        base = bytes(32768)
+        left = b'\x01' * 344 + bytes(32768 - 344)
+        right = bytes(344) + b'\x02' * 30880 + bytes(1544)
+        expected = b'\x01' * 344 + b'\x02' * 30880 + bytes(1544)
+        # Unit fixtures only: do not claim these substitute for historical ROMs.
+        original_pin = module.BASE_SHA
+        with patch.multiple(module, SIZE=len(base), BASE_SHA=sha(base), SAVE_SHA=sha(left),
+                            ISLANDS_SHA=sha(right), OUTPUT_SHA=sha(expected)):
+            actual, report = module.build(base, left, right)
+            self.assertEqual(actual, expected)
+            self.assertEqual(report['changed_bytes'], 31224)
+            with patch.object(module, 'OUTPUT_SHA', '0' * 64), self.assertRaises(GateError):
+                module.build(base, left, right)
+            short_left = b'\x01' * 343 + bytes(32768 - 343)
+            with patch.object(module, 'SAVE_SHA', sha(short_left)), self.assertRaises(GateError):
+                module.build(base, short_left, right)
+        self.assertEqual(module.BASE_SHA, original_pin)
+
+    def test_disjoint_union_and_inputs_unchanged(self):
+        base, left, right = b'00000', b'10020', b'03004'
+        product, report = disjoint_merge(base, left, right)
+        self.assertEqual(product, b'13024')
+        self.assertEqual(report, dict(left_changed_bytes=2, right_changed_bytes=2,
+                                     overlap_bytes=0, changed_bytes=4))
+        self.assertEqual((base, left, right), (b'00000', b'10020', b'03004'))
+        self.assertEqual(disjoint_merge(base, base, base)[0], base)
+
+    def test_reject_overlap_even_if_equal(self):
+        for right in (b'100', b'200'):
+            with self.subTest(right=right), self.assertRaises(GateError):
+                disjoint_merge(b'000', b'100', right)
+
+    def test_reject_size_and_mutable_inputs(self):
+        for values in ((b'', b'', b''), (b'00', b'0', b'00'),
+                       (bytearray(b'0'), b'0', b'0'), (b'0', b'0', None)):
+            with self.subTest(values=values), self.assertRaises(GateError):
+                disjoint_merge(*values)
+
+    def test_pinned_merge_wrapper_and_readonly_cli(self):
+        spec = importlib.util.spec_from_file_location('merge561', ROOT / 'leafgreen/rebuild_merge561.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with self.assertRaises(GateError):
+            module.build(b'wrong base', b'', b'')
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp) / 'wrong.gba'
+            parent.write_bytes(b'not a game')
+            p = subprocess.run([sys.executable, '-B', str(ROOT / 'leafgreen/rebuild_merge561.py'),
+                '--base', str(parent), '--save', str(parent), '--islands', str(parent)],
+                capture_output=True, text=True)
+            self.assertNotEqual(p.returncode, 0)
+            self.assertIn('identity mismatch', p.stderr)
+            self.assertEqual(list(Path(tmp).iterdir()), [parent])
+            self.assertEqual(parent.read_bytes(), b'not a game')
 
 
 if __name__ == '__main__':

@@ -84,3 +84,16 @@ python3 -B tools/audit_build_lineage.py --analysis /path/to/local-project/analys
 工具不执行任何历史脚本，只提取明确的ROM文件名与身份字段。默认不读取产物；提供 `--artifact-dir` 才核验该目录直接包含的 `.gba`，不读取 SAV/state。返回的哈希边仍是声明，不是重建通过；缺失身份保持未知。
 
 退出0只表示调查报告成功生成，`json_errors`、未知身份和 `complete_rebuild_proven=false` 仍须逐项查看；不能把退出0称为完整构建门禁通过。
+
+存在 `parents[]` 的记录将额外列出 `merge_base` 与每个 `branch`；任一父身份缺失、重复、冲突或集合结构未知，整条依赖保持待核，不能退回只算基底的“通过边”。`target_unresolved_frontier` 是无法继续沿完整声明边展开的SHA，不是漏译项目数。
+
+## FIX561 三输入合并（条件式工具，本批未实际重放ROM）
+
+用户自行提供精确FIX558、FIX559及“四到七岛”FIX560：
+
+```sh
+python3 -B leafgreen/rebuild_merge561.py --base /path/to/FIX558.gba --save /path/to/FIX559.gba --islands /path/to/FIX560-islands.gba
+# 可另加 --compare /path/to/FIX561.gba，与留存产物逐字节比较。
+```
+
+本入口没有写出选项，不会改任何输入。它只合并既有分支，不会从原版构建分支本身，也不替代译文／指针／字形的语义验证。所需SHA、同编号分支陷阱和本批测试边界见 [合并边界复核](LEAFGREEN_1_0_LINEAGE.md#六fix561-合并边界复核)。实际父文件当前未找到，公开CI只用合成字节测试，不下载ROM。
