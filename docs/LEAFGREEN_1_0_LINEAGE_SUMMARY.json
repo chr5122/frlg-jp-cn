@@ -1,0 +1,190 @@
+{
+  "record_count": 480,
+  "states": {
+    "NEEDS_SCHEMA_OR_IDENTITY": 116,
+    "DECLARED_HASH_EDGE": 364
+  },
+  "input_states": {
+    "MISSING_ENDPOINT": 75,
+    "DECLARED_IDENTITY": 380,
+    "MISSING_HASH": 25
+  },
+  "output_states": {
+    "MISSING_ENDPOINT": 89,
+    "DECLARED_IDENTITY": 387,
+    "MISSING_HASH": 4
+  },
+  "target_sha256": "900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c",
+  "target_declared_ancestry": [
+    "fix561_merge_manifest.json",
+    "fix562_pokedex_species_tail_manifest.json",
+    "fix563_manifest.json",
+    "fix564_hof_summary_manifest.json",
+    "fix565_hof_hint_left_manifest.json",
+    "fix566_islands47_review_manifest.json",
+    "fix567_four_island_related_text_manifest.json",
+    "fix569_trainer_tower_fixed_text_manifest.json",
+    "fix570_trainer_tower_ui_manifest.json",
+    "fix571_trainer_tower_speech_manifest.json",
+    "fix572_trainer_tower_names_manifest.json",
+    "fix573_ferry_gate_journal_manifest.json",
+    "fix574_route23_sign_dash_manifest.json",
+    "fix575_confirmed_residue_egg_mail_manifest.json",
+    "fix576_naming_text_report.json",
+    "fix577_seven_island_couple_name_report.json",
+    "fix578_seven_island_duo_name_report.json",
+    "fix579_confirmed_multichoice_manifest.json",
+    "fix580_trainer_school_grid_frame_manifest.json",
+    "fix581_rocket_line_mewtwo_cry_manifest.json",
+    "fix582_uscn_chinese_title_logo_manifest.json",
+    "fix583_name_choice_hint_report.json"
+  ],
+  "evidence_grade": "MANIFEST_DECLARATIONS_WITH_OPTIONAL_FILE_SHA_CHECKS_NOT_BUILD_REPLAY",
+  "complete_rebuild_proven": false,
+  "json_errors": [],
+  "scanned_files": 480,
+  "artifact_files_hashed": 5,
+  "inputs_unchanged": true,
+  "hash_ancestry_boundary": "FIX561 merge declares FIX558 as base; earlier lineage remains unresolved. Missing FIX numbers do not imply omissions.",
+  "tail_identity_declarations": [
+    {
+      "record_id": "fix561_merge_manifest.json",
+      "manifest_sha256": "da773e2de8a20627501bf55059fa3a9e5fff621a8d2ff6b2a285ed9cfeb98b4b",
+      "input_sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
+      "output_sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c"
+    },
+    {
+      "record_id": "fix562_pokedex_species_tail_manifest.json",
+      "manifest_sha256": "08f64fc611d09cc12b99d619072122626816c47ded96af5ddc0444dd01f8a997",
+      "input_sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c",
+      "output_sha256": "72b537d4d74c93c61afa48b1f7452a8cd3fcc9688b9649aebef1c06e29cd4346"
+    },
+    {
+      "record_id": "fix563_manifest.json",
+      "manifest_sha256": "ab5d1a6df8a19e5dac3429cb0a0e54ab63948f1be4e21e7adac9f304e657712a",
+      "input_sha256": "72b537d4d74c93c61afa48b1f7452a8cd3fcc9688b9649aebef1c06e29cd4346",
+      "output_sha256": "cbafe7294e6350d7c716c02fb47faec7e8ec5361eff5ed9225ec59d8c12f32b6"
+    },
+    {
+      "record_id": "fix564_hof_summary_manifest.json",
+      "manifest_sha256": "91d7691c94b7ac3a9a8cdbfc68d7565617bec85eb67d89c002982b48f4e8684d",
+      "input_sha256": "cbafe7294e6350d7c716c02fb47faec7e8ec5361eff5ed9225ec59d8c12f32b6",
+      "output_sha256": "61f07b02cfdfdc00d4fdb3602d76fd7907713a0c70ec264acade6504a2195559"
+    },
+    {
+      "record_id": "fix565_hof_hint_left_manifest.json",
+      "manifest_sha256": "8c53c0e59c852c130241be64276ff537d5fcb874bd1b463d825e9c54fb034bbf",
+      "input_sha256": "61f07b02cfdfdc00d4fdb3602d76fd7907713a0c70ec264acade6504a2195559",
+      "output_sha256": "c4aedfc66685952917a5e2cd0a2a4e5ae4003dcdd30c57d7c6c7724e3ecd4b1f"
+    },
+    {
+      "record_id": "fix566_islands47_review_manifest.json",
+      "manifest_sha256": "609454f97878e91ddcb0ed45de848dfed89ab8553d9d8b43f553f898069fdf40",
+      "input_sha256": "c4aedfc66685952917a5e2cd0a2a4e5ae4003dcdd30c57d7c6c7724e3ecd4b1f",
+      "output_sha256": "df9992b282d7e86028c77e9f1a3e9fdc12ee276f7a23283327adc6b32c3e0083"
+    },
+    {
+      "record_id": "fix567_four_island_related_text_manifest.json",
+      "manifest_sha256": "c1ac85531aa7772a46726648350a633f8887822de92880e9d7194e27039f53de",
+      "input_sha256": "df9992b282d7e86028c77e9f1a3e9fdc12ee276f7a23283327adc6b32c3e0083",
+      "output_sha256": "a20d053fe386c62a2a8a21c8050e8cdaf707f025c074cde2f2b95e5e51e1a1b5"
+    },
+    {
+      "record_id": "fix569_trainer_tower_fixed_text_manifest.json",
+      "manifest_sha256": "f086dc80e8504cede90f255a034416d775b68ddeda1bc67a0651f388e5ff7e98",
+      "input_sha256": "a20d053fe386c62a2a8a21c8050e8cdaf707f025c074cde2f2b95e5e51e1a1b5",
+      "output_sha256": "1ff277c06213f4ed111b27b126899e991b7820cef3d42ade2e04ed6c8056384b"
+    },
+    {
+      "record_id": "fix570_trainer_tower_ui_manifest.json",
+      "manifest_sha256": "5dd8b16b921f76648a055cb52c629fd9f3a5418e8175571db535d14b6663ee8f",
+      "input_sha256": "1ff277c06213f4ed111b27b126899e991b7820cef3d42ade2e04ed6c8056384b",
+      "output_sha256": "6161b42b3f344a3f26bc7225f9dec5baf5a5c5340663e51ece2a00977cc64129"
+    },
+    {
+      "record_id": "fix571_trainer_tower_speech_manifest.json",
+      "manifest_sha256": "6c550648a8ddc089654acc117fa225531e5506f018e31b36416ae4ee2642d35f",
+      "input_sha256": "6161b42b3f344a3f26bc7225f9dec5baf5a5c5340663e51ece2a00977cc64129",
+      "output_sha256": "ac273ce0115b3e4c8a7cc6086db96a6da5ac270ea9bda2354ee237f7426cb711"
+    },
+    {
+      "record_id": "fix572_trainer_tower_names_manifest.json",
+      "manifest_sha256": "62b20a0fbc6c7b7b9377b59104edf7e05beef3a0558142f14e9b534998894df6",
+      "input_sha256": "ac273ce0115b3e4c8a7cc6086db96a6da5ac270ea9bda2354ee237f7426cb711",
+      "output_sha256": "d286050924b4dac520bb3de7d3f4201ca1657ee09e48fc5f344edb760bb3ad1b"
+    },
+    {
+      "record_id": "fix573_ferry_gate_journal_manifest.json",
+      "manifest_sha256": "ab05b86bfb543b405008fa76f4c593c483120da45552de13a3b9040f7cde233a",
+      "input_sha256": "d286050924b4dac520bb3de7d3f4201ca1657ee09e48fc5f344edb760bb3ad1b",
+      "output_sha256": "2c41a64a16f1a3036493306744d38895614b0934925c09a083f421633412ca08"
+    },
+    {
+      "record_id": "fix574_route23_sign_dash_manifest.json",
+      "manifest_sha256": "7e69f7a725d1af414f391f98f8e2da28cdbd73daac6dd3788d0a891fbb1e7947",
+      "input_sha256": "2c41a64a16f1a3036493306744d38895614b0934925c09a083f421633412ca08",
+      "output_sha256": "f8eac4b54cbdd85c946d22794fd040941d4658fbb20b333e722e1d81b8807e0c"
+    },
+    {
+      "record_id": "fix575_confirmed_residue_egg_mail_manifest.json",
+      "manifest_sha256": "557a0c6c8fa98501f6595f411a320e7f732b8ed30aa25fdb79b184e2ed73fe09",
+      "input_sha256": "f8eac4b54cbdd85c946d22794fd040941d4658fbb20b333e722e1d81b8807e0c",
+      "output_sha256": "870251ea62c1d34fa6911112578746b662981cd47abbf9a7b6bba8e5278923ea"
+    },
+    {
+      "record_id": "fix576_naming_text_report.json",
+      "manifest_sha256": "c02265be48172a5dc5e0da0034a0f68d91fe8e789ad970fadf40fd2c3aa7a703",
+      "input_sha256": "870251ea62c1d34fa6911112578746b662981cd47abbf9a7b6bba8e5278923ea",
+      "output_sha256": "1d7ca0bb4ecb3bba2a039b3d5fa883e239a69b11e517ef99b0cba16dfde84f3a"
+    },
+    {
+      "record_id": "fix577_seven_island_couple_name_report.json",
+      "manifest_sha256": "46255795393af7040fa8f0e734dbfdbb49b3f10ca14d3e9fcd5743fa6392910f",
+      "input_sha256": "1d7ca0bb4ecb3bba2a039b3d5fa883e239a69b11e517ef99b0cba16dfde84f3a",
+      "output_sha256": "78ee898628c1b34c6c7e0cc338af7c913e84a5ac7f923e09d04a6c05c361a9bd"
+    },
+    {
+      "record_id": "fix578_seven_island_duo_name_report.json",
+      "manifest_sha256": "99b40745419ff3ce1835b93a507732aa985447149bc4b20ab45f9e98cc767ffe",
+      "input_sha256": "78ee898628c1b34c6c7e0cc338af7c913e84a5ac7f923e09d04a6c05c361a9bd",
+      "output_sha256": "eca54e7c7ded1a9f7c67fc0d44229b22fa07aceac2acb32a86e9da349108ecaf"
+    },
+    {
+      "record_id": "fix579_confirmed_multichoice_manifest.json",
+      "manifest_sha256": "e70940102377e72d338ca63442556e780a0ed9578475899b409464d6a59094aa",
+      "input_sha256": "eca54e7c7ded1a9f7c67fc0d44229b22fa07aceac2acb32a86e9da349108ecaf",
+      "output_sha256": "abe27fdaea9b73305dfbdb3863feacf81840e7f78bebbd4471aebeb22ff072db"
+    },
+    {
+      "record_id": "fix580_trainer_school_grid_frame_manifest.json",
+      "manifest_sha256": "c85be261b934e303a838c4ce656b96cc72e7e1b2c4b4ec6ec1aaebd6739b58cb",
+      "input_sha256": "abe27fdaea9b73305dfbdb3863feacf81840e7f78bebbd4471aebeb22ff072db",
+      "output_sha256": "076427b621caa8baff8c21cc340a1c03395c45107b1630de5a8a4b460d56a31b"
+    },
+    {
+      "record_id": "fix581_rocket_line_mewtwo_cry_manifest.json",
+      "manifest_sha256": "ab933ef1f09342551c59f5b9e14017c7dbda6bad67de15bd5abc469313b63cb7",
+      "input_sha256": "076427b621caa8baff8c21cc340a1c03395c45107b1630de5a8a4b460d56a31b",
+      "output_sha256": "a04696f9bc586c766ed563d18b702879701d0c9cfde4844f708d22dd749bc344"
+    },
+    {
+      "record_id": "fix582_uscn_chinese_title_logo_manifest.json",
+      "manifest_sha256": "55dc6d127796ac0b9d12dc4b117f651e7fe106924edb008ac81b6d8b2b4cd0ab",
+      "input_sha256": "a04696f9bc586c766ed563d18b702879701d0c9cfde4844f708d22dd749bc344",
+      "output_sha256": "d6afc4c9be8c5ee9e5328302bb49d75ef9a5172c58f361ad3aa66b880845eb2b"
+    },
+    {
+      "record_id": "fix583_name_choice_hint_report.json",
+      "manifest_sha256": "301e2b0090bf029270daaaaed9f86039252b2188116a7f993dff11cd7cf15512",
+      "input_sha256": "d6afc4c9be8c5ee9e5328302bb49d75ef9a5172c58f361ad3aa66b880845eb2b",
+      "output_sha256": "900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c"
+    }
+  ],
+  "archive_metadata": {
+    "rom_members": 172,
+    "fix_filename_min": 2,
+    "fix_filename_max": 185,
+    "fix581_found": false,
+    "save_members_read": false
+  }
+}

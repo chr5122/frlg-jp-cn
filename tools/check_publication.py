@@ -11,13 +11,17 @@ ALLOWED = frozenset("""
 .gitignore .github/workflows/check.yml LICENSE README.md NOTICE.md CONTRIBUTING.md Makefile
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
+docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json
 firered/baseline.json firered/patches/recap_boxes.s firered/recap_species_range.py
 leafgreen/baseline.json leafgreen/patches/recap_boxes.s
 leafgreen/experiments/first_glyph.py
+leafgreen/rebuild_1_0_tail.py
 shared/frlg/__init__.py shared/frlg/rom.py shared/frlg/text.py shared/frlg/events.py shared/frlg/script.py
 shared/frlg/encode.py shared/frlg/font_pages.py shared/frlg/glyph_codec.py
+shared/frlg/lineage.py shared/frlg/lz77.py
 tests/test_core.py tests/test_publication.py tools/check_publication.py tools/inspect_rom.py
 tests/test_leafgreen_origin.py
+tests/test_lineage.py tools/audit_build_lineage.py
 """.split())
 IGNORED = {".git", "build", "__pycache__"}
 PATTERNS = {

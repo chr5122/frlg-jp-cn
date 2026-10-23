@@ -65,6 +65,40 @@
       "origin": "leafgreen/scripts/build_mvp01_zhong.py",
       "original_sha256": "1d41c423e7de039d9a14ad74fb8b5d087edbc7ed6a9b2a19bd5395aeaef70c0d",
       "changes": "Use original hand-drawn pixels with later corrected codec, pinned original identity, new-output-only CLI; not historical bit-identical MVP"
+    },
+    {
+      "path": "shared/frlg/lineage.py",
+      "sha256": "c2928edccf5888f1f458b6113b7980ccf6309992f0484955ce400176a95714d2",
+      "origin": "New metadata-only identity adapter; no ROM payload",
+      "changes": "New project-owned implementation"
+    },
+    {
+      "path": "tools/audit_build_lineage.py",
+      "sha256": "8cd500f3241aeee7c9ce21646b5f18edd37858374b85a7e26275176ede867edd",
+      "origin": "New read-only CLI; never executes historical scripts",
+      "changes": "New project-owned implementation"
+    },
+    {
+      "path": "shared/frlg/lz77.py",
+      "sha256": "9bdc8b1c19e3e7e9ab6189ae4fcc8373ebd7d15d571b1d921b05e64c1d4e72db",
+      "origin": "leafgreen/scripts/patch_fix243_party_status_icons_legacy_cn.py:lz77_decompress",
+      "original_file_sha256": "b05dd734748776c77fe57633669abc67acc08b1ee9c0d04c29670f8161a2492b",
+      "changes": "Isolate resource decoder; enforce bounds, output limit and token completion; no legacy icon assets copied"
+    },
+    {
+      "path": "leafgreen/rebuild_1_0_tail.py",
+      "sha256": "260640d48851903596817c777b238d8a0e9dad2e2239fdd79263d952aefdafa1",
+      "origin_files": [
+        {
+          "path": "leafgreen/scripts/patch_fix582_uscn_leafgreen_title_logo.py",
+          "sha256": "5ea1ff9882c8b877d416e83188c3b000d08c14b468ae281182301d96188f1b1d"
+        },
+        {
+          "path": "leafgreen/scripts/patch_fix583_name_choice_hint_cn.py",
+          "sha256": "cf4a44e86970da83da3fa53cecdd65ff4f502de8e5b7dbf3453196677551677b"
+        }
+      ],
+      "changes": "Portable pinned APIs; explicit input paths; in-memory default; new-output-only; donor graphics external, not bundled"
     }
   ]
 }

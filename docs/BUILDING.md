@@ -59,3 +59,28 @@ PYTHONPATH=shared python3 -B -m frlg.encode --charmap /path/to/local-map.csv --t
 ```
 
 没有分配的字符、重复 Unicode／gid、未知 token、END 后内容和 RAW 字节绕过均拒绝。`font_pages.py` 只计算历史页表范围，不负责批准新资源分配；不得将其常量当作完整台账。
+
+## 叶绿1.0末端重建（不是从原版开始）
+
+用户需自行提供精确父本与本地字表。默认只在内存中重建并检查最终SHA：
+
+```sh
+# FIX582 -> FIX583 / 最终1.0：
+python3 -B leafgreen/rebuild_1_0_tail.py --from fix582 --parent /path/to/FIX582.gba --charmap /path/to/local-map.csv
+# FIX581 -> FIX582 -> FIX583：另需原版与本地供体，仓库不提供：
+python3 -B leafgreen/rebuild_1_0_tail.py --from fix581 --parent /path/to/FIX581.gba --original /path/to/BPGJ-original.gba --donor /path/to/local-BPGE-CN.gba --charmap /path/to/local-map.csv
+```
+
+需要保存时添加 `--output /path/to/new-output.gba`；已有文件／输入文件一律不覆盖。输出对应最终1.0，不是2.2.2。输入SHA和本次夹具验证方式见 [1.0调查](LEAFGREEN_1_0_LINEAGE.md)。
+
+## 历史构建清单只读调查
+
+在本地持有原工程材料的机器上运行：
+
+```sh
+python3 -B tools/audit_build_lineage.py --analysis /path/to/local-project/analysis --include-fix-reports --artifact-dir /path/to/local-project/output --target-sha256 900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c --summary-only
+```
+
+工具不执行任何历史脚本，只提取明确的ROM文件名与身份字段。默认不读取产物；提供 `--artifact-dir` 才核验该目录直接包含的 `.gba`，不读取 SAV/state。返回的哈希边仍是声明，不是重建通过；缺失身份保持未知。
+
+退出0只表示调查报告成功生成，`json_errors`、未知身份和 `complete_rebuild_proven=false` 仍须逐项查看；不能把退出0称为完整构建门禁通过。
