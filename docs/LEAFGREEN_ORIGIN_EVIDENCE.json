@@ -1,0 +1,184 @@
+{
+  "scope": "LeafGreen origin sources through Phase8 plus current font provenance spot-chain; NOT complete FIX-to-R87 rebuild",
+  "input_roms": [
+    {
+      "path": "leafgreen/roms/jp_original.gba",
+      "sha256": "2957b392dc09fc8df45a660af5493368d7bd378d299862f4cc115998e9da0bf2",
+      "size": 16777216
+    },
+    {
+      "path": "leafgreen/roms/us_original.gba",
+      "sha256": "78d310d557ceebc593bd393acc52d1b19a8f023fec40bc200e6063880d8531fc",
+      "size": 16777216
+    },
+    {
+      "path": "leafgreen/roms/us_chinese.gba",
+      "sha256": "8a74df389bd5504bc09939fcb5c9e0c277f916024dfbd4db4bf46eb46936aafc",
+      "size": 16777216
+    }
+  ],
+  "fixed_release_sha256": "69bf635f1936846aa4fbf320ecf8c5579b681451c20644902608751c597f3f33",
+  "current_charmap": {
+    "rows": 2377,
+    "sha256": "3a50c6f6d93a3caefb382102cfe4a1217694617d6e7b04a0e435801f61234c8a",
+    "source_kinds": {
+      "uscn_custom": 2356,
+      "generated": 13,
+      "uscn_male": 6,
+      "sanitized": 2
+    },
+    "statuses": {
+      "verified": 2366,
+      "reserved_alias": 10,
+      "allocated": 1
+    },
+    "max_gid": 2560
+  },
+  "current_custom_glyph_comparison": {
+    "exact": 2356,
+    "different": 0,
+    "invalid_source": 0,
+    "out_of_bounds": 0
+  },
+  "comparison_scope": "Current male/unified 64B source versus declared US-CN custom atlas; different does not imply wrong glyph",
+  "evidence": [
+    {
+      "path": "leafgreen/analysis/first_phase_report.md",
+      "size": 2279,
+      "sha256": "24305ca62408f9a6f5c664770b02ebb5679dc98d4d8deaf53a12cfd701911f8a"
+    },
+    {
+      "path": "leafgreen/analysis/third_phase_report.md",
+      "size": 843,
+      "sha256": "6d73b140340a7038eab6bdbbc55cb7b01dca93c5074a0a5af02a258cde0ff9e6"
+    },
+    {
+      "path": "leafgreen/analysis/fourth_phase_report.md",
+      "size": 2097,
+      "sha256": "7d359cc9b28bb65573891f8a9a57007e32e906dc044a37ab905d197fee824255"
+    },
+    {
+      "path": "leafgreen/analysis/fifth_phase_report.md",
+      "size": 1373,
+      "sha256": "382496c00d77e876ec1460f7cf34f8dfdfe9ca8bdf51dd759919093a099040fd"
+    },
+    {
+      "path": "leafgreen/analysis/phase5b_legacy_cn_reverse_engineering.md",
+      "size": 1506,
+      "sha256": "8d6459d045ded8657ebc587155e621edac844497f35114d2572d5950f746b646"
+    },
+    {
+      "path": "leafgreen/scripts/build_mvp01_zhong.py",
+      "size": 7863,
+      "sha256": "1d41c423e7de039d9a14ad74fb8b5d087edbc7ed6a9b2a19bd5395aeaef70c0d"
+    },
+    {
+      "path": "leafgreen/scripts/build_mvp02_extended_chinese.py",
+      "size": 8653,
+      "sha256": "9f30211a16f8f2d76a6322d06301bbd11192c24870564a4a56d17657d4221b65"
+    },
+    {
+      "path": "leafgreen/scripts/build_mvp03_independent_cn.py",
+      "size": 8049,
+      "sha256": "b338a85e5396f3530c9c4a067d458b7145247478c55e9054a0bad5384423997d"
+    },
+    {
+      "path": "leafgreen/scripts/bpgj_font_codec.py",
+      "size": 1758,
+      "sha256": "bdf0935eea13c1e4567c02294bde31c2e80e804e1c17218b2e24e9dba2554fd9"
+    },
+    {
+      "path": "leafgreen/scripts/build_mvp05_imported_baokemeng.py",
+      "size": 4674,
+      "sha256": "480a616ea691611bef31d7e8fc90639a125870d080aef0842449a1a4ce708cc7"
+    },
+    {
+      "path": "leafgreen/scripts/build_mvp06_full_oak_import.py",
+      "size": 5837,
+      "sha256": "440916e22432691d32a0b6ede6f05de96206a985b0c793dca8ff79946fc10598"
+    },
+    {
+      "path": "leafgreen/scripts/encode_cn_text.py",
+      "size": 9075,
+      "sha256": "e29191838b6042b2230d184405fadd51f0d0f66b9b157ec4bbf46497530d2be6"
+    },
+    {
+      "path": "leafgreen/scripts/relocate_cn_text.py",
+      "size": 14076,
+      "sha256": "f0877aa35323e8495b81b48c3c493440a42bc297a7b152eaba7cbf2b6add8517"
+    },
+    {
+      "path": "leafgreen/scripts/cn_font_pages.py",
+      "size": 7998,
+      "sha256": "ba7450d80c5a1499055d1d1f169448f6b17c2d59a54cd7be6c0599aba6723052"
+    },
+    {
+      "path": "leafgreen/scripts/generate_cjk_glyph.py",
+      "size": 2079,
+      "sha256": "f669335cce750e5240dde1bd65bc286a1e3316a5b187713e1df8e86a52618d52"
+    },
+    {
+      "path": "leafgreen/analysis/phase8_text_pipeline_report.md",
+      "size": 3169,
+      "sha256": "9754ff91e78dacc38b193f170cc0e95997ea83f57936879a74ffdd02b881830a"
+    },
+    {
+      "path": "leafgreen/analysis/phase8_stage2_report.md",
+      "size": 1122,
+      "sha256": "23facc750066f8d4b4de370a953dcdcdd1cf48f295c0c13b4861a976b15e2986"
+    },
+    {
+      "path": "leafgreen/analysis/phase8_oak5_unicode_audit.md",
+      "size": 2536,
+      "sha256": "c523a3a8d0bc775d8617b7548b3a0473afe66b9fd9c517540795c2ee349d6b14"
+    },
+    {
+      "path": "leafgreen/analysis/uscn_plaintext_source_inventory.md",
+      "size": 1424,
+      "sha256": "69518c5b22cf8b222505f45651cfb8e5456b9e7764c6d99a90d648e9c2850e18"
+    },
+    {
+      "path": "leafgreen/analysis/uscn_public_source_search.md",
+      "size": 1549,
+      "sha256": "d92d3f175a864cfb4dfe5ebd92ee4a2a18b24c387f583b0018f4f9cd25c54f41"
+    },
+    {
+      "path": "leafgreen/analysis/fix287_charmap_source_sync_report.md",
+      "size": 1261,
+      "sha256": "4853ecdcf28956314a494f9e99da7baec8f6499584959ea8bc890fc53228d007"
+    },
+    {
+      "path": "leafgreen/analysis/fix320_glyph_source_code_repair_report.md",
+      "size": 2130,
+      "sha256": "50b6fc28249a41e9a660497705e67b126db2ef8f70a66bddb275ebe7a17eb36d"
+    },
+    {
+      "path": "leafgreen/analysis/private_zhongwen_mvp04_modern_us_assets.md",
+      "size": 1037,
+      "sha256": "bb0c21eda1b8a69c4a74fa3b34bed29b6d7703d1791c95aea781747239dc000b"
+    },
+    {
+      "path": "leafgreen/analysis/mvp08_oak_first_scene.md",
+      "size": 706,
+      "sha256": "ca77b4307557c8049ec8241cb7f6d2a4a4a43b5bb6c565995f957b61643e341b"
+    },
+    {
+      "path": "leafgreen/analysis/fix348_font_page_table_report.md",
+      "size": 2064,
+      "sha256": "85b81e5bb303dffdaa991c71f8c50abb05626b87b72dbb74afc147a8cd59b8c3"
+    },
+    {
+      "path": "leafgreen/analysis/fix582_uscn_chinese_title_logo_report.md",
+      "size": 1402,
+      "sha256": "9d7c8806346a5b0e0b7fc66a93c47a38e6c71bd1fe7ed5fffbba369735ef6348"
+    },
+    {
+      "path": "leafgreen/analysis/release_1_0_fix583.md",
+      "size": 975,
+      "sha256": "aa8458b9deb66c043741ce72b837a8bc789d1a6e24d7a22ad14aa292a138ede0"
+    }
+  ],
+  "inputs_unchanged": true,
+  "payloads_exported": false,
+  "complete_clean_rom_to_release_chain_verified": false
+}

@@ -37,6 +37,34 @@
       "sha256": "83682fb7a4f9a1fe971a3b2006e20a0bb398a328bcddeda06ba6e982b81310dd",
       "origin": "leafgreen_align_fr0108_r87v3/boxes.s",
       "changes": "No implementation changes; public export"
+    },
+    {
+      "path": "shared/frlg/encode.py",
+      "sha256": "c40f293dd8d4c05c435f51dfcac2440f295bb1b831c3b23bc199b891aee87fc1",
+      "origin": "leafgreen/scripts/encode_cn_text.py",
+      "original_sha256": "e29191838b6042b2230d184405fadd51f0d0f66b9b157ec4bbf46497530d2be6",
+      "changes": "Package-relative import; reject RAW bypass, duplicate gids, invalid direct maps and malformed final token streams"
+    },
+    {
+      "path": "shared/frlg/font_pages.py",
+      "sha256": "a5ed4d8520eba22c657b4539be83921d342465bdd0b68e8a8fa758498ee36e77",
+      "origin": "leafgreen/scripts/cn_font_pages.py",
+      "original_sha256": "ba7450d80c5a1499055d1d1f169448f6b17c2d59a54cd7be6c0599aba6723052",
+      "changes": "Reject historical variant aliases into later reserved font windows"
+    },
+    {
+      "path": "shared/frlg/glyph_codec.py",
+      "sha256": "cc4db4cf162a882e1a201cb873fc52435672391b1e3ece1949a870c2e010804f",
+      "origin": "leafgreen/scripts/bpgj_font_codec.py",
+      "original_sha256": "bdf0935eea13c1e4567c02294bde31c2e80e804e1c17218b2e24e9dba2554fd9",
+      "changes": "Port source codec with explicit bounds/errors; reads caller supplied native lookup table"
+    },
+    {
+      "path": "leafgreen/experiments/first_glyph.py",
+      "sha256": "0ee5fe95aab531a28a8899b29bf90e133488396adbe40afa3f0c438bb1f3d26a",
+      "origin": "leafgreen/scripts/build_mvp01_zhong.py",
+      "original_sha256": "1d41c423e7de039d9a14ad74fb8b5d087edbc7ed6a9b2a19bd5395aeaef70c0d",
+      "changes": "Use original hand-drawn pixels with later corrected codec, pinned original identity, new-output-only CLI; not historical bit-identical MVP"
     }
   ]
 }

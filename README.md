@@ -10,6 +10,7 @@
 - `firered/patches/`、`leafgreen/patches/`：两版冒险回顾盒子名称的独立入口 ARM7TDMI／Thumb1 包装源码。
 - `firered/recap_species_range.py`：火红 BUILD0107→0108 的物种范围修复，固定父版身份、默认只验证、不覆盖输入。
 - 两版 2.2.2 的 SHA-256 记录、合成反例测试、发布内容检查和 CI。
+- 从叶绿汉化起点整理的编码器、字库页表／source codec，以及不需要供体资源的单字实验。源头证据与尚未闭合的构建区段见 [叶绿起源追溯](docs/LEAFGREEN_ORIGIN.md)。
 
 ## 快速验证
 

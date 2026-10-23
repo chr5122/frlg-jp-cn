@@ -1,0 +1,17 @@
+{
+  "scope": "LeafGreen-origin investigation first; historical sequence is NOT a proven serial build chain",
+  "complete_original_to_release_rebuild": false,
+  "verified_current_release": "R87",
+  "published_source_only": true,
+  "stages": [
+    {"id": "native_research", "status": "HISTORICAL_REPORTS_AND_INPUT_IDENTITIES_CHECKED", "requires": ["BPGJ_original", "BPGE_original", "BPGE_CN_donor"], "rom_build": false},
+    {"id": "hand_drawn_experiments", "status": "PUBLIC_REVISED_DEMO_IN_MEMORY_BUILD_PASS", "requires": ["BPGJ_original"], "public_entry": "leafgreen/experiments/first_glyph.py", "complete_translation": false, "historical_MVP_bit_identical": false},
+    {"id": "MVP04_to_MVP08", "status": "SOURCE_AND_HISTORICAL_REPORT_PROVENANCE_CHECKED_NOT_REBUILT", "requires": ["BPGJ_original", "BPGE_CN_donor", "historical_hook_sources"], "resources_redistribution_permission": "NOT_ESTABLISHED"},
+    {"id": "Phase8_unicode_pipeline", "status": "SOURCE_DEPENDENCIES_IDENTIFIED_NOT_REBUILT", "requires": ["BPGJ_original", "BPGE_CN_donor", "Unicode_translation_CSV", "glyph_source_CSV", "renderer_source", "fixed_layout"], "public_subset": ["shared/frlg/encode.py", "shared/frlg/font_pages.py", "shared/frlg/glyph_codec.py"]},
+    {"id": "Phase8_to_FIX583", "status": "BUILD_LINEAGE_GAP", "next": "Resolve each clean-ROM versus incremental builder, source snapshot and asset provenance"},
+    {"id": "FIX583_to_R87", "status": "BUILD_LINEAGE_GAP", "next": "Audit 1.0 to 1.1 and R revisions without treating filenames as dependency edges"},
+    {"id": "FireRed_migration", "status": "ORIGIN_RESEARCH_PENDING_LEAFGREEN_CHAIN", "next": "Trace fixed LeafGreen source versions and actual FireRed importers"}
+  ],
+  "assets_not_distributed": ["ROMs", "saves", "donor_font_bitmaps", "complete_translation_CSV", "Unicode_glyph_source_CSV", "title_graphics"],
+  "current_font_provenance_check": {"evidence": "docs/LEAFGREEN_ORIGIN_EVIDENCE.json", "scope": "uscn_custom records in current unified/male glyph bank", "records_exact_match": 2356, "all_font_variants_verified": false}
+}

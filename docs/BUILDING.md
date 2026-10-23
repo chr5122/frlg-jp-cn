@@ -36,3 +36,26 @@ python3 -B firered/recap_species_range.py --parent /path/to/BUILD0107.gba --outp
 ```
 
 这只产生 0108 范围修复，不含后续图标居中，不是完整 2.2.2 构建命令。输入永不覆盖，输出只写新路径；不要用于别的汉化版。
+
+## 叶绿起点单字实验（不是完整汉化）
+
+这个小实验从精确 BPGJ Rev0 原版直接构建，不需要美版汉化供体、字库文件或译文。使用项目自己绘制的测试字笔画和从原版读取的 native lookup 表；只改一个原生字形槽，原有日文文本未翻译。它用于复现早期研究方法，不能应用到 R87，也不能当作对全局替换字形的推荐方案。
+
+```sh
+# 默认在内存中构建并检查，不落盘 ROM：
+python3 -B leafgreen/experiments/first_glyph.py --original /path/to/BPGJ-original.gba
+# 需要生成实验 ROM 时，另外指定全新输出路径：
+python3 -B leafgreen/experiments/first_glyph.py --original /path/to/BPGJ-original.gba --output /path/to/new-experiment.gba
+```
+
+预期输出 SHA `09c7969f96ef067813fdee07d558dfa28aec177d451ba4c7db58e58a1ddc7694`。实际差异 36 B，限制在四个原生字模数据片段；不改指令、字宽或存档。原来使用该字形的日文位置会显示测试字；这是实验的预期副作用，**不是可游玩的汉化发布版**。本批只验证 native lookup 像素回读，运行画面仍为 UNOBSERVED。
+
+## 不携带资源的叶绿文本编码器
+
+`shared/frlg/encode.py` 使用本地 CSV 字表，格式沿用 `unicode,glyph_id,status`，正式构建仍需来源记录和实际字模。仓库仅用合成字表做测试，不提供正式字表。
+
+```sh
+PYTHONPATH=shared python3 -B -m frlg.encode --charmap /path/to/local-map.csv --text '中文{NL}{PLAYER}！{END}' --hex
+```
+
+没有分配的字符、重复 Unicode／gid、未知 token、END 后内容和 RAW 字节绕过均拒绝。`font_pages.py` 只计算历史页表范围，不负责批准新资源分配；不得将其常量当作完整台账。
