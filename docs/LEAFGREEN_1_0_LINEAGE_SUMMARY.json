@@ -1,17 +1,17 @@
 {
-  "record_count": 480,
+  "record_count": 483,
   "states": {
-    "NEEDS_SCHEMA_OR_IDENTITY": 116,
-    "DECLARED_HASH_EDGE": 364
+    "DECLARED_HASH_EDGE": 367,
+    "NEEDS_SCHEMA_OR_IDENTITY": 116
   },
   "input_states": {
+    "DECLARED_IDENTITY": 383,
     "MISSING_ENDPOINT": 75,
-    "DECLARED_IDENTITY": 380,
     "MISSING_HASH": 25
   },
   "output_states": {
+    "DECLARED_IDENTITY": 390,
     "MISSING_ENDPOINT": 89,
-    "DECLARED_IDENTITY": 387,
     "MISSING_HASH": 4
   },
   "target_sha256": "900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c",
@@ -38,20 +38,22 @@
     "fix580_trainer_school_grid_frame_manifest.json",
     "fix581_rocket_line_mewtwo_cry_manifest.json",
     "fix582_uscn_chinese_title_logo_manifest.json",
-    "fix583_name_choice_hint_report.json"
+    "fix583_name_choice_hint_report.json",
+    "verified_fix557.json",
+    "verified_fix558.json",
+    "verified_fix559.json"
   ],
   "target_unresolved_frontier": [
-    "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba",
-    "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca"
+    "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281"
   ],
   "merge_records": 1,
   "evidence_grade": "MANIFEST_DECLARATIONS_WITH_OPTIONAL_FILE_SHA_CHECKS_NOT_BUILD_REPLAY",
   "complete_rebuild_proven": false,
   "json_errors": [],
-  "scanned_files": 480,
+  "scanned_files": 483,
   "artifact_files_hashed": 5,
   "inputs_unchanged": true,
-  "hash_ancestry_boundary": "All explicit merge inputs tracked. Strict manifest frontier: FIX558 and FIX559; no filename-based completion.",
+  "hash_ancestry_boundary": "Three independent supplemental replay records; strict frontier FIX556; no original manifest edits or filename inference.",
   "tail_identity_declarations": [
     {
       "record_id": "fix560_islands47_manifest.json",
@@ -216,16 +218,68 @@
     }
   ],
   "archive_metadata": {
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "archive_member_count": 240,
+    "selected_ROMs": 8,
+    "selected": [
+      {
+        "relative": "BPGJ_CN_FIX556_LEAGUE_PUNCT_NATIVE_CN.gba",
+        "sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX557_WAIT_PUNCT_LINE_CN.gba",
+        "sha256": "540fa6afde1449b95fc20580f7f6004a9d484f6059c16fc2041ee8f9b1af6363",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX558_HALL_OF_FAME_UI_CN.gba",
+        "sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX559_SAVE_PROMPT_CN.gba",
+        "sha256": "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX560_ISLANDS_FOUR_TO_SEVEN_CN.gba",
+        "sha256": "88585ccc1155b702a398bd75ce5e2501a4afc270a63c71d5999d1c2ebca9970c",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX561_MERGED_FIX559_FIX560_CN.gba",
+        "sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX581_ROCKET_LINE_MEWTWO_CRY_CN.gba",
+        "sha256": "a04696f9bc586c766ed563d18b702879701d0c9cfde4844f708d22dd749bc344",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX582_USCN_CHINESE_TITLE_LOGO.gba",
+        "sha256": "d6afc4c9be8c5ee9e5328302bb49d75ef9a5172c58f361ad3aa66b880845eb2b",
+        "size": 16777216
+      }
+    ],
+    "extraction_mode": "SELECTED_BLOBS_TO_MEMORY_ONLY_NO_RESTORE"
+  },
+  "merge_replay": {
+    "entry": "leafgreen/rebuild_merge561.py",
+    "actual_ROM_replay": "PASS_WITH_INDEPENDENT_ARCHIVED_INPUTS_AND_CHILD",
+    "synthetic_logic_tests": "PASS",
+    "runtime_tested": false
+  },
+  "original_records": 480,
+  "supplemental_records": 3,
+  "previous_archive_metadata": {
     "rom_members": 172,
     "fix_filename_min": 2,
     "fix_filename_max": 185,
     "fix581_found": false,
     "save_members_read": false
   },
-  "merge_replay": {
-    "entry": "leafgreen/rebuild_merge561.py",
-    "actual_ROM_replay": "UNOBSERVED_MISSING_INDEPENDENT_PARENTS",
-    "synthetic_logic_tests": "PASS",
-    "runtime_tested": false
-  }
+  "independent_replay_summary": "LEAFGREEN_ARCHIVE_REPLAY.json"
 }

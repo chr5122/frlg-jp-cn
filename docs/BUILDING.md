@@ -71,7 +71,7 @@ python3 -B leafgreen/rebuild_1_0_tail.py --from fix582 --parent /path/to/FIX582.
 python3 -B leafgreen/rebuild_1_0_tail.py --from fix581 --parent /path/to/FIX581.gba --original /path/to/BPGJ-original.gba --donor /path/to/local-BPGE-CN.gba --charmap /path/to/local-map.csv
 ```
 
-需要保存时添加 `--output /path/to/new-output.gba`；已有文件／输入文件一律不覆盖。输出对应最终1.0，不是2.2.2。输入SHA和本次夹具验证方式见 [1.0调查](LEAFGREEN_1_0_LINEAGE.md)。
+需要保存时添加 `--output /path/to/new-output.gba`；已有文件／输入文件一律不覆盖。输出对应最终1.0，不是2.2.2。输入SHA和独立归档验证方式见 [1.0调查](LEAFGREEN_1_0_LINEAGE.md)。
 
 ## 历史构建清单只读调查
 
@@ -87,7 +87,7 @@ python3 -B tools/audit_build_lineage.py --analysis /path/to/local-project/analys
 
 存在 `parents[]` 的记录将额外列出 `merge_base` 与每个 `branch`；任一父身份缺失、重复、冲突或集合结构未知，整条依赖保持待核，不能退回只算基底的“通过边”。`target_unresolved_frontier` 是无法继续沿完整声明边展开的SHA，不是漏译项目数。
 
-## FIX561 三输入合并（条件式工具，本批未实际重放ROM）
+## FIX561 三输入合并（独立归档重放已验证）
 
 用户自行提供精确FIX558、FIX559及“四到七岛”FIX560：
 
@@ -96,4 +96,26 @@ python3 -B leafgreen/rebuild_merge561.py --base /path/to/FIX558.gba --save /path
 # 可另加 --compare /path/to/FIX561.gba，与留存产物逐字节比较。
 ```
 
-本入口没有写出选项，不会改任何输入。它只合并既有分支，不会从原版构建分支本身，也不替代译文／指针／字形的语义验证。所需SHA、同编号分支陷阱和本批测试边界见 [合并边界复核](LEAFGREEN_1_0_LINEAGE.md#六fix561-合并边界复核)。实际父文件当前未找到，公开CI只用合成字节测试，不下载ROM。
+本入口没有写出选项，不会改任何输入。它只合并既有分支，不会从原版构建分支本身，也不替代译文／指针／字形的语义验证。所需SHA、同编号分支陷阱和本批测试边界见 [1.0调查](LEAFGREEN_1_0_LINEAGE.md)。已使用本地归档的三个精确父本与独立子版逐字节比较；公开CI只用合成字节测试，不下载ROM。
+
+## FIX557～559：固定历史输入的局部复现
+
+```sh
+# FIX556 ->557：无需外部译文或字表；只交换WAIT与标点顺序：
+python3 -B leafgreen/rebuild_557_559.py --stage 557 --parent /path/to/FIX556.gba --compare /path/to/FIX557.gba
+# FIX557 ->558，以及FIX558 ->559：还需本地原始清单和兼容字表：
+python3 -B leafgreen/rebuild_557_559.py --stage 558 --parent /path/to/FIX557.gba --manifest /path/to/fix558_manifest.json --charmap /path/to/local-map.csv --compare /path/to/FIX558.gba
+python3 -B leafgreen/rebuild_557_559.py --stage 559 --parent /path/to/FIX558.gba --manifest /path/to/fix559_manifest.json --charmap /path/to/local-map.csv --compare /path/to/FIX559.gba
+```
+
+三个入口均无写出选项。输入父本、清单、CLI字表与最终产物均固定完整SHA；不是随意清单打补丁工具。FIX558/559从外部清单重新编码文本，验证指针前像、保留前缀的相对位移、FF池、原地容量、写入不重叠、差异数量和整枚最终SHA。不会读取子版作为构建来源，`--compare`只作可选末端比较。
+
+原始清单包含完整译文，**本仓库不提供**；字表两个允许身份见源码，已证兼容的备份不等于当次构建的原始资源快照。本入口不重跑旧脚本的条目发现／可达性算法，也不为当前ROM批准旧资源池重用。不能用于火红、R修订版或未知汉化。
+
+补充谱系时可在前述调查命令中加：
+
+```sh
+--extra-record docs/lineage_verified/fix557.json --extra-record docs/lineage_verified/fix558.json --extra-record docs/lineage_verified/fix559.json
+```
+
+这三份是后补验证记录，未回填原始清单。当前严格身份前沿推进到FIX556；仍非从原版开始的完整构建链。

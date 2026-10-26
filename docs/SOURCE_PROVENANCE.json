@@ -104,7 +104,7 @@
       "path": "shared/frlg/merge.py",
       "sha256": "86f23756259714f58e3236d973a0649b159be38a6daf3980b0fc58f896cd189e",
       "origin": "New resource-free disjoint merge primitive",
-      "changes": "Immutable equal-size inputs; reject all overlap, including equal-value conflicts; synthetic tests only"
+      "changes": "Immutable equal-size inputs; reject all overlap, including equal-value conflicts; synthetic CI tests and later local historical archive replay."
     },
     {
       "path": "leafgreen/rebuild_merge561.py",
@@ -119,7 +119,17 @@
           "sha256": "c66a3d998d4923aebec9b35a5a7f1e60b3fc656a1ceaa854ef8b91c927a319d9"
         }
       ],
-      "changes": "Portable in-memory-only merger; exact input/output identities and delta counts. No ROM/text/font payload; does not build branches. Actual ROM replay not performed: independent parents unavailable."
+      "changes": "Portable in-memory-only merger; exact input/output identities and delta counts. No ROM/text/font payload; does not build branches. Later independent archived inputs and child compared byte-for-byte."
+    },
+    {
+      "path": "leafgreen/rebuild_557_559.py",
+      "sha256": "3654f83979b6dc5e45f047046a2dc7de7268c314c8089e644a1a4f728b7c918d",
+      "origin_files": [
+        "leafgreen/scripts/patch_fix557_wait_punct_line_cn.py",
+        "leafgreen/scripts/patch_fix558_hall_of_fame_ui_cn.py",
+        "leafgreen/scripts/patch_fix559_save_prompt_cn.py"
+      ],
+      "changes": "New portable pinned in-memory implementation of control-order and external-manifest replay; no bundled text/map/ROM data; original discovery algorithms not executed."
     }
   ]
 }

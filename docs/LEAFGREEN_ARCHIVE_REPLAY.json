@@ -1,0 +1,139 @@
+{
+  "status": "PASS",
+  "archive": {
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "archive_member_count": 240,
+    "selected_ROMs": 8,
+    "selected": [
+      {
+        "relative": "BPGJ_CN_FIX556_LEAGUE_PUNCT_NATIVE_CN.gba",
+        "sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX557_WAIT_PUNCT_LINE_CN.gba",
+        "sha256": "540fa6afde1449b95fc20580f7f6004a9d484f6059c16fc2041ee8f9b1af6363",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX558_HALL_OF_FAME_UI_CN.gba",
+        "sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX559_SAVE_PROMPT_CN.gba",
+        "sha256": "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX560_ISLANDS_FOUR_TO_SEVEN_CN.gba",
+        "sha256": "88585ccc1155b702a398bd75ce5e2501a4afc270a63c71d5999d1c2ebca9970c",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX561_MERGED_FIX559_FIX560_CN.gba",
+        "sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX581_ROCKET_LINE_MEWTWO_CRY_CN.gba",
+        "sha256": "a04696f9bc586c766ed563d18b702879701d0c9cfde4844f708d22dd749bc344",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX582_USCN_CHINESE_TITLE_LOGO.gba",
+        "sha256": "d6afc4c9be8c5ee9e5328302bb49d75ef9a5172c58f361ad3aa66b880845eb2b",
+        "size": 16777216
+      }
+    ],
+    "extraction_mode": "SELECTED_BLOBS_TO_MEMORY_ONLY_NO_RESTORE"
+  },
+  "public_fix557": {
+    "status": "PASS",
+    "changed_bytes": 2,
+    "write_ranges": 1,
+    "stage": "557",
+    "parent_sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281",
+    "output_sha256": "540fa6afde1449b95fc20580f7f6004a9d484f6059c16fc2041ee8f9b1af6363",
+    "method": "CONTROL_ORDER_PATCH",
+    "old_discovery_algorithm_replayed": false,
+    "new_resource_allocation": false
+  },
+  "public_fix558": {
+    "status": "PASS",
+    "changed_bytes": 380,
+    "write_ranges": 33,
+    "stage": "558",
+    "parent_sha256": "540fa6afde1449b95fc20580f7f6004a9d484f6059c16fc2041ee8f9b1af6363",
+    "output_sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
+    "method": "EXTERNAL_MANIFEST_ENCODING_AND_PREIMAGE_REPLAY",
+    "old_discovery_algorithm_replayed": false,
+    "new_resource_allocation": false
+  },
+  "public_fix559": {
+    "status": "PASS",
+    "changed_bytes": 344,
+    "write_ranges": 16,
+    "stage": "559",
+    "parent_sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca",
+    "output_sha256": "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba",
+    "method": "EXTERNAL_MANIFEST_ENCODING_AND_PREIMAGE_REPLAY",
+    "old_discovery_algorithm_replayed": false,
+    "new_resource_allocation": false
+  },
+  "public_fix561": {
+    "left_changed_bytes": 344,
+    "right_changed_bytes": 30880,
+    "overlap_bytes": 0,
+    "changed_bytes": 31224,
+    "output_sha256": "80a306a3a7c873eeae97b95d831d4dd9f29a1299e408b5c6fe38b178d25ab01c",
+    "status": "PINNED_MERGE_PASS",
+    "independent_archived_inputs": true
+  },
+  "public_fix582": {
+    "status": "PASS",
+    "changed_bytes": 6209,
+    "write_ranges": 4,
+    "output_sha256": "d6afc4c9be8c5ee9e5328302bb49d75ef9a5172c58f361ad3aa66b880845eb2b",
+    "new_instructions": 0,
+    "independent_archived_parent": true
+  },
+  "public_fix583": {
+    "status": "PASS",
+    "changed_bytes": 15,
+    "write_ranges": 2,
+    "output_sha256": "900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c",
+    "new_instructions": 0,
+    "independent_archived_parent": true
+  },
+  "actual_ROMs_selected": 8,
+  "archive_all_payloads_hashed": false,
+  "map_sha256": "3a50c6f6d93a3caefb382102cfe4a1217694617d6e7b04a0e435801f61234c8a",
+  "backup_map_sha256": "464c5ab50700544e349c07217ef949d2ac7cf2566bbdf89737854bc4863fabd4",
+  "original_backup_snapshot_proven": false,
+  "negative_cases": [
+    "wrong_parent",
+    "wrong_manifest",
+    "wrong_charmap"
+  ],
+  "inputs_unchanged": true,
+  "ROM_written": false,
+  "save_read": false,
+  "save_written": false,
+  "old_top_level_scripts_executed": false,
+  "runtime_tested": false,
+  "complete_clean_original_rebuild": false,
+  "lineage": {
+    "records": 483,
+    "states": {
+      "DECLARED_HASH_EDGE": 367,
+      "NEEDS_SCHEMA_OR_IDENTITY": 116
+    },
+    "ancestors": 26,
+    "frontier": [
+      "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281"
+    ]
+  },
+  "evidence_scope": "Local-only independent archived ROM comparisons; public CI uses synthetic fixtures, never downloads game assets"
+}

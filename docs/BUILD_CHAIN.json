@@ -4,14 +4,95 @@
   "verified_current_release": "R87",
   "published_source_only": true,
   "stages": [
-    {"id": "native_research", "status": "HISTORICAL_REPORTS_AND_INPUT_IDENTITIES_CHECKED", "requires": ["BPGJ_original", "BPGE_original", "BPGE_CN_donor"], "rom_build": false},
-    {"id": "hand_drawn_experiments", "status": "PUBLIC_REVISED_DEMO_IN_MEMORY_BUILD_PASS", "requires": ["BPGJ_original"], "public_entry": "leafgreen/experiments/first_glyph.py", "complete_translation": false, "historical_MVP_bit_identical": false},
-    {"id": "MVP04_to_MVP08", "status": "SOURCE_AND_HISTORICAL_REPORT_PROVENANCE_CHECKED_NOT_REBUILT", "requires": ["BPGJ_original", "BPGE_CN_donor", "historical_hook_sources"], "resources_redistribution_permission": "NOT_ESTABLISHED"},
-    {"id": "Phase8_unicode_pipeline", "status": "SOURCE_DEPENDENCIES_IDENTIFIED_NOT_REBUILT", "requires": ["BPGJ_original", "BPGE_CN_donor", "Unicode_translation_CSV", "glyph_source_CSV", "renderer_source", "fixed_layout"], "public_subset": ["shared/frlg/encode.py", "shared/frlg/font_pages.py", "shared/frlg/glyph_codec.py"]},
-    {"id": "Phase8_to_FIX583", "status": "PARTIAL_DECLARED_LINEAGE_AND_PINNED_TAIL_REBUILD", "manifest_records": 480, "declared_hash_edges": 364, "unresolved_records": 116, "target_ancestry_records": 23, "tail_public_entry": "leafgreen/rebuild_1_0_tail.py", "FIX582_to_FIX583_byte_identical": true, "FIX581_to_FIX582_fixture": "RESTORED_PREIMAGE_NOT_INDEPENDENT_BUILD", "merge_public_entry": "leafgreen/rebuild_merge561.py", "merge_actual_ROM_replay": "UNOBSERVED_MISSING_INDEPENDENT_PARENTS", "next": "Resolve FIX558 and FIX559 strict-manifest frontier; pin Phase8 sources and resource snapshots"},
-    {"id": "FIX583_to_R87", "status": "BUILD_LINEAGE_GAP", "next": "Audit 1.0 to 1.1 and R revisions without treating filenames as dependency edges"},
-    {"id": "FireRed_migration", "status": "ORIGIN_RESEARCH_PENDING_LEAFGREEN_CHAIN", "next": "Trace fixed LeafGreen source versions and actual FireRed importers"}
+    {
+      "id": "native_research",
+      "status": "HISTORICAL_REPORTS_AND_INPUT_IDENTITIES_CHECKED",
+      "requires": [
+        "BPGJ_original",
+        "BPGE_original",
+        "BPGE_CN_donor"
+      ],
+      "rom_build": false
+    },
+    {
+      "id": "hand_drawn_experiments",
+      "status": "PUBLIC_REVISED_DEMO_IN_MEMORY_BUILD_PASS",
+      "requires": [
+        "BPGJ_original"
+      ],
+      "public_entry": "leafgreen/experiments/first_glyph.py",
+      "complete_translation": false,
+      "historical_MVP_bit_identical": false
+    },
+    {
+      "id": "MVP04_to_MVP08",
+      "status": "SOURCE_AND_HISTORICAL_REPORT_PROVENANCE_CHECKED_NOT_REBUILT",
+      "requires": [
+        "BPGJ_original",
+        "BPGE_CN_donor",
+        "historical_hook_sources"
+      ],
+      "resources_redistribution_permission": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "Phase8_unicode_pipeline",
+      "status": "SOURCE_DEPENDENCIES_IDENTIFIED_NOT_REBUILT",
+      "requires": [
+        "BPGJ_original",
+        "BPGE_CN_donor",
+        "Unicode_translation_CSV",
+        "glyph_source_CSV",
+        "renderer_source",
+        "fixed_layout"
+      ],
+      "public_subset": [
+        "shared/frlg/encode.py",
+        "shared/frlg/font_pages.py",
+        "shared/frlg/glyph_codec.py"
+      ]
+    },
+    {
+      "id": "Phase8_to_FIX583",
+      "status": "PARTIAL_DECLARED_LINEAGE_AND_INDEPENDENT_ARCHIVE_REPLAYS",
+      "manifest_records": 483,
+      "declared_hash_edges": 367,
+      "unresolved_records": 116,
+      "target_ancestry_records": 26,
+      "tail_public_entry": "leafgreen/rebuild_1_0_tail.py",
+      "FIX582_to_FIX583_byte_identical": true,
+      "FIX581_to_FIX582_fixture": "EARLIER_TRIAL_ONLY_SUPERSEDED_BY_INDEPENDENT_ARCHIVED_PARENT",
+      "merge_public_entry": "leafgreen/rebuild_merge561.py",
+      "merge_actual_ROM_replay": "PASS_WITH_INDEPENDENT_ARCHIVED_PARENTS",
+      "next": "Resolve FIX556 and earlier source/resource snapshots; no full clean-original rebuild claimed",
+      "original_records": 480,
+      "supplemental_records": 3,
+      "FIX581_to_FIX582_independent_replay": true,
+      "text_replay_public_entry": "leafgreen/rebuild_557_559.py",
+      "FIX557_FIX558_FIX559_independent_replay": true
+    },
+    {
+      "id": "FIX583_to_R87",
+      "status": "BUILD_LINEAGE_GAP",
+      "next": "Audit 1.0 to 1.1 and R revisions without treating filenames as dependency edges"
+    },
+    {
+      "id": "FireRed_migration",
+      "status": "ORIGIN_RESEARCH_PENDING_LEAFGREEN_CHAIN",
+      "next": "Trace fixed LeafGreen source versions and actual FireRed importers"
+    }
   ],
-  "assets_not_distributed": ["ROMs", "saves", "donor_font_bitmaps", "complete_translation_CSV", "Unicode_glyph_source_CSV", "title_graphics"],
-  "current_font_provenance_check": {"evidence": "docs/LEAFGREEN_ORIGIN_EVIDENCE.json", "scope": "uscn_custom records in current unified/male glyph bank", "records_exact_match": 2356, "all_font_variants_verified": false}
+  "assets_not_distributed": [
+    "ROMs",
+    "saves",
+    "donor_font_bitmaps",
+    "complete_translation_CSV",
+    "Unicode_glyph_source_CSV",
+    "title_graphics"
+  ],
+  "current_font_provenance_check": {
+    "evidence": "docs/LEAFGREEN_ORIGIN_EVIDENCE.json",
+    "scope": "uscn_custom records in current unified/male glyph bank",
+    "records_exact_match": 2356,
+    "all_font_variants_verified": false
+  }
 }

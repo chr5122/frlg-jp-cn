@@ -1,0 +1,24 @@
+{
+  "name": "SUPPLEMENT_VERIFIED_FIX557",
+  "record_kind": "NEW_EVIDENCE_NOT_EDIT_OF_ORIGINAL_MANIFEST",
+  "input_rom": {
+    "path": "BPGJ_CN_FIX556_LEAGUE_PUNCT_NATIVE_CN.gba",
+    "sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281"
+  },
+  "output_rom": {
+    "path": "BPGJ_CN_FIX557_WAIT_PUNCT_LINE_CN.gba",
+    "sha256": "540fa6afde1449b95fc20580f7f6004a9d484f6059c16fc2041ee8f9b1af6363"
+  },
+  "evidence": {
+    "method": "PINNED_CONTROL_ORDER_REPLAY_AND_INDEPENDENT_ARCHIVE_COMPARISON",
+    "original_manifest": "fix557_manifest.json",
+    "original_manifest_sha256": "7ae11b8d1b9f59ba21892e62423b7472c8df3a8e5069d9f97c97db45eed45743",
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "archive_manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "archived_child_byte_equal": true,
+    "changed_bytes": 2,
+    "write_ranges": 1
+  },
+  "semantic_runtime_tested": false,
+  "clean_original_rebuild": false
+}

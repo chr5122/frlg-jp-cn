@@ -1,0 +1,24 @@
+{
+  "name": "SUPPLEMENT_VERIFIED_FIX559",
+  "record_kind": "NEW_EVIDENCE_NOT_EDIT_OF_ORIGINAL_MANIFEST",
+  "input_rom": {
+    "path": "BPGJ_CN_FIX558_HALL_OF_FAME_UI_CN.gba",
+    "sha256": "e8bdb1132cda745d04ec7f252e8ffb3781ea649ea24ac41be1143704d77894ca"
+  },
+  "output_rom": {
+    "path": "BPGJ_CN_FIX559_SAVE_PROMPT_CN.gba",
+    "sha256": "7ebf81ba53c49bcb6fb94d2ea4a39ec97ac8e9467bc25ed4bb0bd219e6f828ba"
+  },
+  "evidence": {
+    "method": "MANIFEST_TRANSLATION_ENCODING_AND_POINTER_PREIMAGE_REPLAY_NOT_OLD_DISCOVERY_ALGORITHM",
+    "archived_child_byte_equal": true,
+    "original_manifest": "fix559_manifest.json",
+    "original_manifest_sha256": "9b516dafb178e19ac89407b8cd3ee2dd95883b6ccae99c028a6efa9f830acfb3",
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "archive_manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "changed_bytes": 344,
+    "write_ranges": 16
+  },
+  "semantic_runtime_tested": false,
+  "clean_original_rebuild": false
+}
