@@ -17,3 +17,5 @@ font_pack.py及cn_glyph.s为项目自有的资源适配／四图块算法整理�
 firered/patches/tm_names.s原样来自项目BUILD0100的自有routes.s。tests/tm_cpu.c及tm_copy.s是独立编写的合成测试，不含原游戏StringCopy或任何ROM数据；mGBA仅通过调用者本地库链接，库和MPL许可的mGBA源码不随本仓库再分发。当前355条名称仅在调用者文件中校验，未随源码上传或重新许可。
 
 Pokémon 等名称属于各自权利人。发布补丁或技术源码不等于获得原游戏内容的再分发许可。
+
+cn_main_production.s、cn_small_production.s及两版glyph_metrics／分流入口整理自项目自有汇编和构建逻辑；不包含被调用的原生图块例程。火红旧入口的末端指针已参数化为现行分流地址；普通解码器合入现用字宽／高度覆写，具体来源与变更见SOURCE_PROVENANCE.json。字模、译文、小字宽度表均未随此批分发，MIT不覆盖这些外部资源。

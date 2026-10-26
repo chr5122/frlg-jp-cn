@@ -255,6 +255,66 @@
       "sha256": "711b4d1209cde4b9c7e07f77bce641008db771b6985ef56b8e205ba847e9540d",
       "origin": "New independently authored byte-FF synthetic copy callback",
       "changes": "Test fixture only; not the original game's StringCopy implementation or a production replacement."
+    },
+    {
+      "path": "shared/patches/cn_main_production.s",
+      "sha256": "6b2de07e658a6b263a23f6f4a991042be8d3e42755fdeb34128b162899f965f5",
+      "origin": "leafgreen/scripts/mvp08_chinese_hook.s",
+      "changes": "Retain244-byte layout; bind live per-game prefix and metrics; fold current13px height and width callback. Not a complete renderer or an original-ROM installer.",
+      "original_file_sha256": "4a511aeadd5e86b381a8867ae1561ceccaf6f7426fc73bc9aad17c61852db7b4"
+    },
+    {
+      "path": "shared/patches/cn_small_production.s",
+      "sha256": "88289542ae0fe088df20c52ce2cbf3e275797fd67b432ca1126b64dfa49112eb",
+      "origin": "firered/tools/fr_foundation_v1/lg11_reference/help_small_leafgreen.s",
+      "changes": "Extract first108-byte owned small decoder only; parameterize per-game page/width tables and normal fallback; no later Help measurement/header or bitmap resources.",
+      "original_file_sha256": "4e870838e14cf18d5dbefec16804375a14e1150c8b1519587131076e99c09edb"
+    },
+    {
+      "path": "firered/patches/glyph_metrics.s",
+      "sha256": "e75c3af5414fee46a39d8da5734c32a056094fddc62919d662d4303477ef2490",
+      "origin": "fr_build0048_pc_names/render.s",
+      "changes": "Unchanged owned32-byte width helper retained by current release.",
+      "original_file_sha256": "e75c3af5414fee46a39d8da5734c32a056094fddc62919d662d4303477ef2490"
+    },
+    {
+      "path": "leafgreen/patches/glyph_metrics.s",
+      "sha256": "d78c80aa3c5f14a64f9beabd22a37df5de0756a4e9aa0f7ffbe344056217b3d9",
+      "origin": "leafgreen/scripts/patch_fix394_gamecorner_final_fit_cn.py",
+      "changes": "Extract current44-byte width helper with descriptive labels; no glyph aliases or pixel data copied.",
+      "original_file_sha256": "96220be70fc872d83271d9ca41f743b2c5d58793d7e465fc4660d7cc7c3078c5"
+    },
+    {
+      "path": "firered/patches/intro_font_gate.s",
+      "sha256": "2ce2967b6d473a1ab1f1da0b98e35d973d784398e2cf33f0fbe584b64559ed34",
+      "origin": "firered/scripts/stubs/fr_intro_v5_gate.s",
+      "changes": "Parameterize terminal normal-route pointer to current0x087B82A5; retain branch logic. Subsequent gate chain not yet exported.",
+      "original_file_sha256": "b31991e1c8b9b427a0204cbb4ac1cc788b48e3bee1612942b14ce500f5a6531f"
+    },
+    {
+      "path": "leafgreen/patches/storage_font_gate.s",
+      "sha256": "f627d79e3fe94acbc88a6fb83c4383fb686387b5248c8a86afa5bceb23138539",
+      "origin": "leafgreen_safari_box_names_r33/font.s",
+      "changes": "Unchanged owned160-byte storage font gate; later fallback remains external.",
+      "original_file_sha256": "f627d79e3fe94acbc88a6fb83c4383fb686387b5248c8a86afa5bceb23138539"
+    },
+    {
+      "path": "shared/frlg/rendering.py",
+      "sha256": "3d6ce0cc804eb3e6b822a09b3a6c29f3f6b5cf40a85b4001794831c60da9c677",
+      "origin": "New project-owned selected-component compiler and read-only release verifier",
+      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration."
+    },
+    {
+      "path": "tools/renderer_module.py",
+      "sha256": "05d5b006e9b56ec8241eb10972155f771b09e813d1fb5cbe93e213fd30e7dd4f",
+      "origin": "New project-owned compile/verify CLI",
+      "changes": "Compile without game input, optional exclusive new directory/readback; verify exact input read-only and recheck unchanged."
+    },
+    {
+      "path": "tests/test_rendering.py",
+      "sha256": "7c4081e30d6ed321b54f35bf7cc2f94033ec4942a6b9ebfb0815e86dba303176",
+      "origin": "New project-owned synthetic audit tests",
+      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification."
     }
   ]
 }

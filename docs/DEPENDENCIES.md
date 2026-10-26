@@ -11,6 +11,7 @@
 | 参数化字形解码核心 | GNU Arm binutils＋调用者提供页表／原生回调与缓冲 | 可编译独立Thumb1载荷；不等于完整前缀／字宽钩子 |
 | 原版首句显示实验 | Python＋GNU Arm binutils＋精确原版＋自备字形 | 限定首句14个私有字符；没有通用测宽／扫描或完整译文 |
 | 火红学习器生产模块 | Python＋GNU Arm binutils＋固定准备父本／发布件 | 编译96B源码并核对现行2.3依赖；不携带355条译文 |
+| 所选生产渲染组件 | Python＋GNU Arm binutils；只读核对另需精确发布件 | 普通／小字解码、字宽及所选入口匹配；尚缺全局测宽、完整分流与安装编排 |
 | 可选学习器合成CPU测试 | GNU Arm＋C编译器＋本地mGBA开发头／库 | 无ROM/SAV输入，执行ROM/RAM入口；不是设备验收 |
 | 盒子显示汇编载荷 | GNU Arm binutils＋make | 生成独立载荷，不自动安装进ROM |
 | 单字研究实验 | Python＋精确原版BPGJ | 仅实验，不是可游玩汉化 |

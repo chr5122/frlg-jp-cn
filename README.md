@@ -26,6 +26,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 | 准备自己的中文字库 | tools/build_font.py、shared/patches/cn_glyph.s | 自备字形→字库页／字表及参数化ARM7解码核心；尚无原版安装器 |
 | 从原版运行一行显示实验 | tools/build_original_probe.py | 两版首句限定接入；自备字形，无历史父版，不是通用引擎或完整汉化 |
 | 学习器名称的生产读写模块 | firered/tm_names.py、firered/patches/tm_names.s | 与现行火红2.3源码／依赖核对；另有无游戏文件的CPU测试，不是原版完整安装器 |
+| 编译所选生产渲染组件 | tools/renderer_module.py | 两版现用普通／小字解码、字宽及所选入口；分流链与安装编排尚未完整公开 |
 | 编译两版盒子显示包装源码 | firered/patches/、leafgreen/patches/ | 生成ARM7TDMI／Thumb1载荷，不自动安装进未知ROM |
 | 重放指定历史增量 | leafgreen/rebuild_*.py、firered/recap_species_range.py | 严格固定父版与资源；不是当前游戏的统一构建器 |
 | 从原版构建当前完整汉化 | 尚未提供 | 缺失项和推进顺序见依赖与路线图 |
@@ -35,6 +36,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 - [自备字形与解码核心](docs/FONT_PIPELINE.md)：无供体字库的资源接口、编码器连接及尚缺的安装步骤。
 - [原版首句显示实验](docs/ORIGINAL_PROBE.md)：把自备字形接到两版新游戏首句，附严格限制和验证边界。
 - [学习器生产模块](docs/TM_NAMES.md)：现行火红名称读写源码、ABI依赖及合成CPU测试。
+- [生产渲染组件](docs/RENDERING_MODULE.md)：源码编译、精确发布件只读核对及外部依赖。
 - [构建说明](docs/BUILDING.md)：具体工具的参数与适用版本。
 - [路线图](docs/ROADMAP.md)：按成熟功能整理源码，再补当前构建流程。
 - [验证记录](docs/VALIDATION.md)／[设备兼容性](docs/COMPATIBILITY.md)：测试证据和未覆盖范围。
