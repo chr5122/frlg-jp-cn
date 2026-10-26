@@ -1,0 +1,26 @@
+{
+  "name": "SUPPLEMENT_VERIFIED_FIX556",
+  "record_kind": "NEW_EVIDENCE_NOT_EDIT_OF_ORIGINAL_MANIFEST",
+  "input_rom": {
+    "path": "BPGJ_CN_FIX555_WIRELESS_WAIT_FIX_CN.gba",
+    "sha256": "f9a3b7c5b772b9d50e2b36b6970df47fbf125135cc6160425f08acea120d1f41"
+  },
+  "output_rom": {
+    "path": "BPGJ_CN_FIX556_LEAGUE_PUNCT_NATIVE_CN.gba",
+    "sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281"
+  },
+  "evidence": {
+    "method": "LIVE_PARENT_TOKEN_TRANSFORMATION_AND_INDEPENDENT_ARCHIVE_COMPARISON",
+    "original_manifest": "fix556_native_punct_manifest.json",
+    "original_manifest_sha256": "2e07950981f5fb391638d157bb217319013a985a5479e4a32dc879ae3090a294",
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "archive_manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "changed_bytes": 266,
+    "write_ranges": 10,
+    "archived_child_byte_equal": true,
+    "source_and_manifest_old_stream_differ": true,
+    "external_translation_manifest_or_charmap_used": false
+  },
+  "semantic_runtime_tested": false,
+  "clean_original_rebuild": false
+}

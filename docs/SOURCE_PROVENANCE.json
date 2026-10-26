@@ -130,6 +130,21 @@
         "leafgreen/scripts/patch_fix559_save_prompt_cn.py"
       ],
       "changes": "New portable pinned in-memory implementation of control-order and external-manifest replay; no bundled text/map/ROM data; original discovery algorithms not executed."
+    },
+    {
+      "path": "leafgreen/rebuild_layout555_556.py",
+      "sha256": "fdabdc625fc1298e935d96a7e095e7c7528c32425bc10cedb58ffc25781664c4",
+      "origin_files": [
+        {
+          "path": "leafgreen/scripts/patch_fix555_wireless_wait_fix_cn.py",
+          "sha256": "00359403a3c1ce8111c1e93f4265cd4d4a6a5b355bc371641bb0d1424114de93"
+        },
+        {
+          "path": "leafgreen/scripts/patch_fix556_native_punct_cn.py",
+          "sha256": "d361a86e4da8bc51c06767081ef6e7a751e1fa88adc9db47e4225e2579acdfc0"
+        }
+      ],
+      "changes": "New resource-free live-parent token transformations; no translation or charmap required. Uses live pointer preimages rather than stale manifest old_stream fields; fixed parents/output identities; independent archive comparison."
     }
   ]
 }

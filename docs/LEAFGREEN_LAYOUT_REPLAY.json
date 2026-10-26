@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "archive": {
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "archive_member_count": 240,
+    "selected_ROMs": 3,
+    "selected": [
+      {
+        "relative": "BPGJ_CN_FIX554_POKEMON_LEAGUE_WAIT_FIX_CN.gba",
+        "sha256": "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX555_WIRELESS_WAIT_FIX_CN.gba",
+        "sha256": "f9a3b7c5b772b9d50e2b36b6970df47fbf125135cc6160425f08acea120d1f41",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX556_LEAGUE_PUNCT_NATIVE_CN.gba",
+        "sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281",
+        "size": 16777216
+      }
+    ],
+    "extraction_mode": "SELECTED_BLOBS_TO_MEMORY_ONLY_NO_RESTORE"
+  },
+  "public_fix555": {
+    "status": "PASS",
+    "changed_bytes": 177,
+    "write_ranges": 2,
+    "stage": "555",
+    "parent_sha256": "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af",
+    "output_sha256": "f9a3b7c5b772b9d50e2b36b6970df47fbf125135cc6160425f08acea120d1f41",
+    "transformations": [
+      {
+        "source": "0xdc9930",
+        "target": "0xe38180",
+        "old_bytes": 176,
+        "new_bytes": 175,
+        "tokens_changed": 1,
+        "references": 1
+      }
+    ],
+    "method": "LIVE_PARENT_TOKEN_TRANSFORMATION",
+    "requires_external_charmap": false,
+    "requires_translation_manifest": false,
+    "original_discovery_algorithm_replayed": false,
+    "runtime_tested": false
+  },
+  "public_fix556": {
+    "status": "PASS",
+    "changed_bytes": 266,
+    "write_ranges": 10,
+    "stage": "556",
+    "parent_sha256": "f9a3b7c5b772b9d50e2b36b6970df47fbf125135cc6160425f08acea120d1f41",
+    "output_sha256": "094ce52b43ce394db6be2176865261f55153e7af02026c7a2ba305e35d4ca281",
+    "transformations": [
+      {
+        "source": "0xe3805c",
+        "target": "0xe38280",
+        "old_bytes": 75,
+        "new_bytes": 69,
+        "tokens_changed": 3,
+        "references": 2
+      },
+      {
+        "source": "0xe380a8",
+        "target": "0xe382c8",
+        "old_bytes": 209,
+        "new_bytes": 183,
+        "tokens_changed": 13,
+        "references": 6
+      }
+    ],
+    "method": "LIVE_PARENT_TOKEN_TRANSFORMATION",
+    "requires_external_charmap": false,
+    "requires_translation_manifest": false,
+    "original_discovery_algorithm_replayed": false,
+    "runtime_tested": false
+  },
+  "live_FIX555_sources": [
+    "0xe3805c",
+    "0xe380a8"
+  ],
+  "manifest_old_stream_metadata": [
+    "0xe372b8",
+    "0xe37c64"
+  ],
+  "stale_manifest_old_stream_not_used_as_preimage": true,
+  "negative_cases": [
+    "wrong_parent_555",
+    "wrong_parent_556"
+  ],
+  "external_translation_or_charmap_needed": false,
+  "actual_ROMs_selected": 3,
+  "archive_all_payloads_hashed": false,
+  "public_source_sha256": "fdabdc625fc1298e935d96a7e095e7c7528c32425bc10cedb58ffc25781664c4",
+  "inputs_unchanged": true,
+  "ROM_written": false,
+  "save_read": false,
+  "save_written": false,
+  "runtime_tested": false,
+  "complete_clean_original_rebuild": false,
+  "original_manifests_unchanged": true,
+  "old_top_level_scripts_executed": false,
+  "lineage": {
+    "records": 485,
+    "states": {
+      "DECLARED_HASH_EDGE": 369,
+      "NEEDS_SCHEMA_OR_IDENTITY": 116
+    },
+    "ancestors": 28,
+    "frontier": [
+      "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af"
+    ]
+  }
+}

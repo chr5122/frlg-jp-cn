@@ -118,4 +118,23 @@ python3 -B leafgreen/rebuild_557_559.py --stage 559 --parent /path/to/FIX558.gba
 --extra-record docs/lineage_verified/fix557.json --extra-record docs/lineage_verified/fix558.json --extra-record docs/lineage_verified/fix559.json
 ```
 
-这三份是后补验证记录，未回填原始清单。当前严格身份前沿推进到FIX556；仍非从原版开始的完整构建链。
+这些是后补验证记录，未回填原始清单。下方新增555/556两份后，严格身份前沿推进到FIX554；仍非从原版开始的完整构建链。
+
+## FIX555／556：无需外部译文或字表的布局复现
+
+```sh
+python3 -B leafgreen/rebuild_layout555_556.py --stage 555 --parent /path/to/FIX554.gba --compare /path/to/FIX555.gba
+python3 -B leafgreen/rebuild_layout555_556.py --stage 556 --parent /path/to/FIX555.gba --compare /path/to/FIX556.gba
+```
+
+入口读取固定父本的生效指针和完整CN token流：555仅删一处WAIT后的冗余NL；556仅把两条活文本里的16个旧私有标点转换为原生字节。文字、字模和字表均不随工具提供；不会从子版抽取差分。共享解析器保证参数／字形内部碰巧出现的FA、FE等字节不被当成布局符。
+
+只在已核对的历史FF窗重定位，逐个旧指针、源长度、转换次数、目标长度与整枚输出SHA均固定；无写出选项。FIX556原清单的old_stream字段沿用更早版本地址，实际FIX555指针指向另一处；新入口使用真实生效地址0xE3805C／0xE380A8，不把过时元数据当作前像证据。
+
+复现谱系累计需五个补证参数；在上方三个参数后追加：
+
+```sh
+--extra-record docs/lineage_verified/fix555.json --extra-record docs/lineage_verified/fix556.json
+```
+
+555／556独立归档结果见 [布局重放摘要](LEAFGREEN_LAYOUT_REPLAY.json)。固定旧池不等于批准在当前游戏复用；不能应用到现行火红或叶绿R版。
