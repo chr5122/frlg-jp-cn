@@ -24,6 +24,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 | 核对本地ROM身份／读取token | tools/inspect_rom.py | 只读，输入自己合法持有；没有ROM下载 |
 | 直接修改自己的日版原版 | tools/patch_rom.py | 按审核过的字节清单生成新文件；不依赖历史汉化父版，不含完整汉化清单 |
 | 准备自己的中文字库 | tools/build_font.py、shared/patches/cn_glyph.s | 自备字形→字库页／字表及参数化ARM7解码核心；尚无原版安装器 |
+| 从原版运行一行显示实验 | tools/build_original_probe.py | 两版首句限定接入；自备字形，无历史父版，不是通用引擎或完整汉化 |
 | 编译两版盒子显示包装源码 | firered/patches/、leafgreen/patches/ | 生成ARM7TDMI／Thumb1载荷，不自动安装进未知ROM |
 | 重放指定历史增量 | leafgreen/rebuild_*.py、firered/recap_species_range.py | 严格固定父版与资源；不是当前游戏的统一构建器 |
 | 从原版构建当前完整汉化 | 尚未提供 | 缺失项和推进顺序见依赖与路线图 |
@@ -31,6 +32,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 - [依赖与可运行范围](docs/DEPENDENCIES.md)：哪些已具备，哪些还缺资源／接口。
 - [直接修改原版](docs/EDIT_ORIGINAL.md)：双版本固定原版入口、清单格式、写出和验证边界。
 - [自备字形与解码核心](docs/FONT_PIPELINE.md)：无供体字库的资源接口、编码器连接及尚缺的安装步骤。
+- [原版首句显示实验](docs/ORIGINAL_PROBE.md)：把自备字形接到两版新游戏首句，附严格限制和验证边界。
 - [构建说明](docs/BUILDING.md)：具体工具的参数与适用版本。
 - [路线图](docs/ROADMAP.md)：按成熟功能整理源码，再补当前构建流程。
 - [验证记录](docs/VALIDATION.md)／[设备兼容性](docs/COMPATIBILITY.md)：测试证据和未覆盖范围。

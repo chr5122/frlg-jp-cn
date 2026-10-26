@@ -15,6 +15,8 @@ tools/check.py tests/test_check_runner.py
 tools/patch_rom.py shared/frlg/patching.py tests/test_patching.py docs/EDIT_ORIGINAL.md
 tools/build_font.py shared/frlg/font_pack.py shared/patches/cn_glyph.s
 tests/test_font_pack.py docs/FONT_PIPELINE.md
+shared/frlg/original_probe.py shared/patches/cn_original_probe.s
+tools/build_original_probe.py tests/test_original_probe.py docs/ORIGINAL_PROBE.md
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json

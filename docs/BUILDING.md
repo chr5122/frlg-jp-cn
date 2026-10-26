@@ -12,6 +12,8 @@ python3 -B tools/check.py
 
 `tools/inspect_rom.py` 默认只核对 SHA 与大小。需要读取一条流时，另外传 `--offset 0x... --mode jp` 或 `--mode cn`；模式不能省略。未附带字形表，输出 token 而不是伪造中文解码。调用 CFG 解析器时需自行提供经过版本校验的 opcode 宽度表，未知指令不猜长度。
 
+从精确原版运行自备文字，可先使用[首句限定实验](ORIGINAL_PROBE.md)。它不需要历史汉化父版，但没有通用字宽／扫描适配，不能据此构建当前完整汉化。
+
 ## 盒子显示源码（不是完整补丁构建器）
 
 自备字形打包和新增ARM7解码核心见[字库流程](FONT_PIPELINE.md)。make asm现在也生成cn_glyph载荷；示例链接地址不是ROM分配许可，尚无原版引擎安装器。

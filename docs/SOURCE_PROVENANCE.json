@@ -201,6 +201,24 @@
         }
       ],
       "changes": "Parameterize project-owned four-tile algorithm with caller page table, fallback, scratch, metrics and native callback; fixed12x12 interface with aligned stack. No absolute addresses, prefix hook, debug branches or ROM installation; not byte-identical or a complete production-renderer replacement."
+    },
+    {
+      "path": "shared/frlg/original_probe.py",
+      "sha256": "a25af70e0858ad568ee7425d68cca4340ac4b18945e4311a9b7a26beb71ea533",
+      "origin": "New project-owned exact-original first-line experiment builder",
+      "changes": "Independent BPRJ/BPGJ consumer hashes and literals, owned FF-only pool, existing glyph pack/encoder/core, eight-byte dispatch trampoline, strict private line and FF-ID rejection; no historical parent, donor or production baseline mutation."
+    },
+    {
+      "path": "shared/patches/cn_original_probe.s",
+      "sha256": "be659f74b1353f282a8df556b4090b55954bf0dd6bb91efd3c3c412e6e75fbea",
+      "origin": "New project-owned first-line bounded render adapter",
+      "changes": "FontId at template+5, exact whole-RAM-line comparison and current-cursor bounds; otherwise restore original dispatch semantics. No borrowed low font cave, LR-based selector or generic F7 reinterpretation."
+    },
+    {
+      "path": "tools/build_original_probe.py",
+      "sha256": "069764330b0e9b3cbf84c982eeb9e0756c8e9eb0901fd800af18592f093e4a03",
+      "origin": "New project-owned experimental original-ROM CLI",
+      "changes": "Reuse pinned inputs and strict JSON reader; in-memory default, new output only, readback and both inputs unchanged. Explicitly not a complete translation builder."
     }
   ]
 }
