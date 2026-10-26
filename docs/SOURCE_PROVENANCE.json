@@ -219,6 +219,42 @@
       "sha256": "069764330b0e9b3cbf84c982eeb9e0756c8e9eb0901fd800af18592f093e4a03",
       "origin": "New project-owned experimental original-ROM CLI",
       "changes": "Reuse pinned inputs and strict JSON reader; in-memory default, new output only, readback and both inputs unchanged. Explicitly not a complete translation builder."
+    },
+    {
+      "path": "firered/patches/tm_names.s",
+      "sha256": "2da30aade201bd2ea8bf6046de8a532fa5aad74911eb241ed3d47da3d1e023db",
+      "origin": "fr_build0100_tm_direct_routes/routes.s",
+      "changes": "No source changes; exact project-owned production routes retained by formal2.3/BUILD0111. Explicit separate read/write entries; native callbacks and prepared16-byte buffers required."
+    },
+    {
+      "path": "firered/tm_names.py",
+      "sha256": "206a0a6d76ed9395f9e286a95a1363bb4a549f3da0513b9d861d53b23726e9a7",
+      "origin": "Project-owned portable wrapper using BUILD0100 build/verify specifications",
+      "changes": "Compile original production source, verify exact release/prerequisite identities and355fixed names; optional pinned prepared-stage rebuild, no private paths, fonts, translations or full clean-original build."
+    },
+    {
+      "path": "shared/frlg/name_slots.py",
+      "sha256": "3f182bb334aaf19a262f6d97730fc0defb2f0ffccdb7d7890a42ffb9100d9b19",
+      "origin": "New project-owned fixed-name resource boundary",
+      "changes": "Reuse shared encoder/tokenizer for bounded slots; reject controls, empty/long names, invalid glyph range and internalFF incompatible with byte-FF copier. Do not reinterpret padding or certify translation."
+    },
+    {
+      "path": "tools/check_tm_cpu.py",
+      "sha256": "93bdc54059f8a426e44a9e8a7cc889f5dbbff9066e4beeba33ebbc7ada6ff541",
+      "origin": "New project-owned optional synthetic CPU runner",
+      "changes": "Compile exact96-byte module, independent synthetic copy callback and own C matrix; local dependencies only, no game/save input; wrong getter offset must fail CPU checks."
+    },
+    {
+      "path": "tests/tm_cpu.c",
+      "sha256": "0992ba12dda3ec3874b73256b502ba27c193e54e738eafa41498982eaba76fcd",
+      "origin": "New project-owned synthetic mGBA API test, not a game-source port",
+      "changes": "Generated memory ROM, synthetic table/object getter/copier, real96-byte module executed through ROM and RAM veneers; check exact object, callee-saved registers, SP/canaries and getter read-only roles. External mGBA library not bundled."
+    },
+    {
+      "path": "tests/fixtures/tm_copy.s",
+      "sha256": "711b4d1209cde4b9c7e07f77bce641008db771b6985ef56b8e205ba847e9540d",
+      "origin": "New independently authored byte-FF synthetic copy callback",
+      "changes": "Test fixture only; not the original game's StringCopy implementation or a production replacement."
     }
   ]
 }

@@ -17,3 +17,6 @@ asm:
 	$(ARM_PREFIX)as -mcpu=arm7tdmi -mthumb shared/patches/cn_glyph.s -o build/cn_glyph.o
 	$(ARM_PREFIX)ld -Ttext=0x08F00000 -e cn_decode_glyph build/cn_glyph.o -o build/cn_glyph.elf
 	$(ARM_PREFIX)objcopy -O binary build/cn_glyph.elf build/cn_glyph.bin
+	$(ARM_PREFIX)as -mcpu=arm7tdmi -mthumb firered/patches/tm_names.s -o build/tm_names.o
+	$(ARM_PREFIX)ld -Ttext=0x08ED9400 -e forgotten_get build/tm_names.o -o build/tm_names.elf
+	$(ARM_PREFIX)objcopy -O binary --only-section=.text build/tm_names.elf build/tm_names.bin

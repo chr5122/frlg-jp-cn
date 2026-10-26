@@ -17,6 +17,8 @@ tools/build_font.py shared/frlg/font_pack.py shared/patches/cn_glyph.s
 tests/test_font_pack.py docs/FONT_PIPELINE.md
 shared/frlg/original_probe.py shared/patches/cn_original_probe.s
 tools/build_original_probe.py tests/test_original_probe.py docs/ORIGINAL_PROBE.md
+firered/patches/tm_names.s firered/tm_names.py shared/frlg/name_slots.py
+tools/check_tm_cpu.py tests/test_tm_names.py tests/tm_cpu.c tests/fixtures/tm_copy.s docs/TM_NAMES.md
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json

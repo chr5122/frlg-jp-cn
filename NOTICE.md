@@ -14,4 +14,6 @@ GNU Arm 工具链、Python、mGBA 等外部依赖不随仓库分发，各自许�
 
 font_pack.py及cn_glyph.s为项目自有的资源适配／四图块算法整理，复用既有codec和页内布局，不携带原游戏或供体字形。调用者传入字形的source字段只是来源声明，不代表本项目已核验其许可。公开测试和文档示例仅使用项目独立绘制的简单笔画。
 
+firered/patches/tm_names.s原样来自项目BUILD0100的自有routes.s。tests/tm_cpu.c及tm_copy.s是独立编写的合成测试，不含原游戏StringCopy或任何ROM数据；mGBA仅通过调用者本地库链接，库和MPL许可的mGBA源码不随本仓库再分发。当前355条名称仅在调用者文件中校验，未随源码上传或重新许可。
+
 Pokémon 等名称属于各自权利人。发布补丁或技术源码不等于获得原游戏内容的再分发许可。
