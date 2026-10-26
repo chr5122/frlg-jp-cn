@@ -133,7 +133,7 @@
     },
     {
       "path": "leafgreen/rebuild_layout555_556.py",
-      "sha256": "fdabdc625fc1298e935d96a7e095e7c7528c32425bc10cedb58ffc25781664c4",
+      "sha256": "564c7d333331bebea75e422e3248c17a92db78c565264933f5909bbd228acd78",
       "origin_files": [
         {
           "path": "leafgreen/scripts/patch_fix555_wireless_wait_fix_cn.py",
@@ -142,9 +142,24 @@
         {
           "path": "leafgreen/scripts/patch_fix556_native_punct_cn.py",
           "sha256": "d361a86e4da8bc51c06767081ef6e7a751e1fa88adc9db47e4225e2579acdfc0"
+        },
+        {
+          "path": "leafgreen/scripts/patch_fix554_wait_nl_fix_cn.py",
+          "sha256": "d3d1c603719efbf1210abec94819c37f851bbb382f9f7ea2e86dcd6657a89dde"
         }
       ],
-      "changes": "New resource-free live-parent token transformations; no translation or charmap required. Uses live pointer preimages rather than stale manifest old_stream fields; fixed parents/output identities; independent archive comparison."
+      "changes": "Resource-free live-parent token transformations554..556;554 intentionally reproduces the old punctuation regression, later corrected by556. No translations/map bundled; fixed parents/output identities and independent archive comparisons."
+    },
+    {
+      "path": "leafgreen/rebuild_revisions553.py",
+      "sha256": "0bab8f2dddc1d3bc7f48873ca67117c2f60d814ca32e7e540e0b8f47e2472119",
+      "origin_files": [
+        {
+          "path": "leafgreen/scripts/patch_fix553_pokemon_league_revisions_cn.py",
+          "sha256": "9af809b40d74e18f23e8a62d2b0712e3034e6d6eb562a66a9644670a24953bc8"
+        }
+      ],
+      "changes": "New pinned in-memory external-manifest reencoding; full old text, live pointers, FF/guard and output SHA checked. Fixed historical ellipsis/known control adaptation only; shared RAW remains disabled. Original discovery/width algorithms not rerun."
     }
   ]
 }

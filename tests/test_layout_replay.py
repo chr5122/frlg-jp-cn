@@ -16,6 +16,26 @@ replay=importlib.util.module_from_spec(spec);spec.loader.exec_module(replay)
 
 
 class LayoutReplayTests(unittest.TestCase):
+    def test_historical554_regression_is_explicit_and_token_bounded(self):
+        raw=bytes.fromhex('f7fafe fdab ab fa fe b0 ff')
+        got,count=replay.historical554_layout(raw)
+        self.assertEqual(got,bytes.fromhex('f7fafe fdab f70024 fa f70021 ff'))
+        self.assertEqual(count,3)
+        with self.assertRaises(GateError):replay.historical554_layout(b'\xab\xff')
+        parent=bytearray(b'\xff'*replay.SIZE)
+        first=b'\xf7\x00\x01'*21+b'\xab'*3+b'\xfa\xfe\xfe\xff'
+        second=b'\xf7\x00\x01'*55+b'\xb0'*13+b'\xfa\xfe'+b'\xfe'*3+b'\xff'
+        self.assertEqual((len(first),len(second)),(70,184))
+        left=[0x1697D9,0x169818];right=[0x16A2C7,0x16A2D2,0x16A2DD,0x16A2E8,0x16A2F3,0x16A2FE]
+        for slots,source,body in [(left,0xE372B8,first),(right,0xE37C64,second)]:
+            parent[source:source+len(body)]=body
+            for slot in slots:parent[slot:slot+4]=struct.pack('<I',0x08000000+source)
+        expected=bytearray(parent)
+        for slots,target,body in [(left,0xE3805C,first),(right,0xE380A8,second)]:
+            new,n=replay.historical554_layout(body);expected[target:target+len(new)]=new
+            for slot in slots:expected[slot:slot+4]=struct.pack('<I',0x08000000+target)
+        with patch.dict(replay.STAGES,{'554':dict(parent=sha(parent),output=sha(expected))}):
+            self.assertEqual(replay.build(bytes(parent),'554')[0],bytes(expected))
     def test_remove_only_token_boundary_wait_nl(self):
         raw=bytes.fromhex('f700fa fe fdfa fe fa fe ff')
         result,count=replay.without_redundant_nl(raw)

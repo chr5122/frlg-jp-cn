@@ -118,7 +118,7 @@ python3 -B leafgreen/rebuild_557_559.py --stage 559 --parent /path/to/FIX558.gba
 --extra-record docs/lineage_verified/fix557.json --extra-record docs/lineage_verified/fix558.json --extra-record docs/lineage_verified/fix559.json
 ```
 
-这些是后补验证记录，未回填原始清单。下方新增555/556两份后，严格身份前沿推进到FIX554；仍非从原版开始的完整构建链。
+这些是后补验证记录，未回填原始清单。累计七份补证后严格身份前沿到FIX552；仍非从原版开始的完整构建链。
 
 ## FIX555／556：无需外部译文或字表的布局复现
 
@@ -138,3 +138,24 @@ python3 -B leafgreen/rebuild_layout555_556.py --stage 556 --parent /path/to/FIX5
 ```
 
 555／556独立归档结果见 [布局重放摘要](LEAFGREEN_LAYOUT_REPLAY.json)。固定旧池不等于批准在当前游戏复用；不能应用到现行火红或叶绿R版。
+
+## FIX553／554：措辞清单与历史布局回归
+
+```sh
+# FIX552 ->553：本地原清单包含13条译文，仓库不提供：
+python3 -B leafgreen/rebuild_revisions553.py --parent /path/to/FIX552.gba --manifest /path/to/fix553_revisions_manifest.json --charmap /path/to/local-map.csv --compare /path/to/FIX553.gba
+# FIX553 ->554：沿用既有工具文件名，新增固定554入口：
+python3 -B leafgreen/rebuild_layout555_556.py --stage 554 --parent /path/to/FIX553.gba --compare /path/to/FIX554.gba
+```
+
+均无写出选项。553固定父本／原清单／CLI字表／最终SHA；重新编码每条旧全文并与父ROM完整一致后，再验证旧指针、FF及4 B前探、目标边界与新全文。复现历史省略号成对编码，只显式适配当次已知FD01／FD06和FC0B5601，不开放共享编码器的RAW绕过。原脚本的发现条目和旧行宽判据未重跑。
+
+**554会复现历史标点回归**：删掉两处WAIT后冗余NL时，旧编码器把原生标点又转成私有字形。此行为后来由556修正；本入口用于历史字节证明，不是对当前游戏的新修复，不能跳过556后直接当发布版使用。
+
+前述五个补证参数后继续加：
+
+```sh
+--extra-record docs/lineage_verified/fix553.json --extra-record docs/lineage_verified/fix554.json
+```
+
+独立归档比较和方法边界见 [本批摘要](LEAFGREEN_REVISIONS_REPLAY.json)。累计七份后补记录，不回填原清单，严格身份前沿到FIX552。

@@ -1,0 +1,26 @@
+{
+  "name": "SUPPLEMENT_VERIFIED_FIX554",
+  "record_kind": "NEW_EVIDENCE_NOT_EDIT_OF_ORIGINAL_MANIFEST",
+  "input_rom": {
+    "path": "BPGJ_CN_FIX553_POKEMON_LEAGUE_REVISIONS_CN.gba",
+    "sha256": "7c68b4391868e8bf83d0bc15154bea804a6a98d6b1cf9445bd27b53d40fcbaae"
+  },
+  "output_rom": {
+    "path": "BPGJ_CN_FIX554_POKEMON_LEAGUE_WAIT_FIX_CN.gba",
+    "sha256": "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af"
+  },
+  "evidence": {
+    "method": "LIVE_PARENT_TOKEN_TRANSFORMATION",
+    "original_manifest": "fix554_wait_fix_manifest.json",
+    "original_manifest_sha256": "0d3827460d37b1588053a2f611791a4899252052d1fb854c5163c117fb72c7a9",
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "archive_manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "changed_bytes": 298,
+    "write_ranges": 10,
+    "archived_child_byte_equal": true,
+    "external_translation_manifest_or_charmap_used": false,
+    "historical_regression_intentionally_reproduced": true
+  },
+  "semantic_runtime_tested": false,
+  "clean_original_rebuild": false
+}

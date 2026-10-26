@@ -1,21 +1,23 @@
 {
-  "record_count": 485,
+  "record_count": 487,
   "states": {
-    "DECLARED_HASH_EDGE": 369,
+    "DECLARED_HASH_EDGE": 371,
     "NEEDS_SCHEMA_OR_IDENTITY": 116
   },
   "input_states": {
-    "DECLARED_IDENTITY": 385,
+    "DECLARED_IDENTITY": 387,
     "MISSING_ENDPOINT": 75,
     "MISSING_HASH": 25
   },
   "output_states": {
-    "DECLARED_IDENTITY": 392,
+    "DECLARED_IDENTITY": 394,
     "MISSING_ENDPOINT": 89,
     "MISSING_HASH": 4
   },
   "target_sha256": "900b5247f04a30402ae35e3336c398006305efa0b7f01bdc3de1cdc28023c11c",
   "target_declared_ancestry": [
+    "fix555.json",
+    "fix556.json",
     "fix557.json",
     "fix558.json",
     "fix559.json",
@@ -42,20 +44,20 @@
     "fix581_rocket_line_mewtwo_cry_manifest.json",
     "fix582_uscn_chinese_title_logo_manifest.json",
     "fix583_name_choice_hint_report.json",
-    "verified_fix555.json",
-    "verified_fix556.json"
+    "verified_fix553.json",
+    "verified_fix554.json"
   ],
   "target_unresolved_frontier": [
-    "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af"
+    "e2988fb6007b8c752502d7bbc851b0cb329175af5c01326306031671e5696344"
   ],
   "merge_records": 1,
   "evidence_grade": "MANIFEST_DECLARATIONS_WITH_OPTIONAL_FILE_SHA_CHECKS_NOT_BUILD_REPLAY",
   "complete_rebuild_proven": false,
   "json_errors": [],
-  "scanned_files": 485,
+  "scanned_files": 487,
   "artifact_files_hashed": 5,
   "inputs_unchanged": true,
-  "hash_ancestry_boundary": "Five independent supplemental replay records; strict frontier FIX554; no original manifest edits or filename inference.",
+  "hash_ancestry_boundary": "Seven independent supplemental replay records; strict frontier FIX552; no original manifest edits or filename inference.",
   "tail_identity_declarations": [
     {
       "record_id": "fix560_islands47_manifest.json",
@@ -275,7 +277,7 @@
     "runtime_tested": false
   },
   "original_records": 480,
-  "supplemental_records": 5,
+  "supplemental_records": 7,
   "previous_archive_metadata": {
     "rom_members": 172,
     "fix_filename_min": 2,
@@ -285,5 +287,6 @@
   },
   "independent_replay_summary": "LEAFGREEN_ARCHIVE_REPLAY.json",
   "layout_replay_summary": "LEAFGREEN_LAYOUT_REPLAY.json",
-  "supplemental_record_name_note": "Local evidence IDs verified_fix555/556 correspond to public fix555/556 records; identities unchanged."
+  "supplemental_record_name_note": "Local verified_fix553/554 IDs correspond to public fix553/554 records; earlier supplements use their public basenames in the latest scan.",
+  "revisions_replay_summary": "LEAFGREEN_REVISIONS_REPLAY.json"
 }

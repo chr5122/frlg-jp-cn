@@ -14,8 +14,10 @@ docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.js
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json
 docs/LEAFGREEN_ARCHIVE_REPLAY.json
 docs/LEAFGREEN_LAYOUT_REPLAY.json
+docs/LEAFGREEN_REVISIONS_REPLAY.json
 docs/lineage_verified/fix557.json docs/lineage_verified/fix558.json docs/lineage_verified/fix559.json
 docs/lineage_verified/fix555.json docs/lineage_verified/fix556.json
+docs/lineage_verified/fix553.json docs/lineage_verified/fix554.json
 firered/baseline.json firered/patches/recap_boxes.s firered/recap_species_range.py
 leafgreen/baseline.json leafgreen/patches/recap_boxes.s
 leafgreen/experiments/first_glyph.py
@@ -23,6 +25,7 @@ leafgreen/rebuild_1_0_tail.py
 leafgreen/rebuild_merge561.py
 leafgreen/rebuild_557_559.py tests/test_manifest_replay.py
 leafgreen/rebuild_layout555_556.py tests/test_layout_replay.py
+leafgreen/rebuild_revisions553.py tests/test_revisions553.py
 shared/frlg/__init__.py shared/frlg/rom.py shared/frlg/text.py shared/frlg/events.py shared/frlg/script.py
 shared/frlg/encode.py shared/frlg/font_pages.py shared/frlg/glyph_codec.py
 shared/frlg/lineage.py shared/frlg/lz77.py

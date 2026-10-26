@@ -1,4 +1,4 @@
-"""Resource-free reproduction of two fixed LeafGreen layout revisions.
+"""Resource-free reproduction of fixed LeafGreen layout revisions554..556.
 
 Reads the parent's live text tokens, not child bytes or a translation manifest.
 No ROM, charmap, translated body, font or binary diff payload is bundled.
@@ -18,6 +18,8 @@ from frlg.text import exact, read
 
 SIZE = 0x1000000
 STAGES = {
+    '554': dict(parent='7c68b4391868e8bf83d0bc15154bea804a6a98d6b1cf9445bd27b53d40fcbaae',
+        output='638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af'),
     '555': dict(parent='638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af',
         output='f9a3b7c5b772b9d50e2b36b6970df47fbf125135cc6160425f08acea120d1f41'),
     '556': dict(parent='f9a3b7c5b772b9d50e2b36b6970df47fbf125135cc6160425f08acea120d1f41',
@@ -61,6 +63,26 @@ def native_punctuation(raw: bytes):
     return b''.join(parts), converted
 
 
+def historical554_layout(raw: bytes):
+    """Reproduce the old encoder's punctuation regression, NOT a new fix.
+
+    FIX554 removed NL but encoded punctuation as private glyphs again.
+    This exact historical behavior is subsequently corrected by556.
+    """
+    stripped, removed = without_redundant_nl(raw)
+    stream = exact(stripped, 'cn')
+    inverse = {native: b'\xf7' + gid.to_bytes(2, 'big') for gid, native in NATIVE_PUNCT.items()}
+    parts, converted = [], 0
+    for _, kind, token in stream.tokens:
+        if kind == 'glyph' and token in inverse:
+            parts.append(inverse[token])
+            converted += 1
+        else:
+            parts.append(token)
+    require(removed == 1, 'FIX554 must remove exactly one redundant NL per stream')
+    return b''.join(parts), converted + removed
+
+
 def build(parent: bytes, stage: str):
     require(stage in STAGES, 'unsupported stage')
     spec = STAGES[stage]
@@ -84,7 +106,11 @@ def build(parent: bytes, stage: str):
         transformations.append(dict(source=hex(source), target=hex(target), old_bytes=old_size,
             new_bytes=new_size, tokens_changed=n, references=len(slots)))
 
-    if stage == '555':
+    if stage == '554':
+        relocate([0x1697D9, 0x169818], 0xE372B8, 0xE3805C, 70, 75, historical554_layout, 4)
+        relocate([0x16A2C7, 0x16A2D2, 0x16A2DD, 0x16A2E8, 0x16A2F3, 0x16A2FE],
+                 0xE37C64, 0xE380A8, 184, 209, historical554_layout, 14)
+    elif stage == '555':
         relocate([0x18FA6D], 0xDC9930, 0xE38180, 176, 175, without_redundant_nl, 1)
         reference = read(parent, 0xB486C4, 'cn')
         require(reference.status == 'OK', 'native reference copy malformed')

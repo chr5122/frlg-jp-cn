@@ -1,0 +1,111 @@
+{
+  "status": "PASS",
+  "archive": {
+    "archive_sha256": "aa42b0ddcf2a7e79be4d94cca4029b787d9b43eb56225e30a41a3bb561f21cf4",
+    "manifest_sha256": "4c432a7dabdcf5db913a31775546e387e62bb8112cca73b767815842632aa7a7",
+    "archive_member_count": 240,
+    "selected_ROMs": 3,
+    "selected": [
+      {
+        "relative": "BPGJ_CN_FIX552_POKEMON_LEAGUE_CN.gba",
+        "sha256": "e2988fb6007b8c752502d7bbc851b0cb329175af5c01326306031671e5696344",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX553_POKEMON_LEAGUE_REVISIONS_CN.gba",
+        "sha256": "7c68b4391868e8bf83d0bc15154bea804a6a98d6b1cf9445bd27b53d40fcbaae",
+        "size": 16777216
+      },
+      {
+        "relative": "BPGJ_CN_FIX554_POKEMON_LEAGUE_WAIT_FIX_CN.gba",
+        "sha256": "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af",
+        "size": 16777216
+      }
+    ],
+    "extraction_mode": "SELECTED_BLOBS_TO_MEMORY_ONLY_NO_RESTORE"
+  },
+  "public_fix553": {
+    "status": "PASS",
+    "changed_bytes": 3498,
+    "write_ranges": 34,
+    "parent_sha256": "e2988fb6007b8c752502d7bbc851b0cb329175af5c01326306031671e5696344",
+    "output_sha256": "7c68b4391868e8bf83d0bc15154bea804a6a98d6b1cf9445bd27b53d40fcbaae",
+    "entries": 13,
+    "method": "EXTERNAL_MANIFEST_REENCODING_WITH_FULL_OLD_TEXT_AND_POINTER_CHECKS",
+    "manifest_discovery_or_width_checks_replayed": false,
+    "runtime_tested": false
+  },
+  "public_fix554": {
+    "status": "PASS",
+    "changed_bytes": 298,
+    "write_ranges": 10,
+    "stage": "554",
+    "parent_sha256": "7c68b4391868e8bf83d0bc15154bea804a6a98d6b1cf9445bd27b53d40fcbaae",
+    "output_sha256": "638f482e248c5e276670a8b0cad812f2179c2a6b92a2277c36419133608ac2af",
+    "transformations": [
+      {
+        "source": "0xe372b8",
+        "target": "0xe3805c",
+        "old_bytes": 70,
+        "new_bytes": 75,
+        "tokens_changed": 4,
+        "references": 2
+      },
+      {
+        "source": "0xe37c64",
+        "target": "0xe380a8",
+        "old_bytes": 184,
+        "new_bytes": 209,
+        "tokens_changed": 14,
+        "references": 6
+      }
+    ],
+    "method": "LIVE_PARENT_TOKEN_TRANSFORMATION",
+    "requires_external_charmap": false,
+    "requires_translation_manifest": false,
+    "original_discovery_algorithm_replayed": false,
+    "runtime_tested": false
+  },
+  "manifest_entries": 13,
+  "old_text_and_pointer_preimages_checked": true,
+  "external_translation_or_map_published": false,
+  "historical554_wrong_punctuation_reproduced_not_recommended": true,
+  "backup_map_compatible": true,
+  "backup_original_snapshot_proven": false,
+  "negative_cases": [
+    "bad_parent",
+    "bad_manifest",
+    "wrong_used_gid"
+  ],
+  "actual_ROMs_selected": 3,
+  "archive_all_payloads_hashed": false,
+  "ROM_written": false,
+  "save_read": false,
+  "save_written": false,
+  "inputs_unchanged": true,
+  "original_manifests_unchanged": true,
+  "old_top_level_scripts_executed": false,
+  "runtime_tested": false,
+  "complete_clean_original_rebuild": false,
+  "public_sources": [
+    {
+      "path": "leafgreen/rebuild_revisions553.py",
+      "sha256": "0bab8f2dddc1d3bc7f48873ca67117c2f60d814ca32e7e540e0b8f47e2472119"
+    },
+    {
+      "path": "leafgreen/rebuild_layout555_556.py",
+      "sha256": "564c7d333331bebea75e422e3248c17a92db78c565264933f5909bbd228acd78"
+    }
+  ],
+  "lineage": {
+    "records": 487,
+    "states": {
+      "DECLARED_HASH_EDGE": 371,
+      "NEEDS_SCHEMA_OR_IDENTITY": 116
+    },
+    "ancestors": 30,
+    "frontier": [
+      "e2988fb6007b8c752502d7bbc851b0cb329175af5c01326306031671e5696344"
+    ]
+  }
+}
