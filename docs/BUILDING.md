@@ -1,17 +1,20 @@
 # 使用与构建
 
+第一次使用请先看[开始使用](GETTING_STARTED.md)和[依赖表](DEPENDENCIES.md)。本页是具体入口参考；历史FIX部分不是要求按编号执行的当前构建流程。项目主线见[路线图](ROADMAP.md)，暂无“原版→当前完整汉化”的统一命令。
+
 ## 公共 Python 工具
 
 在仓库根运行：
 
 ```sh
-PYTHONPATH=shared python3 -B -m unittest discover -s tests -v
-python3 -B tools/check_publication.py
+python3 -B tools/check.py
 ```
 
 `tools/inspect_rom.py` 默认只核对 SHA 与大小。需要读取一条流时，另外传 `--offset 0x... --mode jp` 或 `--mode cn`；模式不能省略。未附带字形表，输出 token 而不是伪造中文解码。调用 CFG 解析器时需自行提供经过版本校验的 opcode 宽度表，未知指令不猜长度。
 
 ## 盒子显示源码（不是完整补丁构建器）
+
+自备字形打包和新增ARM7解码核心见[字库流程](FONT_PIPELINE.md)。make asm现在也生成cn_glyph载荷；示例链接地址不是ROM分配许可，尚无原版引擎安装器。
 
 安装 GNU Arm binutils 后，可把两份自有汇编构建为独立代码载荷：
 
@@ -61,6 +64,8 @@ PYTHONPATH=shared python3 -B -m frlg.encode --charmap /path/to/local-map.csv --t
 没有分配的字符、重复 Unicode／gid、未知 token、END 后内容和 RAW 字节绕过均拒绝。`font_pages.py` 只计算历史页表范围，不负责批准新资源分配；不得将其常量当作完整台账。
 
 ## 叶绿1.0末端重建（不是从原版开始）
+
+从这里起主要是历史复现参考，普通工具开发无需先执行。严格输入版本、素材依赖及历史错误警示仍适用，不应串联猜测当前版本构建顺序。
 
 用户需自行提供精确父本与本地字表。默认只在内存中重建并检查最终SHA：
 

@@ -1,48 +1,59 @@
 # 日版火红／叶绿汉化 · FRLG JP→CN
 
-火红和叶绿共用的开源仓库。这里发布经过整理的项目自有工具、部分显示修复源码和技术文档，自有代码采用 [MIT](LICENSE) 许可证。
+火红和叶绿共用的开源工具与部分汉化修复源码，自有代码／文档采用[MIT](LICENSE)许可。项目为非官方技术项目。
 
-**这是首批源码公开，不是完整 2.2.2 构建包。** 当前不包含 ROM、存档、原游戏素材、完整译文、字库或第三方反编译工程；仅凭本仓库和原版 ROM，暂时不能重建完整汉化版。尚未公开的依赖和原因见 [公开范围](docs/PUBLICATION_SCOPE.md)。不提供 ROM 下载，也不接受通过 issue 上传 ROM／存档。
+**当前可以直接运行工具测试，尚不能只凭本仓库和原版ROM构建完整汉化。** 不提供ROM下载，不包含存档、完整译文、字库、游戏图块或第三方反编译工程。具体边界见[公开范围](docs/PUBLICATION_SCOPE.md)。
 
-## 已公开内容
+## 快速开始
 
-- `shared/frlg/`：从项目执行框架抽出的公共核心：固定 SHA 身份门禁、指针／范围检查、差分白名单、JP/CN 显式 token 解析、地图事件结构与脚本控制流走查。
-- `firered/patches/`、`leafgreen/patches/`：两版冒险回顾盒子名称的独立入口 ARM7TDMI／Thumb1 包装源码。
-- `firered/recap_species_range.py`：火红 BUILD0107→0108 的物种范围修复，固定父版身份、默认只验证、不覆盖输入。
-- 两版 2.2.2 的 SHA-256 记录、合成反例测试、发布内容检查和 CI。
-- 从叶绿汉化起点整理的编码器、字库页表／source codec，以及不需要供体资源的单字实验。源头证据与尚未闭合的构建区段见 [叶绿起源追溯](docs/LEAFGREEN_ORIGIN.md)。
-- 叶绿历史构建记录的只读适配器、[1.0构建链调查](docs/LEAFGREEN_1_0_LINEAGE.md)，以及固定父本的FIX553～559、FIX561合并与FIX582→最终1.0复现入口。FIX554～557只需精确父版；FIX553、558、559的译文清单和字表仍需用户本地提供。
-- 独立历史归档补证：上述十个步骤已用本地独立父／子ROM作整枚比较，不按编号猜父本，也不把局部重放称为原版到完整汉化。FIX554仅复现后来被修正的旧标点错误，不是现行补丁。公开CI仍只使用合成数据。
-
-## 快速验证
-
-需要 Python 3.10 或更新版本；公共 Python 工具只依赖标准库。
+需要Python 3.10或更新版本。纯Python部分仅用标准库，无需pip、make、模拟器或游戏文件：
 
 ```sh
-PYTHONPATH=shared python3 -B -m unittest discover -s tests -v
-python3 -B tools/check_publication.py
-python3 -B tools/inspect_rom.py --help
+git clone https://github.com/chr5122/frlg-jp-cn.git
+cd frlg-jp-cn
+python3 -B tools/check.py
 ```
 
-核对自己合法持有的文件（只读）：
+Windows可将python3替换为python。检查入口先跑合成测试，再检查发布文件和私人信息；失败返回非零，不上传任何内容。完整入门与无素材示例见[开始使用](docs/GETTING_STARTED.md)。
 
-```sh
-python3 -B tools/inspect_rom.py --manifest firered/baseline.json --kind release --rom /path/to/local.gba
-```
+## 你可以做什么
 
-汇编与增量修复的准确使用范围见 [构建说明](docs/BUILDING.md)，本次实际运行结果见 [验证记录](docs/VALIDATION.md)。测试不需要任何游戏文件；CI 不上传或下载游戏文件。
+| 目标 | 入口 | 范围 |
+|---|---|---|
+| 学习／改进解析和验证工具 | shared/frlg/、tests/ | token、指针、事件、脚本、编码、字模codec等；需显式输入模式 |
+| 核对本地ROM身份／读取token | tools/inspect_rom.py | 只读，输入自己合法持有；没有ROM下载 |
+| 直接修改自己的日版原版 | tools/patch_rom.py | 按审核过的字节清单生成新文件；不依赖历史汉化父版，不含完整汉化清单 |
+| 准备自己的中文字库 | tools/build_font.py、shared/patches/cn_glyph.s | 自备字形→字库页／字表及参数化ARM7解码核心；尚无原版安装器 |
+| 编译两版盒子显示包装源码 | firered/patches/、leafgreen/patches/ | 生成ARM7TDMI／Thumb1载荷，不自动安装进未知ROM |
+| 重放指定历史增量 | leafgreen/rebuild_*.py、firered/recap_species_range.py | 严格固定父版与资源；不是当前游戏的统一构建器 |
+| 从原版构建当前完整汉化 | 尚未提供 | 缺失项和推进顺序见依赖与路线图 |
 
-## 版本与兼容性
+- [依赖与可运行范围](docs/DEPENDENCIES.md)：哪些已具备，哪些还缺资源／接口。
+- [直接修改原版](docs/EDIT_ORIGINAL.md)：双版本固定原版入口、清单格式、写出和验证边界。
+- [自备字形与解码核心](docs/FONT_PIPELINE.md)：无供体字库的资源接口、编码器连接及尚缺的安装步骤。
+- [构建说明](docs/BUILDING.md)：具体工具的参数与适用版本。
+- [路线图](docs/ROADMAP.md)：按成熟功能整理源码，再补当前构建流程。
+- [验证记录](docs/VALIDATION.md)／[设备兼容性](docs/COMPATIBILITY.md)：测试证据和未覆盖范围。
 
-| 游戏 | 本次源码整理对应的正式版本 | ROM SHA-256 |
+## 项目方向
+
+优先让贡献者能看懂、运行和改进现有功能；随后整理当前版本所需的最小构建流程与外部资源接口。**不再把逐个倒查旧FIX作为开源前置条件。**
+
+既有[叶绿起源](docs/LEAFGREEN_ORIGIN.md)和[1.0历史调查](docs/LEAFGREEN_1_0_LINEAGE.md)保留作按需参考，不是普通使用者必须依次完成的教程，也不是最新游戏构建指南。部分历史入口会复现当时已知错误，文档已有警示，不能直接作为现行补丁使用。
+
+## 源码快照与游戏版本分开
+
+当前公开盒子显示源码和baseline.json最初核验的历史快照如下；**这不是最新游戏版本列表**，游戏后续更新不会自动改变已有工具的适用SHA：
+
+| 游戏 | 公开代码的历史验证快照 | ROM SHA-256 |
 |---|---|---|
 | 火红日版 | 2.2.2 / BUILD0109 | `807c995fb637e7decc86566cf43a56e0d571d8a15a3cbcad2de81229e8bbd669` |
 | 叶绿日版 | 2.2.2 / R87 | `69bf635f1936846aa4fbf320ecf8c5579b681451c20644902608751c597f3f33` |
 
-这里的游戏版本号不是公共工具的版本号，也不意味着完整源码链已公开。GBARunner3 的镜像执行约束、设备验证边界以及未覆盖内容见 [兼容性](docs/COMPATIBILITY.md)。**不宣称全游戏、全部联机或 NDSL＋GBARunner3 已验证。**
+合成测试通过不代表全游戏、全部联机或NDSL＋GBARunner3通过。不要修改预期SHA来让不适用的ROM强行通过。
 
 ## 参与贡献
 
-请先读 [贡献约定](CONTRIBUTING.md) 和 [权利与来源说明](NOTICE.md)。优先事项：补齐可独立复现的源码依赖链、核清字库与译文授权、增加消费者证据与硬件回归，而不是增加未经验证的“全部通过”统计。
+先读[贡献约定](CONTRIBUTING.md)。欢迎小范围bug修复、合成反例、易用性和文档改进；问题、功能建议、PR均有模板。报告只写版本／SHA／步骤和脱敏日志，不上传ROM、SAV、即时存档、译文包或字库。
 
-本项目为非官方技术项目，与任天堂、Game Freak、The Pokémon Company 无隶属或授权关系。MIT 仅覆盖仓库中有权许可的自有代码和文档，不授予游戏、商标或未包含素材的权利。
+MIT仅覆盖有权许可的自有代码／文档，不授予游戏、商标或未包含素材的权利。[来源与权利说明](NOTICE.md)记录第三方参考和未核清依赖。本项目与任天堂、Game Freak、The Pokémon Company无隶属或授权关系。

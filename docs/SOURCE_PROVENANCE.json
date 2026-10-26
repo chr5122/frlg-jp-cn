@@ -160,6 +160,47 @@
         }
       ],
       "changes": "New pinned in-memory external-manifest reencoding; full old text, live pointers, FF/guard and output SHA checked. Fixed historical ellipsis/known control adaptation only; shared RAW remains disabled. Original discovery/width algorithms not rerun."
+    },
+    {
+      "path": "tools/check.py",
+      "sha256": "35d4a318965296deb3bc62a5b62976d2cd54f98bec2a552065d628f5233a34e0",
+      "origin": "New project-owned standard-library check runner",
+      "changes": "Portable active-Python test/publication sequence with fixed repository cwd; no make, pip, network or game assets; preserve failure codes and caller environment."
+    },
+    {
+      "path": "shared/frlg/patching.py",
+      "sha256": "75002a1b17db09c7cfd42a6b136765a55e5abee20d882f250787ae42f2ebc599",
+      "origin": "New project-owned exact-input byte recipe adapter",
+      "changes": "Reuse rom.py identity, bounds and difference verification; strict schema, bounded protected ranges and final output identity. No game payload or complete translation recipe."
+    },
+    {
+      "path": "tools/patch_rom.py",
+      "sha256": "69bcc6d17e2cff426a352b6f17ce4cee2c680f7d76eb8506cced0a5b377151f2",
+      "origin": "New project-owned original-ROM CLI",
+      "changes": "Pinned BPRJ/BPGJ Rev0 inputs; duplicate JSON rejection, dry run by default, exclusive new output, readback and unchanged-input checks."
+    },
+    {
+      "path": "shared/frlg/font_pack.py",
+      "sha256": "e3d5a476868576fc8271b4085f0bf84530452e31d020a9644adf80ad70b1ec77",
+      "origin": "New project-owned caller-pixel resource adapter",
+      "changes": "Reuse public glyph_codec and page layout; private glyph inputs only, deterministic pages and allocated charmap, reject ink outside12x12. No donor font or ROM allocation."
+    },
+    {
+      "path": "tools/build_font.py",
+      "sha256": "4fd19d04c81d9484997d551edd8281ee093b1bfeab7ea620a9b8c18e760b3e78",
+      "origin": "New project-owned pixel JSON compiler CLI",
+      "changes": "Reuse duplicate-field JSON gate; dry run or new directory with artifact identities and readback. Never reads/writes ROM or certifies caller resource permissions."
+    },
+    {
+      "path": "shared/patches/cn_glyph.s",
+      "sha256": "50eb4831cf9bb71717699349fffd105f2e6f90a6be27376765fa80847f8fa8be",
+      "origin_files": [
+        {
+          "path": "leafgreen/scripts/mvp08_chinese_hook.s",
+          "sha256": "4a511aeadd5e86b381a8867ae1561ceccaf6f7426fc73bc9aad17c61852db7b4"
+        }
+      ],
+      "changes": "Parameterize project-owned four-tile algorithm with caller page table, fallback, scratch, metrics and native callback; fixed12x12 interface with aligned stack. No absolute addresses, prefix hook, debug branches or ROM installation; not byte-identical or a complete production-renderer replacement."
     }
   ]
 }

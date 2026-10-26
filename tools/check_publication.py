@@ -9,6 +9,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = frozenset("""
 .gitignore .github/workflows/check.yml LICENSE README.md NOTICE.md CONTRIBUTING.md Makefile
+.github/ISSUE_TEMPLATE/bug_report.md .github/ISSUE_TEMPLATE/feature_request.md .github/pull_request_template.md
+docs/GETTING_STARTED.md docs/DEPENDENCIES.md docs/ROADMAP.md
+tools/check.py tests/test_check_runner.py
+tools/patch_rom.py shared/frlg/patching.py tests/test_patching.py docs/EDIT_ORIGINAL.md
+tools/build_font.py shared/frlg/font_pack.py shared/patches/cn_glyph.s
+tests/test_font_pack.py docs/FONT_PIPELINE.md
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json
