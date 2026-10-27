@@ -10,12 +10,8 @@ from .glyph_codec import encode_tile
 from .rom import GateError, number, sha
 
 
-def build_font(document: dict):
-    """Build address-independent pages and a charmap for the full 12x12 decoder.
-
-    Pixel canvas is 16x16, but ink outside the 12x12 drawing area is rejected.
-    Addresses and ROM allocation are deliberately not inferred here.
-    """
+def _validated_glyphs(document: dict, *, extra_keys=(), width=12, height=12):
+    """Validate common input once for both production layouts."""
     if not isinstance(document, dict) or set(document) != {"schema", "source", "glyphs"}:
         raise GateError("font input requires schema/source/glyphs")
     if type(document["schema"]) is not int or document["schema"] != 1:
@@ -25,10 +21,10 @@ def build_font(document: dict):
     glyphs = document["glyphs"]
     if not isinstance(glyphs, list) or not 1 <= len(glyphs) <= MAX_GID + 1:
         raise GateError("nonempty bounded glyph list required")
-    pages, records, characters, ids = {}, [], set(), set()
+    records, characters, ids = [], set(), set()
     for glyph in glyphs:
-        if not isinstance(glyph, dict) or set(glyph) != {"unicode", "glyph_id", "pixels"}:
-            raise GateError("glyph requires unicode/glyph_id/pixels")
+        if not isinstance(glyph, dict) or set(glyph) != {"unicode", "glyph_id", "pixels", *extra_keys}:
+            raise GateError("glyph has missing or unexpected fields")
         character, pixels = glyph["unicode"], glyph["pixels"]
         if (not isinstance(character, str) or len(character) != 1 or
                 ord(character) < 32 or ord(character) == 127 or
@@ -44,23 +40,39 @@ def build_font(document: dict):
             for x, pixel in enumerate(row):
                 if type(pixel) is not int or not 0 <= pixel <= 2:
                     raise GateError("pixels must be integer source values 0..2")
-                if (x >= 12 or y >= 12) and pixel != 0:
-                    raise GateError("ink outside 12x12 would be clipped by the decoder")
+                if (x >= width or y >= height) and pixel != 0:
+                    raise GateError(f"ink outside {width}x{height} would be clipped by the decoder")
+        records.append((gid, character, pixels, glyph))
+        ids.add(gid)
+        characters.add(character)
+    return records
+
+
+def _charmap(records):
+    table = io.StringIO(newline="")
+    writer = csv.writer(table, lineterminator="\n")
+    writer.writerow(("unicode", "glyph_id", "status"))
+    for gid, character, *_ in sorted(records, key=lambda item: item[0]):
+        writer.writerow((character, f"0x{gid:04X}", "allocated"))
+    return table.getvalue().encode("utf8")
+
+
+def build_font(document: dict):
+    """Build address-independent pages and a charmap for the full 12x12 decoder.
+
+    Pixel canvas is 16x16, but ink outside the 12x12 drawing area is rejected.
+    Addresses and ROM allocation are deliberately not inferred here.
+    """
+    records = _validated_glyphs(document)
+    pages = {}
+    for gid, character, pixels, glyph in records:
         page = pages.setdefault(gid >> 8, bytearray(b"\xff" * PAGE_SPAN))
         slot = glyph_slot_in_page(gid & 255)
         for off, x, y in ((0, 0, 0), (0x10, 8, 0), (0x100, 0, 8), (0x110, 8, 8)):
             page[slot + off:slot + off + 16] = encode_tile(pixels, x, y)
-        records.append((gid, character))
-        ids.add(gid)
-        characters.add(character)
-    table = io.StringIO(newline="")
-    writer = csv.writer(table, lineterminator="\n")
-    writer.writerow(("unicode", "glyph_id", "status"))
-    for gid, character in sorted(records):
-        writer.writerow((character, f"0x{gid:04X}", "allocated"))
     artifacts = {f"page_{page:02X}.bin": bytes(data) for page, data in sorted(pages.items())}
     artifacts["blank_page.bin"] = b"\xff" * PAGE_SPAN
-    artifacts["charmap.csv"] = table.getvalue().encode("utf8")
+    artifacts["charmap.csv"] = _charmap(records)
     # Counts/identities only: the private source attribution stays in the caller's input.
     report = dict(schema=1, glyph_count=len(records), pages=sorted(pages),
                   max_gid=MAX_GID, page_span=PAGE_SPAN, width=12, height=12,

@@ -181,9 +181,9 @@
     },
     {
       "path": "shared/frlg/font_pack.py",
-      "sha256": "e3d5a476868576fc8271b4085f0bf84530452e31d020a9644adf80ad70b1ec77",
+      "sha256": "386adccf5a34cf3a3cb821b2a724d549d25421a8b675d935615b644bfb9138d2",
       "origin": "New project-owned caller-pixel resource adapter",
-      "changes": "Reuse public glyph_codec and page layout; private glyph inputs only, deterministic pages and allocated charmap, reject ink outside12x12. No donor font or ROM allocation."
+      "changes": "Reuse public glyph_codec and page layout; private glyph inputs only, deterministic pages and allocated charmap, reject ink outside12x12. No donor font or ROM allocation. 2026-10-27: share input/charmap validation with small-font packer; ordinary layout and output unchanged."
     },
     {
       "path": "tools/build_font.py",
@@ -376,6 +376,42 @@
       "sha256": "61f0fe676c61d4c02100a8145dd38d00ee0b4dc2459ea362896cd9661c7b58d4",
       "origin": "New project-owned generated-memory repair tests",
       "changes": "Six synthetic methods test identities, native proof, source/result guards and CLI dry-run/new-output/no-overwrite; no real ROM/save input."
+    },
+    {
+      "path": "shared/frlg/small_font_pack.py",
+      "sha256": "771053fae4c5d7c09cf353be9126d5079b5767a56f37dfa14bd425ffc687fddd",
+      "origin": "New project-owned small-font resource adapter",
+      "changes": "Reuses shared validation, codec and glyph limits; contiguous four-tile small slots, width table, optional exact normal map pairing; caller-owned pixels only."
+    },
+    {
+      "path": "tools/build_small_font.py",
+      "sha256": "3209e8415399608e1fc87237a5f692594fa4254230bb8cbe41e1bd517230ffa6",
+      "origin": "New project-owned external-pixel CLI",
+      "changes": "Duplicate-JSON gate, optional exact pairing, input unchanged checks, in-memory default and new directory/readback; no ROM access."
+    },
+    {
+      "path": "tests/test_small_font_pack.py",
+      "sha256": "8b6f0b02e4fda0854b1c9d36dc2ad0aff95e109bfa4627ee1f49035ffdcb4d09",
+      "origin": "New independently authored synthetic input tests",
+      "changes": "Roundtrip tile geometry, width and glyph-page boundaries, input negatives, normal map pairing, CLI and optional synthetic CPU execution."
+    },
+    {
+      "path": "tests/fixtures/small_tile_copy.s",
+      "sha256": "a120731ea8472d1497dd7abdb37b772b57bcd11120bfda084cf7f22b0d602cf8",
+      "origin": "New independently authored synthetic tile callback",
+      "changes": "Copies one source tile for synthetic CPU checks; not the original native decompressor."
+    },
+    {
+      "path": "tests/small_font_cpu.c",
+      "sha256": "5d96442f3771626279527542ae6d66339d9fadf805e97dc507b1e55ba9f4ff5a",
+      "origin": "New independently authored mGBA synthetic CPU harness",
+      "changes": "Generated memory only; executes current small decoder in ROM and RAM, tests tiles, metrics, fallback and ABI. No game, save or donor font."
+    },
+    {
+      "path": "tools/check_small_font_cpu.py",
+      "sha256": "26aad9c76939bcce4d21b502635a219c8878468d2b148e45c7bf05d155669cf3",
+      "origin": "New project-owned optional CPU runner",
+      "changes": "Generates independent test pixels and tile expectation, compiles own fixture and current small decoder; corrupt tile must fail."
     }
   ]
 }

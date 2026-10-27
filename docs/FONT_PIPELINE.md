@@ -1,6 +1,6 @@
 # 自备字形→字库页／字表→解码核心
 
-这批把中文显示的资源依赖拆出来：调用者可以使用自己绘制或有明确许可的字形，不必提供历史汉化ROM或美版汉化供体。
+这批把中文显示的资源依赖拆出来：调用者可以使用自己绘制或有明确许可的字形，不必提供历史汉化ROM或美版汉化供体。另可生成独立小字页和宽度表，并核对普通／小字编号是否一致。
 
 **当前不是通用原版中文引擎安装器。** 打包器不读取ROM，汇编只生成可调用的解码核心；另有[两版首句限定实验](ORIGINAL_PROBE.md)，但通用前缀接入、私有码字宽／占位符扫描和完整译文编排仍未完成。不能把生成的字库或代码直接复制到任意原版地址就算安装完成。
 
@@ -44,6 +44,28 @@ PYTHONPATH=shared python3 -B -m frlg.encode --charmap build/my_font/charmap.csv 
 ```
 
 示例ID0x0100预期为f70100adff。生成的私有F7流**仍不能直接交给未安装对应解析器的原版**。
+
+## 自备小字和普通字编号配对
+
+小字需要调用者独立绘制的16×16像素矩阵，每项在普通字输入字段之外再提供整数`width`（0～16），表示该字的水平前进宽度。非零像素须位于x < width、y < 13；宽度0仅可用于无墨迹字形。这个打包约束防止截断和占用下一个字符的位置；它不是对所有历史字模的兼容性保证。
+
+下面用前述独立测试笔画演示流程；复制普通字笔画只是合成样例，实际小字应根据显示效果单独绘制：
+
+```sh
+python3 -c 'import json; d=json.load(open("build/my_glyphs.json")); [g.update(width=10) for g in d["glyphs"]]; print(json.dumps(d,ensure_ascii=False))' > build/my_small_glyphs.json
+python3 -B tools/build_small_font.py --glyphs build/my_small_glyphs.json --normal-charmap build/my_font/charmap.csv
+python3 -B tools/build_small_font.py --glyphs build/my_small_glyphs.json --normal-charmap build/my_font/charmap.csv --output-dir build/my_small_font
+```
+
+提供`--normal-charmap`时，字符集合及每个glyph ID必须与小字**完全一致**；缺字、增字或编号不一致均拒绝。省略该参数可以独立打包，但结果明确标为`UNVERIFIED`，不能称为已与普通字体配对。两份输入的来源／许可由调用者负责。
+
+生成的`page_XX.bin`每页0x4000字节：一个小字连续占64字节，四个16字节图块依次为左上、右上、左下、右下，槽偏移为`(gid & 255) * 64`。这与普通字页内的分块排列不同，不能互换。`widths.bin`为0xB00字节，按完整gid索引；未分配项为0，是否分配以`charmap.csv`为准。`blank_page.bin`、各页及字符表的身份记录在清单中；缺页的指针须由后续安装器绑定空白页。
+
+工具不设置ROM地址、不安装代码、不读取现有字库或存档；新目录和输出只含调用者输入生成的字形。它不能替代字体分流、按实际消费者选字库，以及完整生产安装流程。
+
+可选本地mGBA开发库、GNU Arm工具和C编译器时，`python3 -B tools/check_small_font_cpu.py --mgba-prefix /path/to/local-mgba-prefix`会用自绘测试字执行现行小字解码代码，覆盖ROM及RAM中的代码入口、页边界、字宽、回退和损坏图块反例。原生图块解压由独立合成回调替代；这不等于游戏画面或GBARunner3设备验收。
+
+对照原版解码时，两版原生图块例程使用的lookup表地址不同：火红日版Rev0为文件偏移0x1CDF40，叶绿日版Rev0为0x1CDF1C。`glyph_codec.py`的默认偏移是叶绿，使用火红时应传入经本版ROM身份与原生例程确认的`lookup_offset`。两版原版均已只读核对81种合法四像素行及FF空白；这不是实际窗口显示验收。
 
 ## ARM7可调用解码核心
 
