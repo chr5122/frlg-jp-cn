@@ -300,9 +300,9 @@
     },
     {
       "path": "shared/frlg/rendering.py",
-      "sha256": "3014be1394b1f3ef82e34411f867337b3aaea979a080256680346a9eb88df8e0",
+      "sha256": "101b50748be610da15e59dd036dc6dcc2c3e2da623310a7afdc37de6330a602e",
       "origin": "New project-owned selected-component compiler and read-only release verifier",
-      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix."
+      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. R90 candidate: require explicit native-fallback parameter; frozen R89 still binds unsafe legacy target, independent repair binds original BPGJ handler."
     },
     {
       "path": "tools/renderer_module.py",
@@ -339,9 +339,9 @@
     },
     {
       "path": "leafgreen/patches/width_scanners.s",
-      "sha256": "abbb9a45e4459c21cc69c890e8cb6f4a6d5ea91ed309dd175a589569ac09e371",
+      "sha256": "53f0dd113fb9c965a2d28ab1c15a97fae781ee80a295a7098074b08a3d9e5f5b",
       "origin": "leafgreen/scripts/f7_pc_bag_item_width_hook.s",
-      "changes": "Fold current BL/alias helper from owned FIX394 logic, preserve overwritten code layout and native0x08005E29 fallback. Explicit known issue, not a safety endorsement.",
+      "changes": "Fold current BL/alias helper from owned FIX394 logic, preserve overwritten code layout and native0x08005E29 fallback. Explicit known issue, not a safety endorsement. R90 candidate: require explicit native-fallback parameter; frozen R89 still binds unsafe legacy target, independent repair binds original BPGJ handler.",
       "original_file_sha256": "2d6b03949a840b22cd93dfa1a2d6b2a08adf3436625887b763f3b1837de3a511",
       "helper_origin_file_sha256": "96220be70fc872d83271d9ca41f743b2c5d58793d7e465fc4660d7cc7c3078c5"
     },
@@ -364,6 +364,18 @@
       "sha256": "50bb13996770f80a45d9d3ae00716cacbb7db6a874420672319fe3ef64c08c4b",
       "origin": "New project-owned optional CPU test runner",
       "changes": "Compile exact selected production components, local C/mGBA and two independent incorrect-width CPU rejection runs; no game/font/save input."
+    },
+    {
+      "path": "leafgreen/width_fallback.py",
+      "sha256": "479d63fab716f14960fe58835f29453af30497daac9cbb9cab6f7329ef0bbb4a",
+      "origin": "New project-owned pinned R89/native-table repair adapter",
+      "changes": "Exact two inputs, compare real native continuation, one-byte/full-image specification, compile corrected source, fixed output SHA, in-memory default or new output only. No asset payload or promotion/upload."
+    },
+    {
+      "path": "tests/test_width_fallback.py",
+      "sha256": "61f0fe676c61d4c02100a8145dd38d00ee0b4dc2459ea362896cd9661c7b58d4",
+      "origin": "New project-owned generated-memory repair tests",
+      "changes": "Six synthetic methods test identities, native proof, source/result guards and CLI dry-run/new-output/no-overwrite; no real ROM/save input."
     }
   ]
 }

@@ -65,7 +65,8 @@ def compile_components(profile: str, *, arm_prefix="arm-none-eabi-"):
     if p["prefix_bx"]:
         specifications.extend([
             ("scanners",p["scanners"],"leafgreen/patches/width_scanners.s",
-             dict(CN_FONT_MAX_GID=font_pages.MAX_GID,SMALL_FULL10=1,COPY1_FULL10=1,PRIVATE_FULL12=1)),
+             dict(CN_FONT_MAX_GID=font_pages.MAX_GID,SMALL_FULL10=1,COPY1_FULL10=1,PRIVATE_FULL12=1,
+                  NATIVE_VARIABLE_FALLBACK=0x08005E29)),
             ("secondary_gate",p["secondary_gate"],"leafgreen/patches/units_font_gate.s",
              dict(SLOT_START=0x08E07500,SLOT_END=0x08E07530,OLD_GATE=p["secondary_tail"]))])
     else:

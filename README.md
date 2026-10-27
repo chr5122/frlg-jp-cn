@@ -27,6 +27,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 | 从原版运行一行显示实验 | tools/build_original_probe.py | 两版首句限定接入；自备字形，无历史父版，不是通用引擎或完整汉化 |
 | 学习器名称的生产读写模块 | firered/tm_names.py、firered/patches/tm_names.s | 与现行火红2.3源码／依赖核对；另有无游戏文件的CPU测试，不是原版完整安装器 |
 | 编译所选生产渲染组件 | tools/renderer_module.py | 普通／小字解码、F7测宽分派及所选字体入口；保留叶绿已知回退隐患，非完整安装器 |
+| 修复叶绿R89的F7回退 | leafgreen/width_fallback.py | 精确R89＋日版原版，生成独立R90候选；1字节修改，不晋升、不上传 |
 | 编译两版盒子显示包装源码 | firered/patches/、leafgreen/patches/ | 生成ARM7TDMI／Thumb1载荷，不自动安装进未知ROM |
 | 重放指定历史增量 | leafgreen/rebuild_*.py、firered/recap_species_range.py | 严格固定父版与资源；不是当前游戏的统一构建器 |
 | 从原版构建当前完整汉化 | 尚未提供 | 缺失项和推进顺序见依赖与路线图 |

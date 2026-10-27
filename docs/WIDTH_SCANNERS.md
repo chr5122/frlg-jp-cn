@@ -4,9 +4,28 @@
 
 ## 已知隐患：叶绿原生回退
 
+2026-10-27已补入[独立R90候选修复入口](#独立r90候选修复)：只改1字节。正式版本仍为R89；其冻结profile继续复现并提示原有隐患，不把候选算成已发布修复。
+
 叶绿的变宽分派拒绝某个F7为私有中文时，会转到0x08005E29。Thumb实际取指地址0x5E28在当前ROM中是一个表项，内容为0x08BC0036，**不是原生F7处理器入口**。火红现行回退使用0x08005E83；两版0x5E82处均有原生处理代码，但不能仅凭这个事实就自动替换叶绿地址。
 
 本批保留现行字节以公开真实实现，并在compile／verify结果的known_issues里明确提示。SELECTED_PRODUCTION_SOURCE_MATCH仅表示所选源码匹配，不表示该回退安全。本批未修改游戏；还需用实际可达的非中文F7文本证明完整调用现场，再另立游戏修复与回归。不要把这份冻结源码当成已修复方案。
+
+## 独立R90候选修复
+
+```sh
+# 默认只在内存中重建并核对候选身份：
+python3 -B leafgreen/width_fallback.py --parent /path/to/local-R89.gba --original /path/to/local-BPGJ-Rev0.gba
+# 可选另存全新路径，拒绝覆盖任何已有文件：
+python3 -B leafgreen/width_fallback.py --parent /path/to/local-R89.gba --original /path/to/local-BPGJ-Rev0.gba --output /path/to/new-R90-candidate.gba
+```
+
+必须提供精确R89和日版BPGJ Rev0；后者SHA为2957b392dc09fc8df45a660af5493368d7bd378d299862f4cc115998e9da0bf2。工具直接读取该日版分派表，确认处理器是0x08005E82并与父版实际代码一致，再写入带Thumb位的0x08005E83；不从火红地址差推断。
+
+改动限原字面量0xBC010C最低字节29→83；1字节变化，0新指令、0新资源分配，存档代码／slot1和其余整个镜像不变。候选完整SHA为b6648dd18161de6aae734f17923617eea24ccef2175f2446b942df49c6db5be6。编译出的384B修正源必须匹配候选，整枚最终SHA也必须匹配；源码要求显式选择NATIVE_VARIABLE_FALLBACK，无隐式不安全默认值。
+
+本地用完整GetStringWidth及实际ROM代码做受控CPU对照：日版70组、父版130组、候选130组。父版40组到达错误表地址（在执行表数据前停止），候选130组完整返回并恢复ABI；60组非私有结果等于日版，90组未受影响结果等于父版。该批真实ROM／截图及私有运行器不分发，公开CI仅运行合成门禁。
+
+男女原生新游戏命名→缩小→地图回归及像素对照通过。普通游戏里自然触发此隐患的菜单尚未确认：0xF6054两条看似有关的模板会先展开，已排除，不能作为自然故障证据。候选未晋升、未上传，也没有Delta或GBARunner3实机验收。
 
 ## 编译、核对与CPU检查
 

@@ -2,8 +2,11 @@
 .cpu arm7tdmi
 .thumb
 .section .text
-@ Frozen current implementation. The variable native fallback0x08005E29
-@ lands in dispatch-table data. This source match is NOT a safety endorsement.
+@ Select explicitly: frozen R89 uses0x08005E29 (unsafe table data);
+@ corrected R90 candidate uses0x08005E83, derived from BPGJ's original table.
+.ifndef NATIVE_VARIABLE_FALLBACK
+.error "choose NATIVE_VARIABLE_FALLBACK explicitly; see WIDTH_SCANNERS.md"
+.endif
 
 .ifdef SMALL_FULL10
 .set CN_ANY_FULL10, 1
@@ -151,7 +154,7 @@ cn_pc_bag_width_full10:
     b cn_pc_bag_add_width
 .endif
 cn_pc_bag_variable_native:
-    ldr r0, =0x08005E29
+    ldr r0, =NATIVE_VARIABLE_FALLBACK
     bx r0
 
 @ r3 = current F7 address. Returns r0=1 only for a known private-text buffer.

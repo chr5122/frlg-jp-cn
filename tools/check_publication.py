@@ -27,6 +27,7 @@ firered/patches/width_scanners.s firered/patches/width_alias.s firered/patches/s
 leafgreen/patches/width_scanners.s leafgreen/patches/units_font_gate.s
 tests/width_cpu.c tools/check_width_cpu.py
 docs/WIDTH_SCANNERS.md
+leafgreen/width_fallback.py tests/test_width_fallback.py
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json
