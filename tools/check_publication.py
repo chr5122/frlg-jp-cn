@@ -23,6 +23,10 @@ shared/frlg/rendering.py tools/renderer_module.py tests/test_rendering.py docs/R
 shared/patches/cn_main_production.s shared/patches/cn_small_production.s
 firered/patches/glyph_metrics.s firered/patches/intro_font_gate.s
 leafgreen/patches/glyph_metrics.s leafgreen/patches/storage_font_gate.s
+firered/patches/width_scanners.s firered/patches/width_alias.s firered/patches/storage_font_gate.s
+leafgreen/patches/width_scanners.s leafgreen/patches/units_font_gate.s
+tests/width_cpu.c tools/check_width_cpu.py
+docs/WIDTH_SCANNERS.md
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json

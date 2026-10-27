@@ -18,12 +18,18 @@ PROFILES={
         main=0x1DB3CC,metrics=0x1DB630,gate=0x1DB4C0,small=0x9D13E0,
         small_pages=0x9D08A0,small_widths=0x9D08D0,hook="d5f1dafd",
         gate_source="firered/patches/intro_font_gate.s",gate_tail=0x087B82A5,
+        scanners=0x7C0048,width_alias=0x7C065C,secondary_gate=0xFF8308,
+        fixed_entry=0x087C0048,variable_entry=0x087C006A,
+        secondary_tail=0x08FF7835,
         metrics_source="firered/patches/glyph_metrics.s",prefix_bx=False),
     "leafgreen-2.3-r89":dict(
         sha256="6012bf84ffbf48f0e88c45e9f04977c7cc79ee781f79184b263d04f247f0ff56",
         main=0x1DB3A8,metrics=0x1DB49C,gate=0x6DFB14,small=0x9D1400,
         small_pages=0x9D08C0,small_widths=0x9D08F0,hook="d5f1c8fd",
         gate_source="leafgreen/patches/storage_font_gate.s",gate_tail=0x086DF001,
+        scanners=0xBC0000,secondary_gate=0x6DF000,
+        fixed_entry=0x08BC0000,variable_entry=0x08BC0036,
+        secondary_tail=0x08B33A09,
         metrics_source="leafgreen/patches/glyph_metrics.s",prefix_bx=True),
 }
 
@@ -56,6 +62,19 @@ def compile_components(profile: str, *, arm_prefix="arm-none-eabi-"):
         ("metrics",p["metrics"],p["metrics_source"],{}),
         ("gate",p["gate"],p["gate_source"],
             {"MAIN_FONT_ROUTE":p["gate_tail"]} if not p["prefix_bx"] else {})]
+    if p["prefix_bx"]:
+        specifications.extend([
+            ("scanners",p["scanners"],"leafgreen/patches/width_scanners.s",
+             dict(CN_FONT_MAX_GID=font_pages.MAX_GID,SMALL_FULL10=1,COPY1_FULL10=1,PRIVATE_FULL12=1)),
+            ("secondary_gate",p["secondary_gate"],"leafgreen/patches/units_font_gate.s",
+             dict(SLOT_START=0x08E07500,SLOT_END=0x08E07530,OLD_GATE=p["secondary_tail"]))])
+    else:
+        specifications.extend([
+            ("scanners",p["scanners"],"firered/patches/width_scanners.s",
+             dict(WIDTH_ALIAS=BASE+p["width_alias"],CN_FONT_MAX_PAGE=font_pages.MAX_PAGE)),
+            ("width_alias",p["width_alias"],"firered/patches/width_alias.s",{}),
+            ("secondary_gate",p["secondary_gate"],"firered/patches/storage_font_gate.s",
+             dict(OLD_FONT_GATE48=p["secondary_tail"]))])
     payloads,rows={},[]
     for name,at,source,defs in specifications:
         raw=_assemble(source,at,defs,arm_prefix)
@@ -67,8 +86,10 @@ def compile_components(profile: str, *, arm_prefix="arm-none-eabi-"):
         raise GateError("production decoder layout drift")
     return payloads,dict(profile=profile,components=rows,rom_installed=False,
         runtime="UNOBSERVED",complete_renderer_export=False,
-        unresolved_gate_tail=p["gate_tail"],
-        missing=["general measurement/scanning and full gate fallback chain",
+        unresolved_gate_tail=p["secondary_tail"],
+        known_issues=(["LeafGreen native-variable fallback0x08005E29 lands in dispatch-table data; source match is not a safety pass"]
+                      if p["prefix_bx"] else []),
+        missing=["small-context measurement/wrappers and remaining gate fallback chain",
                  "external licensed normal/small glyph bitmaps and width resources",
                  "clean-original production installation/orchestration"])
 
@@ -83,6 +104,12 @@ def verify(data: bytes, profile: str, *, arm_prefix="arm-none-eabi-"):
     for row in report["components"]:
         if span(data,row["offset"],row["bytes"])!=payloads[row["name"]]:
             raise GateError(f"compiled {row['name']} does not match live production component")
+    for at,want in ((0x5CA0,p["fixed_entry"]),(0x5E28,p["variable_entry"])):
+        if uint(data,at)!=want:raise GateError("native width dispatch binding mismatch")
+    if not p["prefix_bx"]:
+        expected_bridge=bytes.fromhex("004b1847")+(BASE+p["secondary_gate"]+1).to_bytes(4,"little")
+        if span(data,p["gate_tail"]-BASE-1,8)!=expected_bridge:
+            raise GateError("secondary font gate bridge mismatch")
     expected=font_pages.page_table_bytes()
     if span(data,font_pages.PAGE_TABLE_ROM,len(expected))!=expected:
         raise GateError("normal font page table mismatch")

@@ -1,4 +1,6 @@
 """Synthetic audit gates and optional real assembly; no game/font input."""
+import importlib.util
+import os
 import shutil
 import subprocess
 import sys
@@ -18,12 +20,17 @@ EXPECTED = {
         (244, "eec29b313840930b6d892f4b77dbb1a886c55b7fc591ca2e884b4f5bb7ea2074"),
         (108, "0d90f350aeaeb7c3b20e1bc9d2b93d3e984bb2cc31b151b057bfa664eeaa74f8"),
         (32, "f407e075eab28cad8a9007f3e7905abb499013b52aa1a218ca89c7ff11087c85"),
-        (76, "e5b3613e5b8f10428bb24fae94fcbb57a378bb5339c62a3f2c632ae01a9104e5")],
+        (76, "e5b3613e5b8f10428bb24fae94fcbb57a378bb5339c62a3f2c632ae01a9104e5"),
+        (144, "4c6344130dcc5b7803dfc8d125dffc43ced1e3a3ffc85c35e77c2716db2a60bf"),
+        (36, "a75eb9f1bbf202ea4d693bb97e7f21795028972ccdb32c2bccb73862063d2343"),
+        (172, "1c9489fd4b85021224085f1ea705b10254439a3d5a4c0fd4e0f083f2a89c2d45")],
     "leafgreen-2.3-r89": [
         (244, "9f0402b0bd1c6360f62fab8417cab29d02edea37bad7db1911689dd688d89028"),
         (108, "46faae476f43f24af8835f843713e29f40e451a2f89594fe46177c0acdcf7a86"),
         (44, "e4e6c3b83f21d16d62b9e89c10a9fa71b047fee4d055959cdc1875d7b79dc438"),
-        (160, "4936ed94f982c0bae1c94b5973e1cbef4c86f06ce3c1c56159e1f8befe6d76f0")],
+        (160, "4936ed94f982c0bae1c94b5973e1cbef4c86f06ce3c1c56159e1f8befe6d76f0"),
+        (384, "0398f88c51cbfec709814ac895d19ad2c2cb5085f368c6bf37eb28cca7313c7d"),
+        (204, "a13f8f2b05db22b23d724cf013fcda724683ad2dd3219ec865448d636db60957")],
 }
 
 
@@ -32,13 +39,18 @@ class RendererAuditTests(unittest.TestCase):
     def setUpClass(cls):
         cls.profile = dict(r.PROFILES["firered-2.3-0111"])
         data = bytearray(b"\xff" * 0x1000000)
-        cls.parts = {name: b"\x70\x47" * 4 for name in ("main", "small", "metrics", "gate")}
+        cls.parts = {name: b"\x70\x47" * 4 for name in (
+            "main", "small", "metrics", "gate", "scanners", "width_alias", "secondary_gate")}
         rows = []
         for name, raw in cls.parts.items():
             at = cls.profile[name]
             data[at:at + len(raw)] = raw
             rows.append(dict(name=name, offset=at, bytes=len(raw)))
         data[0x5814:0x5818] = bytes.fromhex(cls.profile["hook"])
+        for at, key in ((0x5CA0, "fixed_entry"), (0x5E28, "variable_entry")):
+            data[at:at + 4] = cls.profile[key].to_bytes(4, "little")
+        at = cls.profile["gate_tail"] - 0x08000001
+        data[at:at + 8] = bytes.fromhex("004b1847") + (0x08000001 + cls.profile["secondary_gate"]).to_bytes(4, "little")
         table = font_pages.page_table_bytes()
         at = font_pages.PAGE_TABLE_ROM
         data[at:at + len(table)] = table
@@ -67,7 +79,7 @@ class RendererAuditTests(unittest.TestCase):
         self.assertFalse(result["complete_renderer_export"])
 
     def test_independent_component_negatives(self):
-        for at in (0x5814, *(self.profile[x] for x in self.parts)):
+        for at in (0x5814, 0x5CA0, 0x5E28, 0x7B82A4, *(self.profile[x] for x in self.parts)):
             data = bytearray(self.data)
             data[at] ^= 1
             self.fixture(bytes(data))  # actual changed SHA, independent expected bytes
@@ -131,6 +143,11 @@ class RendererAuditTests(unittest.TestCase):
             self.assertFalse(report["rom_installed"])
             self.assertFalse(report["complete_renderer_export"])
             self.assertEqual(report["runtime"], "UNOBSERVED")
+            self.assertEqual(len(report["components"]), len(expected))
+            if profile.startswith("leafgreen"):
+                self.assertIn("dispatch-table", report["known_issues"][0])
+            else:
+                self.assertEqual(report["known_issues"], [])
             for row, (size, digest) in zip(report["components"], expected):
                 self.assertEqual(row["bytes"], size)
                 self.assertEqual(sha(parts[row["name"]]), digest)
@@ -146,8 +163,26 @@ class RendererAuditTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             report = json.loads((out / "manifest.json").read_text())
             self.assertEqual(sorted(x.name for x in out.iterdir()),
-                             ["gate.bin", "main.bin", "manifest.json", "metrics.bin", "small.bin"])
+                             ["gate.bin", "main.bin", "manifest.json", "metrics.bin", "scanners.bin", "secondary_gate.bin", "small.bin"])
             for row in report["components"]:
                 self.assertEqual(sha((out / (row["name"] + ".bin")).read_bytes()), row["sha256"])
             second = subprocess.run(cmd, capture_output=True)
             self.assertNotEqual(second.returncode, 0)
+
+    def test_synthetic_width_cpu_and_wrong_width_negative(self):
+        prefix = Path(os.environ.get("FRLG_MGBA_PREFIX", "/opt/homebrew"))
+        if (not ARM or not shutil.which("cc") or
+                not (prefix / "include/mgba/core/core.h").is_file() or
+                not any((prefix / "lib").glob("libmgba*"))):
+            self.skipTest("optional GNU Arm/cc/mGBA development files unavailable")
+        spec = importlib.util.spec_from_file_location("check_width_cpu", ROOT / "tools/check_width_cpu.py")
+        tool = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(tool)
+        report = tool.run(prefix)
+        self.assertEqual([x["cases"] for x in report["reports"]], [396, 1008])
+        self.assertEqual(report["scope"], "CPU_ONLY_NO_NATIVE_CONTINUATIONS")
+        for row in report["reports"]:
+            self.assertTrue(row["incorrect_width_negative_rejected"])
+            self.assertFalse(row["native_continuations_executed"])
+            self.assertFalse(row["game_font_or_save_input"])
+            self.assertFalse(row["hardware_certified"])

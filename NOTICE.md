@@ -19,3 +19,5 @@ firered/patches/tm_names.s原样来自项目BUILD0100的自有routes.s。tests/t
 Pokémon 等名称属于各自权利人。发布补丁或技术源码不等于获得原游戏内容的再分发许可。
 
 cn_main_production.s、cn_small_production.s及两版glyph_metrics／分流入口整理自项目自有汇编和构建逻辑；不包含被调用的原生图块例程。火红旧入口的末端指针已参数化为现行分流地址；普通解码器合入现用字宽／高度覆写，具体来源与变更见SOURCE_PROVENANCE.json。字模、译文、小字宽度表均未随此批分发，MIT不覆盖这些外部资源。
+
+新增width_scanners、width_alias、火红电脑字体和叶绿货币字体入口来自项目自有实现，按现行代码合入已存在的宽度别名调用；七组叶绿游标／ID配对不包含对应译文正文。tests/width_cpu.c是独立编写的生成内存测试，不含原游戏续程、字体或翻译文本。已知叶绿回退隐患随真实实现公开，未以源码整理为名静默修正游戏。

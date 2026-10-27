@@ -300,9 +300,9 @@
     },
     {
       "path": "shared/frlg/rendering.py",
-      "sha256": "3d6ce0cc804eb3e6b822a09b3a6c29f3f6b5cf40a85b4001794831c60da9c677",
+      "sha256": "3014be1394b1f3ef82e34411f867337b3aaea979a080256680346a9eb88df8e0",
       "origin": "New project-owned selected-component compiler and read-only release verifier",
-      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration."
+      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix."
     },
     {
       "path": "tools/renderer_module.py",
@@ -312,9 +312,58 @@
     },
     {
       "path": "tests/test_rendering.py",
-      "sha256": "7c4081e30d6ed321b54f35bf7cc2f94033ec4942a6b9ebfb0815e86dba303176",
+      "sha256": "3b8d118408b8e927ee515a25de6950a40e27c202b9ac5dad95677fd95727c150",
       "origin": "New project-owned synthetic audit tests",
-      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification."
+      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix."
+    },
+    {
+      "path": "firered/patches/width_scanners.s",
+      "sha256": "df546458fc6dfa0c4d90fbb6aae045cbf26ee4b769e67328e71c3e63fadfc32d",
+      "origin": "firered/scripts/build_framework_rev6.py:width_asm",
+      "changes": "Extract owned width handlers, bind MAX_PAGE from shared module and fold current BL to existing width alias. Retain broad production RAM predicate and native0x08005E83 fallback; no original game code.",
+      "original_file_sha256": "97b169499c69ea2f108fa2cf29eb2fb0f41ee4c0d3c01cc6f86c3788d2df88d8"
+    },
+    {
+      "path": "firered/patches/width_alias.s",
+      "sha256": "66a4ed15ee07d22dac4e2ff526474692059249b5a164922cce87038304650167",
+      "origin": "fr_build0048_pc_names/measure.s",
+      "changes": "Unchanged owned36-byte current alias helper; no font pixels or text.",
+      "original_file_sha256": "66a4ed15ee07d22dac4e2ff526474692059249b5a164922cce87038304650167"
+    },
+    {
+      "path": "firered/patches/storage_font_gate.s",
+      "sha256": "7a7afe0c2678a65dc8bd944de5b0cc1a160357cce56f8490fbfdb9b78b293606",
+      "origin": "fr_build0048_pc_names/pc48.s:pc_font_gate48",
+      "changes": "Extract172-byte production font gate and call helper; retain four orphan earlier-wrapper literal words for exact PC-relative layout. Prior gates remain external.",
+      "original_file_sha256": "6209d984a122aa28136d0e6482f5742a53c9847e6537f2674b57ebf8553d684b"
+    },
+    {
+      "path": "leafgreen/patches/width_scanners.s",
+      "sha256": "abbb9a45e4459c21cc69c890e8cb6f4a6d5ea91ed309dd175a589569ac09e371",
+      "origin": "leafgreen/scripts/f7_pc_bag_item_width_hook.s",
+      "changes": "Fold current BL/alias helper from owned FIX394 logic, preserve overwritten code layout and native0x08005E29 fallback. Explicit known issue, not a safety endorsement.",
+      "original_file_sha256": "2d6b03949a840b22cd93dfa1a2d6b2a08adf3436625887b763f3b1837de3a511",
+      "helper_origin_file_sha256": "96220be70fc872d83271d9ca41f743b2c5d58793d7e465fc4660d7cc7c3078c5"
+    },
+    {
+      "path": "leafgreen/patches/units_font_gate.s",
+      "sha256": "c4f66b331104b441c951cc02b63782650bd11ca0e9a34464bb1caa4163094f97",
+      "origin": "leafgreen_celadon_units_r32/ui.s",
+      "changes": "Flatten seven project-owned cursor/gid pairs from units.inc; externalize three address definitions. Exact204-byte source match, no translated unit text.",
+      "original_file_sha256": "aefd468d58ceb44a3b912611c38329afa36634b1f148b3812da6c5ed720475aa",
+      "pairs_origin_file_sha256": "d3572addfcd655a477390920360109ab60a707498f1955b6d1d7e469e67799dc"
+    },
+    {
+      "path": "tests/width_cpu.c",
+      "sha256": "a9dbccbecc1d203688c34e087141494385d2e8ced448141ab580eb355c6563e8",
+      "origin": "New independently authored synthetic mGBA fixture",
+      "changes": "Generated memory and F7 operands, stop before all native continuations; boundary/token/alias/count/register/stack checks. Does not execute game data, text rendering or the unsafe LG native continuation."
+    },
+    {
+      "path": "tools/check_width_cpu.py",
+      "sha256": "50bb13996770f80a45d9d3ae00716cacbb7db6a874420672319fe3ef64c08c4b",
+      "origin": "New project-owned optional CPU test runner",
+      "changes": "Compile exact selected production components, local C/mGBA and two independent incorrect-width CPU rejection runs; no game/font/save input."
     }
   ]
 }
