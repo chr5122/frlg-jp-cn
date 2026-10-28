@@ -26,6 +26,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 | 准备自己的中文字库 | tools/build_font.py、shared/patches/cn_glyph.s | 自备字形→字库页／字表及参数化ARM7解码核心；尚无原版安装器 |
 | 准备自己的小字库 | tools/build_small_font.py | 自备小字→小字页／宽度表，可严格核对普通字编号；不自动分配ROM空间 |
 | 离线测量小字文本 | tools/measure_small.py | 使用自备宽度表及明确的原生字符／图标宽度，检查单行文本范围 |
+| 摘要页提示右对齐源码 | shared/patches/summary_controls.s | 与小字测量核心配合，分别核对两版2.4及原2.3快照；不是通用安装器 |
 | 从原版运行一行显示实验 | tools/build_original_probe.py | 两版首句限定接入；自备字形，无历史父版，不是通用引擎或完整汉化 |
 | 学习器名称的生产读写模块 | firered/tm_names.py、firered/patches/tm_names.s | 与现行火红2.3源码／依赖核对；另有无游戏文件的CPU测试，不是原版完整安装器 |
 | 编译所选生产渲染组件 | tools/renderer_module.py | 普通／小字解码、F7测宽分派及所选字体入口；保留叶绿已知回退隐患，非完整安装器 |
@@ -41,6 +42,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 - [学习器生产模块](docs/TM_NAMES.md)：现行火红名称读写源码、ABI依赖及合成CPU测试。
 - [生产渲染组件](docs/RENDERING_MODULE.md)：源码编译、精确发布件只读核对及外部依赖。
 - [F7测宽与分流](docs/WIDTH_SCANNERS.md)：版本差异、合成CPU检查及叶绿原生回退隐患。
+- [摘要小字右对齐](docs/SUMMARY_CONTROLS.md)：局部包装器、两版2.4配置与合成CPU验证。
 - [构建说明](docs/BUILDING.md)：具体工具的参数与适用版本。
 - [路线图](docs/ROADMAP.md)：按成熟功能整理源码，再补当前构建流程。
 - [验证记录](docs/VALIDATION.md)／[设备兼容性](docs/COMPATIBILITY.md)：测试证据和未覆盖范围。

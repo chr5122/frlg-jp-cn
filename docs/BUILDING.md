@@ -16,7 +16,7 @@ python3 -B tools/check.py
 
 现行生产源码的整理从[学习器名称读写模块](TM_NAMES.md)开始：可核对火红2.3中实际生效代码，另有无游戏文件的可选CPU测试。它依赖已准备的名称表和对象布局，不可直接应用到原版。
 
-两版[所选生产渲染组件](RENDERING_MODULE.md)可用tools/renderer_module.py独立编译，也可只读核对精确发布版。[共享F7测宽分派](WIDTH_SCANNERS.md)已有合成CPU测试，叶绿已知原生回退隐患明确保留；组件匹配不代表完整分流链、小字上下文测量或原版安装编排已公开。
+两版[所选生产渲染组件](RENDERING_MODULE.md)可用tools/renderer_module.py独立编译，也可只读核对精确发布版，包括两版2.4及原2.3快照。[共享F7测宽分派](WIDTH_SCANNERS.md)、小字测量核心和[摘要右对齐包装器](SUMMARY_CONTROLS.md)已有合成CPU测试，叶绿已知原生回退隐患明确保留；组件匹配不代表完整分流链、其余小字上下文包装或原版安装编排已公开。
 
 ## 盒子显示源码（不是完整补丁构建器）
 

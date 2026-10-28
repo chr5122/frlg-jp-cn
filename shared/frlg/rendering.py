@@ -16,6 +16,7 @@ PROFILES={
     "firered-2.3-0111":dict(
         sha256="9c92e22573fad9432fe5c64c0c9c810eb504ce73a8660ceff8f7282714b48b6d",
         main=0x1DB3CC,metrics=0x1DB630,gate=0x1DB4C0,small=0x9D13E0,small_measure=0x7B8450,
+        summary_controls=0x7B84C8,summary_hook=0x1375E8,summary_tail=0x081375F1,
         small_pages=0x9D08A0,small_widths=0x9D08D0,hook="d5f1dafd",
         gate_source="firered/patches/intro_font_gate.s",gate_tail=0x087B82A5,
         scanners=0x7C0048,width_alias=0x7C065C,secondary_gate=0xFF8308,
@@ -25,6 +26,7 @@ PROFILES={
     "leafgreen-2.3-r89":dict(
         sha256="6012bf84ffbf48f0e88c45e9f04977c7cc79ee781f79184b263d04f247f0ff56",
         main=0x1DB3A8,metrics=0x1DB49C,gate=0x6DFB14,small=0x9D1400,small_measure=0x6D5048,
+        summary_controls=0x6D5000,summary_hook=0x1375C0,summary_tail=0x081375C9,
         small_pages=0x9D08C0,small_widths=0x9D08F0,hook="d5f1c8fd",
         gate_source="leafgreen/patches/storage_font_gate.s",gate_tail=0x086DF001,
         scanners=0xBC0000,secondary_gate=0x6DF000,
@@ -32,6 +34,10 @@ PROFILES={
         secondary_tail=0x08B33A09,
         metrics_source="leafgreen/patches/glyph_metrics.s",prefix_bx=True),
 }
+PROFILES['firered-2.4-0112']=dict(PROFILES['firered-2.3-0111'],
+    sha256='ecfba3307cf02431e1c3b20e99cefb2a4f69c1fe3f2bb97077291bba63eda7c8')
+PROFILES['leafgreen-2.4-r90']=dict(PROFILES['leafgreen-2.3-r89'],
+    sha256='0e245669456926a59cc1f0e5fa5d87680c874998d17a6a4adab7634e975d7644')
 
 
 def _assemble(source: str, base: int, definitions: dict, prefix: str):
@@ -63,7 +69,9 @@ def compile_components(profile: str, *, arm_prefix="arm-none-eabi-"):
         ("gate",p["gate"],p["gate_source"],
             {"MAIN_FONT_ROUTE":p["gate_tail"]} if not p["prefix_bx"] else {}),
         ("small_measure",p["small_measure"],"shared/patches/small_measure_production.s",
-            dict(SMALL_WIDTHS=BASE+p["small_widths"]))]
+            dict(SMALL_WIDTHS=BASE+p["small_widths"])),
+        ("summary_controls",p["summary_controls"],"shared/patches/summary_controls.s",
+            dict(SMALL_MEASURE=BASE+p["small_measure"],SUMMARY_CONTINUATION=p["summary_tail"]))]
     if p["prefix_bx"]:
         specifications.extend([
             ("scanners",p["scanners"],"leafgreen/patches/width_scanners.s",
@@ -92,7 +100,7 @@ def compile_components(profile: str, *, arm_prefix="arm-none-eabi-"):
         unresolved_gate_tail=p["secondary_tail"],
         known_issues=(["LeafGreen native-variable fallback0x08005E29 lands in dispatch-table data; source match is not a safety pass"]
                       if p["prefix_bx"] else []),
-        missing=["small-context measurement/wrappers and remaining gate fallback chain",
+        missing=["remaining small-context wrappers and font-gate fallback chains",
                  "external licensed normal/small glyph bitmaps and width resources",
                  "clean-original production installation/orchestration"])
 
@@ -115,6 +123,9 @@ def verify(data: bytes, profile: str, *, arm_prefix="arm-none-eabi-"):
                     (0x7B8430,bytes.fromhex('00f00ef8')))
     for at,want in measure_refs:
         if span(data,at,len(want))!=want:raise GateError('small measurement binding mismatch')
+    summary_bridge=bytes.fromhex('004b1847')+(BASE+p['summary_controls']+1).to_bytes(4,'little')
+    if span(data,p['summary_hook'],8)!=summary_bridge:
+        raise GateError('summary controls binding mismatch')
     if not p["prefix_bx"]:
         expected_bridge=bytes.fromhex("004b1847")+(BASE+p["secondary_gate"]+1).to_bytes(4,"little")
         if span(data,p["gate_tail"]-BASE-1,8)!=expected_bridge:

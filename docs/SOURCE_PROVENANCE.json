@@ -300,9 +300,9 @@
     },
     {
       "path": "shared/frlg/rendering.py",
-      "sha256": "46e0cbad75e72e4b2f322f4333cf6b5e46d81c706665442014ca20fbee2ade20",
+      "sha256": "50dc84b520a26d461a905ac1f83aecb3f69fab5566bf13e632d2d8575bda0bba",
       "origin": "New project-owned selected-component compiler and read-only release verifier",
-      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. R90 candidate: require explicit native-fallback parameter; frozen R89 still binds unsafe legacy target, independent repair binds original BPGJ handler. Include per-version current small-measurer, verified fixed/variable consumer bindings and real assembly identities."
+      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. R90 candidate: require explicit native-fallback parameter; frozen R89 still binds unsafe legacy target, independent repair binds original BPGJ handler. Include per-version current small-measurer, verified fixed/variable consumer bindings and real assembly identities. 2026-10-28: add exact72B summary-controls wrapper/binding and explicit2.4 profiles while retaining historical profiles."
     },
     {
       "path": "tools/renderer_module.py",
@@ -312,9 +312,9 @@
     },
     {
       "path": "tests/test_rendering.py",
-      "sha256": "732d2f545ca753ef65dc6572fbc7ea7b92d5a219e936ac1ca54fdc0b74c077ee",
+      "sha256": "ae8ac3fe76202404c0c64113028848b08d8e226d0c8ea5c905b89e7a40713f30",
       "origin": "New project-owned synthetic audit tests",
-      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. Include per-version current small-measurer, verified fixed/variable consumer bindings and real assembly identities."
+      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. Include per-version current small-measurer, verified fixed/variable consumer bindings and real assembly identities. 2026-10-28: summary component and independent bridge corruption; explicit2.4 source profiles; optional wrapper+measure synthetic CPU matrix."
     },
     {
       "path": "firered/patches/width_scanners.s",
@@ -455,6 +455,34 @@
       "sha256": "9b261e77e01a9d2cdb55a9e339165c9263e008185bf49c59c22a7fdd67070677",
       "origin": "New optional CPU test runner",
       "changes": "Compile both profiles and synthetic callbacks, run isolated memory CPU matrices and negative-width tests; no game or save input."
+    },
+    {
+      "path": "shared/patches/summary_controls.s",
+      "sha256": "4c7cd0dc456846c0bb05640d7dd746119375bc8c7a9ed046c56500e4a022cbbf",
+      "origin": "leafgreen_small_hints_align_r2/align.s:summary_gate and fr_build0014_lg11r9/payload.s:summary_gate",
+      "changes": "Extract owned72B context bridge, parameterize measure and native continuation. Exact source match in FR/LG2.3 and2.4; no native code or assets.",
+      "original_files": [
+        {
+          "path": "leafgreen_small_hints_align_r2/align.s",
+          "sha256": "26c99d1ca27861f87d58c22bd5dec7ad51813104fedce37b56529ef0b6286066"
+        },
+        {
+          "path": "fr_build0014_lg11r9/payload.s",
+          "sha256": "68a254ed39808eb4d22a2c63eae62f06db6e195d89f0485c850b3d3fc68c8ecb"
+        }
+      ]
+    },
+    {
+      "path": "tests/summary_controls_cpu.c",
+      "sha256": "7473e20a883f3d7d85cc818c869cad4d3c984065131605a847c6ee6093d97700",
+      "origin": "New independently authored synthetic mGBA harness",
+      "changes": "Generated streams, windows and metric callbacks; execute real wrapper and measurer in ROM/RAM, preserve caller ABI and stop before native drawing; bad width and tail rejected."
+    },
+    {
+      "path": "tools/check_summary_controls_cpu.py",
+      "sha256": "b64580a88953ebb6ad6a99baa2dc6b1091ccaae6aa6696ba57f50a4d9ff1d205",
+      "origin": "New project-owned optional synthetic CPU runner",
+      "changes": "No game or save input; compile both2.4 bindings and callbacks, check144 cases per game and two rejection variants."
     }
   ]
 }
