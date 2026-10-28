@@ -15,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[2]
 PROFILES={
     "firered-2.3-0111":dict(
         sha256="9c92e22573fad9432fe5c64c0c9c810eb504ce73a8660ceff8f7282714b48b6d",
-        main=0x1DB3CC,metrics=0x1DB630,gate=0x1DB4C0,small=0x9D13E0,
+        main=0x1DB3CC,metrics=0x1DB630,gate=0x1DB4C0,small=0x9D13E0,small_measure=0x7B8450,
         small_pages=0x9D08A0,small_widths=0x9D08D0,hook="d5f1dafd",
         gate_source="firered/patches/intro_font_gate.s",gate_tail=0x087B82A5,
         scanners=0x7C0048,width_alias=0x7C065C,secondary_gate=0xFF8308,
@@ -24,7 +24,7 @@ PROFILES={
         metrics_source="firered/patches/glyph_metrics.s",prefix_bx=False),
     "leafgreen-2.3-r89":dict(
         sha256="6012bf84ffbf48f0e88c45e9f04977c7cc79ee781f79184b263d04f247f0ff56",
-        main=0x1DB3A8,metrics=0x1DB49C,gate=0x6DFB14,small=0x9D1400,
+        main=0x1DB3A8,metrics=0x1DB49C,gate=0x6DFB14,small=0x9D1400,small_measure=0x6D5048,
         small_pages=0x9D08C0,small_widths=0x9D08F0,hook="d5f1c8fd",
         gate_source="leafgreen/patches/storage_font_gate.s",gate_tail=0x086DF001,
         scanners=0xBC0000,secondary_gate=0x6DF000,
@@ -61,7 +61,9 @@ def compile_components(profile: str, *, arm_prefix="arm-none-eabi-"):
                  SMALL_WIDTHS=BASE+p["small_widths"],MAIN_DRAW=BASE+p["main"]+0x23)),
         ("metrics",p["metrics"],p["metrics_source"],{}),
         ("gate",p["gate"],p["gate_source"],
-            {"MAIN_FONT_ROUTE":p["gate_tail"]} if not p["prefix_bx"] else {})]
+            {"MAIN_FONT_ROUTE":p["gate_tail"]} if not p["prefix_bx"] else {}),
+        ("small_measure",p["small_measure"],"shared/patches/small_measure_production.s",
+            dict(SMALL_WIDTHS=BASE+p["small_widths"]))]
     if p["prefix_bx"]:
         specifications.extend([
             ("scanners",p["scanners"],"leafgreen/patches/width_scanners.s",
@@ -107,6 +109,12 @@ def verify(data: bytes, profile: str, *, arm_prefix="arm-none-eabi-"):
             raise GateError(f"compiled {row['name']} does not match live production component")
     for at,want in ((0x5CA0,p["fixed_entry"]),(0x5E28,p["variable_entry"])):
         if uint(data,at)!=want:raise GateError("native width dispatch binding mismatch")
+    measure_refs = ((0x6D310C,bytes.fromhex('004b184749506d08')),
+                    (0x6DF0C8,bytes.fromhex('49506d08'))) if p["prefix_bx"] else (
+                    (0x7B83F8,bytes.fromhex('00f02af8')),
+                    (0x7B8430,bytes.fromhex('00f00ef8')))
+    for at,want in measure_refs:
+        if span(data,at,len(want))!=want:raise GateError('small measurement binding mismatch')
     if not p["prefix_bx"]:
         expected_bridge=bytes.fromhex("004b1847")+(BASE+p["secondary_gate"]+1).to_bytes(4,"little")
         if span(data,p["gate_tail"]-BASE-1,8)!=expected_bridge:

@@ -300,9 +300,9 @@
     },
     {
       "path": "shared/frlg/rendering.py",
-      "sha256": "101b50748be610da15e59dd036dc6dcc2c3e2da623310a7afdc37de6330a602e",
+      "sha256": "46e0cbad75e72e4b2f322f4333cf6b5e46d81c706665442014ca20fbee2ade20",
       "origin": "New project-owned selected-component compiler and read-only release verifier",
-      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. R90 candidate: require explicit native-fallback parameter; frozen R89 still binds unsafe legacy target, independent repair binds original BPGJ handler."
+      "changes": "Exact release identity, compiled payloads, native hook and table/bounds checks; no ROM writer, allocations, fonts, full gate chain or installation orchestration. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. R90 candidate: require explicit native-fallback parameter; frozen R89 still binds unsafe legacy target, independent repair binds original BPGJ handler. Include per-version current small-measurer, verified fixed/variable consumer bindings and real assembly identities."
     },
     {
       "path": "tools/renderer_module.py",
@@ -312,9 +312,9 @@
     },
     {
       "path": "tests/test_rendering.py",
-      "sha256": "3b8d118408b8e927ee515a25de6950a40e27c202b9ac5dad95677fd95727c150",
+      "sha256": "732d2f545ca753ef65dc6572fbc7ea7b92d5a219e936ac1ca54fdc0b74c077ee",
       "origin": "New project-owned synthetic audit tests",
-      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix."
+      "changes": "Generated memory fixtures, independent corrupted hook/components/resources, CLI modes and optional GNU production hash checks; no game/font inputs or runtime certification. 2026-10-27: extend to exact F7 scanner bindings, next gate components, explicit LG fallback issue and optional bounded CPU matrix. Include per-version current small-measurer, verified fixed/variable consumer bindings and real assembly identities."
     },
     {
       "path": "firered/patches/width_scanners.s",
@@ -412,6 +412,49 @@
       "sha256": "26aad9c76939bcce4d21b502635a219c8878468d2b148e45c7bf05d155669cf3",
       "origin": "New project-owned optional CPU runner",
       "changes": "Generates independent test pixels and tile expectation, compiles own fixture and current small decoder; corrupt tile must fail."
+    },
+    {
+      "path": "shared/patches/small_measure_production.s",
+      "sha256": "65535329d855da1afe3f87a3dc4270a45653fa63a3633cc33382e8db566f19b6",
+      "origin": "leafgreen_small_hints_align_r2/align.s:measure",
+      "changes": "Extract project-owned120B measure and callback veneers; parameterize small width table. Exact production matches in both games; callers must prevalidate.",
+      "original_file_sha256": "26c99d1ca27861f87d58c22bd5dec7ad51813104fedce37b56529ef0b6286066"
+    },
+    {
+      "path": "shared/frlg/small_measure.py",
+      "sha256": "3d53c0f6bceb4d2afbb53785feb88b92d237917a7cab598722c08da0253aab3b",
+      "origin": "New project-owned bounded host-side model",
+      "changes": "Reuse shared token parser; explicit glyph allocations and supplied widths; reject unsupported controls and malformed inputs. Not a replacement game-side hook."
+    },
+    {
+      "path": "tools/measure_small.py",
+      "sha256": "45bda13ef3ec409b587ac4299d7d101a7c45215c97679dc66a48e6ba55c2ac6f",
+      "origin": "New project-owned offline CLI",
+      "changes": "Explicit text hex, glyph IDs, width table and optional native/icon widths; strict JSON, unchanged-input check, no game or ROM writes."
+    },
+    {
+      "path": "tests/test_small_measure.py",
+      "sha256": "bfee80305abe45d775e07aae3ac5f95bcc58b14b1719fb1639042f3bfb9f3261",
+      "origin": "New project-owned synthetic tests",
+      "changes": "Independent expected extents for mixed tokens, trailing spaces, FC0D, 00/FF operands, rejection and optional generated-memory CPU test."
+    },
+    {
+      "path": "tests/fixtures/small_measure_callbacks.s",
+      "sha256": "ad2a5375396fb46cf9f805e7154dcff2209ca831dfef669e2d038f38c3fb35b8",
+      "origin": "New synthetic metric callback fixture",
+      "changes": "Own native/icon-width stand-ins, no game fonts, code or assets."
+    },
+    {
+      "path": "tests/small_measure_cpu.c",
+      "sha256": "d3daad57d58c7684e4d4d8b608183000c45b965bbfa2a1cd0d17d2b44d82987a",
+      "origin": "New synthetic mGBA CPU harness",
+      "changes": "Execute each actual compiled120B core at ROM and RAM addresses, check 12 streams, metrics, ABI and wrong-width rejection."
+    },
+    {
+      "path": "tools/check_small_measure_cpu.py",
+      "sha256": "9b261e77e01a9d2cdb55a9e339165c9263e008185bf49c59c22a7fdd67070677",
+      "origin": "New optional CPU test runner",
+      "changes": "Compile both profiles and synthetic callbacks, run isolated memory CPU matrices and negative-width tests; no game or save input."
     }
   ]
 }

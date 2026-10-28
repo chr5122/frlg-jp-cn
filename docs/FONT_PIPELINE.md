@@ -67,6 +67,24 @@ python3 -B tools/build_small_font.py --glyphs build/my_small_glyphs.json --norma
 
 对照原版解码时，两版原生图块例程使用的lookup表地址不同：火红日版Rev0为文件偏移0x1CDF40，叶绿日版Rev0为0x1CDF1C。`glyph_codec.py`的默认偏移是叶绿，使用火红时应传入经本版ROM身份与原生例程确认的`lookup_offset`。两版原版均已只读核对81种合法四像素行及FF空白；这不是实际窗口显示验收。
 
+## 离线测量自备小字文本
+
+在已有`build/my_small_font/`及其`widths.bin`／`charmap.csv`的情况下，可检查一条已编码单行文本：
+
+```sh
+python3 -B tools/measure_small.py --text-hex f70100ff --widths build/my_small_font/widths.bin --charmap build/my_small_font/charmap.csv
+```
+
+此示例应得到`extent: 10`。工具按两版现行小字测量核心，返回最后一个有内容的字／图标结束位置`extent`和最终笔位置`pen`；尾部原生空格会推进笔，但不会扩大`extent`。`FC0D`会把笔移到指定绝对位置，后续有内容时才更新`extent`；这里不把它当成最大历史宽度。
+
+文本必须是完整CN token流，包含结束符FF。仅支持单字节原生字符、私有F7字形、F8图标和FC0D；F7的两个参数内可以有00或FF。遇到其他控制码、未分配字形、错误宽表、缺失宽度或不完整流时直接报错。原生字符和图标不使用小字私有表：调用者可分别用`--native-widths`／`--icon-widths`提供JSON对象，例如`{"0x00":4,"0x01":5}`；数字键为字节编号，值为0～255的整数。未提供某个实际用到的宽度时拒绝，不猜测。
+
+能正确测量带FF参数的字形，不代表每个游戏消费者都能复制它：某些原生字符串复制路径按字节FF结束，使用前须单独检查实际复制流程。
+
+这只是离线测量模型，使用者仍要确定输入宽度、图标编号、字符串所有权及实际消费者有效。生产版120B汇编本身依赖调用者筛选可接受的字符串，**不具备**离线工具新增的格式、分配、长度或ID边界检查；不要把工具拒绝错误输入误认为游戏端也会拒绝。
+
+本地可选`python3 -B tools/check_small_measure_cpu.py --mgba-prefix /path/to/local-mgba-prefix`用生成数据执行两版120B实际核心，含ROM和RAM代码入口及错宽反例。原生字形／图标宽度回调用合成函数替代，不是游戏画面或GBARunner3硬件验收。
+
 ## ARM7可调用解码核心
 
 shared/patches/cn_glyph.s从项目自有四图块算法整理为参数化接口，去掉旧固定ROM／RAM地址和诊断分支；它不是旧机器码的逐字节导出，不是完整生产钩子的等价替代。

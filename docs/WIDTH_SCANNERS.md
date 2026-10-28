@@ -36,7 +36,7 @@ python3 -B tools/renderer_module.py compile --profile firered-2.3-0111
 python3 -B tools/renderer_module.py compile --profile leafgreen-2.3-r89
 ```
 
-两版现在分别输出7／6个组件，新增部分如下。地址均为ROM文件偏移，不是空间分配许可。
+两版现在分别输出8／7个组件，F7分派部分如下。另有两版共用源码的小字测量核心，详见[资源与测量说明](FONT_PIPELINE.md#离线测量自备小字文本)。地址均为ROM文件偏移，不是空间分配许可。
 
 | 组件 | 火红 | 叶绿 |
 |---|---|---|

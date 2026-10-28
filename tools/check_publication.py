@@ -30,6 +30,9 @@ docs/WIDTH_SCANNERS.md
 leafgreen/width_fallback.py tests/test_width_fallback.py
 shared/frlg/small_font_pack.py tools/build_small_font.py tests/test_small_font_pack.py
 tests/fixtures/small_tile_copy.s tests/small_font_cpu.c tools/check_small_font_cpu.py
+shared/patches/small_measure_production.s shared/frlg/small_measure.py tools/measure_small.py
+tests/test_small_measure.py
+tests/fixtures/small_measure_callbacks.s tests/small_measure_cpu.c tools/check_small_measure_cpu.py
 docs/BUILDING.md docs/COMPATIBILITY.md docs/PUBLICATION_SCOPE.md docs/SOURCE_PROVENANCE.json docs/VALIDATION.md
 docs/LEAFGREEN_ORIGIN.md docs/LEAFGREEN_ORIGIN_EVIDENCE.json docs/BUILD_CHAIN.json
 docs/LEAFGREEN_1_0_LINEAGE.md docs/LEAFGREEN_1_0_LINEAGE_SUMMARY.json
