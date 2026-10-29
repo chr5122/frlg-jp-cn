@@ -17,6 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("build_original_probe", ROOT / "tools/build_original_probe.py")
 CLI = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(CLI)
+TEMPLATE_SPEC = importlib.util.spec_from_file_location("create_glyph_template", ROOT / "tools/create_glyph_template.py")
+TEMPLATE = importlib.util.module_from_spec(TEMPLATE_SPEC)
+TEMPLATE_SPEC.loader.exec_module(TEMPLATE)
 
 
 def glyphs(gid=0x100):
@@ -61,6 +64,14 @@ class OriginalProbeTests(unittest.TestCase):
         self.assertEqual(report["runtime"], "UNOBSERVED")
         self.assertFalse(report["complete_translation"])
         self.assertFalse(report["native_width_and_placeholder_hooks_installed"])
+
+    def test_drawn_template_connects_to_original_probe(self):
+        doc = TEMPLATE.template("中文中", "Self-drawn test pixels")
+        doc["glyphs"][0]["pixels"][0][0] = 1
+        doc["glyphs"][1]["pixels"][1][1] = 2
+        result, report = probe.build(self.parent, self.game, doc, "中文中")
+        self.assertEqual(result[probe.TEXT:probe.TEXT+14], bytes.fromhex("fc0604f70100f70101f70100faff"))
+        self.assertEqual(report["glyph_count"], 3)
 
     def test_wrong_original_rejected_before_compiler(self):
         for parent, game in ((b"wrong",self.game),(self.parent,"unknown")):

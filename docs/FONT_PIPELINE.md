@@ -24,6 +24,8 @@ Unicode字符和ID一一对应；ID范围0x0000～0x0AFF。重复字符／ID、�
 
 下面只用项目独立绘制的简单测试笔画构造输入，**不是正式字体**。先自行创建build目录，再运行：
 
+若想从空白画布开始，可先使用[字形模板生成器](ORIGINAL_PROBE.md)生成输入，再自行画入像素。模板本身没有可见笔画。
+
 ```sh
 python3 -c 'import json; p=[[0]*16 for _ in range(16)]; p[1][1:9]=[1]*8; p[5][1:9]=[1]*8; p[10][1:9]=[1]*8; [p[y].__setitem__(4,1) for y in range(12)]; print(json.dumps({"schema":1,"source":"Independently drawn test marks, MIT","glyphs":[{"unicode":"中","glyph_id":"0x0100","pixels":p}]}))' > build/my_glyphs.json
 python3 -B tools/build_font.py --glyphs build/my_glyphs.json

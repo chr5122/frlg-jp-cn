@@ -8,7 +8,16 @@
 
 需要Python≥3.10、GNU Arm binutils，以及自己合法持有的精确日版Rev0。输入SHA沿用[原版入口](EDIT_ORIGINAL.md)的两枚固定身份。
 
-先按[字库流程](FONT_PIPELINE.md)的示例生成build/my_glyphs.json（独立手绘“中”的简单测试笔画），再运行：
+也可以先生成空白字形模板，无需手写16×16矩阵：
+
+```sh
+mkdir -p build
+python3 -B tools/create_glyph_template.py --text '中文中' --source '自己绘制，允许用于本实验' --output build/my_glyphs.json
+```
+
+模板按首次出现的顺序为不同字符分配编号，重复字符共用同一字形。请在JSON的每个`pixels`矩阵中自行绘制；取值0是空白，1和2是笔画像素，仅左上12×12区域可有笔画。**生成的是全空白模板，直接构建不会显示文字**。`--source`由使用者填写字形来源及许可，工具不核实授权。模板文件必须是新文件；不要把私人素材提交到仓库。实验仍只接受1～14个私有字符，不能包含原生标点或控制符。
+
+填写模板后运行下列命令；也可按[字库流程](FONT_PIPELINE.md)生成包含简单测试笔画的`build/my_glyphs.json`。`--text`必须与已绘制的字符对应：
 
 ```sh
 # 默认只在内存中构建和检查。
