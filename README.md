@@ -24,6 +24,7 @@ Windows可将python3替换为python。检查入口先跑合成测试，再检查
 | 核对本地ROM身份／读取token | tools/inspect_rom.py | 只读，输入自己合法持有；没有ROM下载 |
 | 直接修改自己的日版原版 | tools/patch_rom.py | 按审核过的字节清单生成新文件；不依赖历史汉化父版，不含完整汉化清单 |
 | 准备自己的中文字库 | tools/build_font.py、shared/patches/cn_glyph.s | 自备字形→字库页／字表及参数化ARM7解码核心；尚无原版安装器 |
+| 绘制和预览字形 | tools/create_glyph_template.py、tools/edit_glyph.py | 空白模板和12×12文本网格；只处理自己的字形，不读取游戏文件 |
 | 准备自己的小字库 | tools/build_small_font.py | 自备小字→小字页／宽度表，可严格核对普通字编号；不自动分配ROM空间 |
 | 离线测量小字文本 | tools/measure_small.py | 使用自备宽度表及明确的原生字符／图标宽度，检查单行文本范围 |
 | 摘要页提示右对齐源码 | shared/patches/summary_controls.s | 与小字测量核心配合，分别核对两版2.4及原2.3快照；不是通用安装器 |
