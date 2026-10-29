@@ -18,6 +18,8 @@ POOL, POOL_END = 0xB00000, 0xB40000
 CODE, CONFIG, TABLE, TEXT, FONT = 0xB00010, 0xB00400, 0xB00440, 0xB00800, 0xB04000
 HOOK = 0x5814
 HOOK_BEFORE = bytes.fromhex("181cf838072800d9")
+# Only these native glyphs are admitted for this specific fixed-width window.
+NATIVE_PUNCTUATION = frozenset("！？。")
 ADAPTERS = {
     "firered-jp-rev0": dict(slot=0x130104, original_text=0x081AA211,
         consumer_start=0x1300CC, consumer_end=0x130124,
@@ -80,11 +82,17 @@ def build(parent: bytes, game: str, glyph_document: dict, line: str, *, arm_pref
     artifacts, font_report = build_font(glyph_document)
     cmap = {item["unicode"]: {"_gid": int(item["glyph_id"], 0) if isinstance(item["glyph_id"], str)
                             else item["glyph_id"]} for item in glyph_document["glyphs"]}
-    if not isinstance(line, str) or not 1 <= len(line) <= 14 or any(c not in cmap for c in line):
-        raise GateError("probe line must contain 1..14 allocated private characters only")
+    if (not isinstance(line, str) or not 1 <= len(line) <= 14 or
+            any(c not in cmap and c not in NATIVE_PUNCTUATION for c in line) or
+            not any(c in cmap for c in line)):
+        raise GateError("probe line requires 1..14 allocated private characters or supported punctuation, including a private character")
+    # Native punctuation uses the original renderer; budget 16px per mark.
+    ink_width = sum(16 if c in NATIVE_PUNCTUATION else 12 for c in line)
+    if ink_width > 168:
+        raise GateError("probe line exceeds the conservative 168px width budget")
     # This first-line consumer uses native StringCopy, which is byte-FF-terminated.
     # Refuse such IDs rather than silently truncating; a general engine needs an adapter.
-    if any(255 in cmap[c]["_gid"].to_bytes(2, "big") for c in line):
+    if any(255 in cmap[c]["_gid"].to_bytes(2, "big") for c in line if c in cmap):
         raise GateError("probe native StringCopy cannot carry glyph IDs containing FF")
     # Keep the probe visible until A/B, rather than auto-advancing on FF.
     stream = bytes.fromhex("fc0604") + encode(line, cmap, require_end=False) + bytes.fromhex("faff")
@@ -119,8 +127,9 @@ def build(parent: bytes, game: str, glyph_document: dict, line: str, *, arm_pref
     result = bytes(product)
     report = verify_changes(parent, result, writes, PROTECTED)
     report.update(game=game, input_sha256=profile["sha256"], output_sha256=sha(result),
-        source_sha256=sources, text_size=len(stream), glyph_count=len(line),
-        maximum_ink_width=len(line)*12, code_bytes=len(code), literal_slot=adapter["slot"],
+        source_sha256=sources, text_size=len(stream), glyph_count=sum(c in cmap for c in line),
+        character_count=len(line),
+        maximum_ink_width=ink_width, code_bytes=len(code), literal_slot=adapter["slot"],
         new_reservation=dict(start=POOL, end=POOL_END, includes_all_guards_and_ff_tail=True),
         runtime="UNOBSERVED", complete_translation=False, experimental_first_oak_line_only=True,
         native_width_and_placeholder_hooks_installed=False)

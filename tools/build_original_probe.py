@@ -46,7 +46,7 @@ def main():
     parser.add_argument("--original", type=Path, required=True)
     parser.add_argument("--game", choices=tuple(PROFILES), required=True)
     parser.add_argument("--glyphs", type=Path, required=True)
-    parser.add_argument("--text", required=True, help="1..14 private characters, no controls or native glyphs")
+    parser.add_argument("--text", required=True, help="1..14 private characters and supported native punctuation")
     parser.add_argument("--output", type=Path, help="new file only; default is in-memory validation")
     parser.add_argument("--arm-prefix", default="arm-none-eabi-")
     args = parser.parse_args()

@@ -91,13 +91,21 @@ class OriginalProbeTests(unittest.TestCase):
         self.compiler.assert_not_called()
 
     def test_text_limits_and_native_copy_ff_rejection(self):
-        for line in ("", "中"*15, "文", "中。", "{PLAYER}", "中\n"):
+        for line in ("", "中"*15, "文", "。", "中A", "{PLAYER}", "中\n", "中" * 11 + "。" * 3):
             with self.subTest(line=line), self.assertRaises(GateError):
                 probe.build(self.parent,self.game,glyphs(),line)
         for gid in (0xFF,0x1FF,0xAFF):
             with self.subTest(gid=gid), self.assertRaisesRegex(GateError,"StringCopy"):
                 probe.build(self.parent,self.game,glyphs(gid),"中")
         self.compiler.assert_not_called()
+
+    def test_native_punctuation_interleaved_and_width_bound(self):
+        result, report = probe.build(self.parent, self.game, glyphs(), "中！中？中。")
+        self.assertEqual(result[probe.TEXT:probe.TEXT+17], bytes.fromhex("fc0604f70100abf70100acf70100adfaff"))
+        self.assertEqual(report["maximum_ink_width"], 84)
+        self.assertEqual((report["glyph_count"], report["character_count"]), (3, 6))
+        _, report = probe.build(self.parent, self.game, glyphs(), "中" * 10 + "。" * 3)
+        self.assertEqual(report["maximum_ink_width"], 168)
 
     def test_layout_pages_and_missing_pages(self):
         result,report=probe.build(self.parent,self.game,glyphs(0xA00),"中"*14)
