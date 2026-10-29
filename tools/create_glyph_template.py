@@ -8,17 +8,16 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
 from frlg.font_pack import build_font
-from frlg.original_probe import NATIVE_PUNCTUATION
+from frlg.original_probe import NATIVE_PUNCTUATION, text_lines
 from frlg.rom import GateError
 
 
 def template(line: str, source: str) -> dict:
-    if not isinstance(line, str) or not 1 <= len(line) <= 14:
-        raise GateError("the experiment requires 1..14 characters")
+    lines = text_lines(line)
     if not isinstance(source, str) or not source.strip():
         raise GateError("describe the source and permission for your own glyph input")
-    # IDs 0x0100..0x010D contain no FF byte, which native StringCopy requires.
-    characters = list(dict.fromkeys(c for c in line if c not in NATIVE_PUNCTUATION))
+    # At most 28 characters; IDs 0x0100..0x011B contain no FF byte.
+    characters = list(dict.fromkeys(c for c in "".join(lines) if c not in NATIVE_PUNCTUATION))
     if not characters:
         raise GateError("the experiment requires at least one private character")
     document = {"schema": 1, "source": source, "glyphs": [
@@ -33,7 +32,7 @@ def template(line: str, source: str) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--text", required=True, help="1..14 private characters for the experiment")
+    parser.add_argument("--text", required=True, help="one or two lines, at most 14 characters each")
     parser.add_argument("--source", required=True, help="describe the intended glyph source and permission")
     parser.add_argument("--output", type=Path, required=True, help="new JSON file only")
     args = parser.parse_args()

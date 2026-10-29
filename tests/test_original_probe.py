@@ -107,6 +107,16 @@ class OriginalProbeTests(unittest.TestCase):
         _, report = probe.build(self.parent, self.game, glyphs(), "中" * 10 + "。" * 3)
         self.assertEqual(report["maximum_ink_width"], 168)
 
+    def test_two_lines_and_independent_width_limits(self):
+        result, report = probe.build(self.parent, self.game, glyphs(), "中！\n中？")
+        self.assertEqual(result[probe.TEXT:probe.TEXT+14], bytes.fromhex("fc0604f70100abfef70100acfaff"))
+        self.assertEqual((report["line_count"], report["line_width_budgets"]), (2, [28, 28]))
+        _, report = probe.build(self.parent, self.game, glyphs(), "中" * 14 + "\n" + "中" * 14)
+        self.assertEqual(report["line_width_budgets"], [168, 168])
+        for line in ("\n中", "中\n", "中\n中\n中", "中\n" + "中" * 15, "中\n" + "中" * 11 + "。" * 3):
+            with self.subTest(line=line), self.assertRaises(GateError):
+                probe.build(self.parent, self.game, glyphs(), line)
+
     def test_layout_pages_and_missing_pages(self):
         result,report=probe.build(self.parent,self.game,glyphs(0xA00),"中"*14)
         self.assertEqual(report["maximum_ink_width"],168)
