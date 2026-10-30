@@ -117,6 +117,16 @@ class OriginalProbeTests(unittest.TestCase):
             with self.subTest(line=line), self.assertRaises(GateError):
                 probe.build(self.parent, self.game, glyphs(), line)
 
+    def test_pagination_bounded_and_encoded(self):
+        result, report = probe.build(self.parent, self.game, glyphs(), "中！\f中？")
+        self.assertEqual(result[probe.TEXT:probe.TEXT+14], bytes.fromhex("fc0604f70100abfbf70100acfaff"))
+        self.assertEqual((report["page_count"], report["line_count"]), (2, 2))
+        _, report = probe.build(self.parent, self.game, glyphs(), "中"*7+"\n"+"中"*7+"\f"+"中"*7+"\n"+"中"*7)
+        self.assertEqual((report["text_size"], report["page_count"]), (92, 2))
+        for line in ("\f中", "中\f", "中\f中\f中", "中"*14+"\n"+"中"*14+"\f中"):
+            with self.subTest(line=line), self.assertRaises(GateError):
+                probe.build(self.parent, self.game, glyphs(), line)
+
     def test_native_latin_digits_space_are_not_private_glyphs(self):
         result, report = probe.build(self.parent, self.game, glyphs(), "中 HP10！\n中ok？")
         expected = bytes.fromhex("fc0604f7010000c2caa2a1abfef70100e3dfacfaff")

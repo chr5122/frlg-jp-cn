@@ -35,6 +35,18 @@ def text_lines(text: str) -> list[str]:
     return lines
 
 
+def text_pages(text: str) -> list[list[str]]:
+    if not isinstance(text, str):
+        raise GateError("probe text must be a string")
+    pages = text.split("\f")
+    if not 1 <= len(pages) <= 2:
+        raise GateError("probe supports at most two pages")
+    result = [text_lines(page) for page in pages]
+    if sum(len(line) for page in result for line in page) > 28:
+        raise GateError("probe supports at most 28 characters across pages")
+    return result
+
+
 ADAPTERS = {
     "firered-jp-rev0": dict(slot=0x130104, original_text=0x081AA211,
         consumer_start=0x1300CC, consumer_end=0x130124,
@@ -97,7 +109,8 @@ def build(parent: bytes, game: str, glyph_document: dict, line: str, *, arm_pref
     artifacts, font_report = build_font(glyph_document)
     cmap = {item["unicode"]: {"_gid": int(item["glyph_id"], 0) if isinstance(item["glyph_id"], str)
                             else item["glyph_id"]} for item in glyph_document["glyphs"]}
-    lines = text_lines(line)
+    pages = text_pages(line)
+    lines = [item for page in pages for item in page]
     chars = "".join(lines)
     if (any(c not in cmap and c not in NATIVE_TEXT for c in chars) or
             not any(c in cmap for c in chars)):
@@ -108,12 +121,17 @@ def build(parent: bytes, game: str, glyph_document: dict, line: str, *, arm_pref
     if any(255 in cmap[c]["_gid"].to_bytes(2, "big") for c in chars if c in cmap):
         raise GateError("probe native StringCopy cannot carry glyph IDs containing FF")
     # Keep the probe visible until A/B, rather than auto-advancing on FF.
-    stream = bytes.fromhex("fc0604") + b"\xfe".join(encode(item, cmap, require_end=False) for item in lines) + bytes.fromhex("faff")
+    stream = (bytes.fromhex("fc0604") + b"\xfb".join(
+        b"\xfe".join(encode(item, cmap, require_end=False) for item in page)
+        for page in pages) + bytes.fromhex("faff"))
+    # 28 private characters plus at most two line breaks and a page separator.
+    if len(stream) > 92:
+        raise GateError("probe stream exceeds the experimental copy bound")
     code, sources = compile_code(len(stream), arm_prefix)
-    pages = font_report["pages"]
-    page_locations = {page: FONT+index*0x4000 for index, page in enumerate(pages)}
-    blank = FONT+len(pages)*0x4000
-    page_count = max(pages)+1
+    font_pages = font_report["pages"]
+    page_locations = {page: FONT+index*0x4000 for index, page in enumerate(font_pages)}
+    blank = FONT+len(font_pages)*0x4000
+    page_count = max(font_pages)+1
     table = b"".join((BASE+page_locations.get(page, blank)).to_bytes(4, "little")
                      for page in range(page_count))
     config = b"".join(value.to_bytes(4, "little") for value in
@@ -141,7 +159,7 @@ def build(parent: bytes, game: str, glyph_document: dict, line: str, *, arm_pref
     report = verify_changes(parent, result, writes, PROTECTED)
     report.update(game=game, input_sha256=profile["sha256"], output_sha256=sha(result),
         source_sha256=sources, text_size=len(stream), glyph_count=sum(c in cmap for c in chars),
-        character_count=len(chars), line_count=len(lines), line_width_budgets=widths,
+        character_count=len(chars), page_count=len(pages), line_count=len(lines), line_width_budgets=widths,
         maximum_ink_width=max(widths), code_bytes=len(code), literal_slot=adapter["slot"],
         new_reservation=dict(start=POOL, end=POOL_END, includes_all_guards_and_ff_tail=True),
         runtime="UNOBSERVED", complete_translation=False, experimental_first_oak_line_only=True,

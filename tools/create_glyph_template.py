@@ -8,12 +8,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
 from frlg.font_pack import build_font
-from frlg.original_probe import NATIVE_TEXT, text_lines
+from frlg.original_probe import NATIVE_TEXT, text_pages
 from frlg.rom import GateError
 
 
 def template(line: str, source: str) -> dict:
-    lines = text_lines(line)
+    pages = text_pages(line)
+    lines = [item for page in pages for item in page]
     if not isinstance(source, str) or not source.strip():
         raise GateError("describe the source and permission for your own glyph input")
     # At most 28 characters; IDs 0x0100..0x011B contain no FF byte.
@@ -32,7 +33,7 @@ def template(line: str, source: str) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--text", required=True, help="one or two lines, at most 14 characters each")
+    parser.add_argument("--text", required=True, help="up to two pages separated by form feed")
     parser.add_argument("--source", required=True, help="describe the intended glyph source and permission")
     parser.add_argument("--output", type=Path, required=True, help="new JSON file only")
     args = parser.parse_args()

@@ -44,6 +44,12 @@ class GlyphTemplateTests(unittest.TestCase):
         with self.assertRaises(GateError):
             module.template("中\n文\n中", "Self-drawn")
 
+    def test_two_pages_share_glyph_assignments(self):
+        doc = module.template("中文\f中！", "Self-drawn")
+        self.assertEqual([g["unicode"] for g in doc["glyphs"]], ["中", "文"])
+        with self.assertRaises(GateError):
+            module.template("中\f文\f中", "Self-drawn")
+
     def test_cli_new_only_and_invalid_input_leaves_no_file(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "glyphs.json"
