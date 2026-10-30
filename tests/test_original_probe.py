@@ -91,7 +91,7 @@ class OriginalProbeTests(unittest.TestCase):
         self.compiler.assert_not_called()
 
     def test_text_limits_and_native_copy_ff_rejection(self):
-        for line in ("", "中"*15, "文", "。", "中A", "{PLAYER}", "中\n", "中" * 11 + "。" * 3):
+        for line in ("", "中"*15, "文", "。", "中-", "{PLAYER}", "中\n", "中" * 11 + "。" * 3):
             with self.subTest(line=line), self.assertRaises(GateError):
                 probe.build(self.parent,self.game,glyphs(),line)
         for gid in (0xFF,0x1FF,0xAFF):
@@ -116,6 +116,15 @@ class OriginalProbeTests(unittest.TestCase):
         for line in ("\n中", "中\n", "中\n中\n中", "中\n" + "中" * 15, "中\n" + "中" * 11 + "。" * 3):
             with self.subTest(line=line), self.assertRaises(GateError):
                 probe.build(self.parent, self.game, glyphs(), line)
+
+    def test_native_latin_digits_space_are_not_private_glyphs(self):
+        result, report = probe.build(self.parent, self.game, glyphs(), "中 HP10！\n中ok？")
+        expected = bytes.fromhex("fc0604f7010000c2caa2a1abfef70100e3dfacfaff")
+        self.assertEqual(result[probe.TEXT:probe.TEXT+len(expected)], expected)
+        self.assertEqual(report["line_width_budgets"], [108, 60])
+        self.assertEqual((report["glyph_count"], report["line_count"]), (2, 2))
+        with self.assertRaises(GateError):
+            probe.build(self.parent, self.game, glyphs(), "HP10")
 
     def test_layout_pages_and_missing_pages(self):
         result,report=probe.build(self.parent,self.game,glyphs(0xA00),"中"*14)

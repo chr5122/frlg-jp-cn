@@ -20,6 +20,7 @@ HOOK = 0x5814
 HOOK_BEFORE = bytes.fromhex("181cf838072800d9")
 # Only these native glyphs are admitted for this specific fixed-width window.
 NATIVE_PUNCTUATION = frozenset("！？。")
+NATIVE_TEXT = NATIVE_PUNCTUATION | frozenset(" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
 
 
 def text_lines(text: str) -> list[str]:
@@ -28,7 +29,7 @@ def text_lines(text: str) -> list[str]:
     lines = text.split("\n")
     if not 1 <= len(lines) <= 2 or any(not 1 <= len(line) <= 14 for line in lines):
         raise GateError("probe requires one or two nonempty lines of at most 14 characters each")
-    widths = [sum(16 if c in NATIVE_PUNCTUATION else 12 for c in line) for line in lines]
+    widths = [sum(16 if c in NATIVE_TEXT else 12 for c in line) for line in lines]
     if any(width > 168 for width in widths):
         raise GateError("probe line exceeds the conservative 168px width budget")
     return lines
@@ -98,10 +99,10 @@ def build(parent: bytes, game: str, glyph_document: dict, line: str, *, arm_pref
                             else item["glyph_id"]} for item in glyph_document["glyphs"]}
     lines = text_lines(line)
     chars = "".join(lines)
-    if (any(c not in cmap and c not in NATIVE_PUNCTUATION for c in chars) or
+    if (any(c not in cmap and c not in NATIVE_TEXT for c in chars) or
             not any(c in cmap for c in chars)):
-        raise GateError("probe text requires allocated private characters or supported punctuation, including a private character")
-    widths = [sum(16 if c in NATIVE_PUNCTUATION else 12 for c in item) for item in lines]
+        raise GateError("probe text requires allocated private characters or supported native characters, including a private character")
+    widths = [sum(16 if c in NATIVE_TEXT else 12 for c in item) for item in lines]
     # This first-line consumer uses native StringCopy, which is byte-FF-terminated.
     # Refuse such IDs rather than silently truncating; a general engine needs an adapter.
     if any(255 in cmap[c]["_gid"].to_bytes(2, "big") for c in chars if c in cmap):

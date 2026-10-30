@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "shared"))
 from frlg.font_pack import build_font
-from frlg.original_probe import NATIVE_PUNCTUATION, text_lines
+from frlg.original_probe import NATIVE_TEXT, text_lines
 from frlg.rom import GateError
 
 
@@ -17,7 +17,7 @@ def template(line: str, source: str) -> dict:
     if not isinstance(source, str) or not source.strip():
         raise GateError("describe the source and permission for your own glyph input")
     # At most 28 characters; IDs 0x0100..0x011B contain no FF byte.
-    characters = list(dict.fromkeys(c for c in "".join(lines) if c not in NATIVE_PUNCTUATION))
+    characters = list(dict.fromkeys(c for c in "".join(lines) if c not in NATIVE_TEXT))
     if not characters:
         raise GateError("the experiment requires at least one private character")
     document = {"schema": 1, "source": source, "glyphs": [

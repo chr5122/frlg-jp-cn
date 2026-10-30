@@ -27,7 +27,7 @@ class GlyphTemplateTests(unittest.TestCase):
         self.assertEqual(report["glyph_count"], 2)
 
     def test_invalid_text_and_source(self):
-        for line, source in (("", "self"), ("中" * 15, "self"), ("中A", "self"),
+        for line, source in (("", "self"), ("中" * 15, "self"), ("中-", "self"),
                              ("中\n", "self"), ("{中}", "self"), ("中", " ")):
             with self.subTest(line=line), self.assertRaises(GateError):
                 module.template(line, source)
@@ -55,7 +55,11 @@ class GlyphTemplateTests(unittest.TestCase):
             self.assertNotEqual(subprocess.run(command, capture_output=True).returncode, 0)
             self.assertEqual(path.read_bytes(), raw)
             bad = Path(directory) / "bad.json"
-            command[command.index("中文中")] = "中A"
+            command[command.index("中文中")] = "中-"
             command[-1] = str(bad)
             self.assertNotEqual(subprocess.run(command, capture_output=True).returncode, 0)
             self.assertFalse(bad.exists())
+
+    def test_native_characters_not_allocated(self):
+        doc = module.template("中 HP10！\n文ok？", "Self-drawn")
+        self.assertEqual([g["unicode"] for g in doc["glyphs"]], ["中", "文"])
